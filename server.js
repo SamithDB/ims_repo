@@ -15,10 +15,10 @@ var flash    = require('connect-flash');
 var MySQLStore = require('express-mysql-session')(session);
  
 var options = {
-    host: 'localhost',
+    host: '35.226.57.225',
     port: 3306,
     user: 'root',
-    password: '',
+    password: 'sam123admin',
     database: 'inventoryhub'
 };
  
