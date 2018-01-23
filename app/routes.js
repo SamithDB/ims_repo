@@ -31,7 +31,7 @@
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/home', // redirect to the secure home section
+            successRedirect : '/propage', // redirect to the secure home section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
 		}),
@@ -64,24 +64,7 @@
 
 	}));
 
-	// =====================================
-	// Product page =====================
-	// =====================================
-	app.get('/propage', isLoggedIn, function(req, res) {
-
-			connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
-                    if (err)
-                         console.log(err);
-
-                    res.render('productpage.ejs', {
-						user : rows[0], //  pass to template
-						message: ""
-					});
-        });
-
-		
-	});
-
+	
 	// =====================================
 	// PROFILE SECTION =====================
 	// =====================================
@@ -807,7 +790,7 @@
     app.get('/auth/google/callback',
             passport.authenticate('google', {
                     failureFlash : true,
-					successRedirect : '/home',
+					successRedirect : '/propage',
                     failureRedirect : '/signup'
 					
             }));
