@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" ag-app>
+<head>
+  <title>Dashbord</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.all.js"></script>
+  
+  <script type="text/javascript">
+    function disableact(tex , y, z) {
+    document.getElementById(y+z).onchange = function() {
+    document.getElementById(tex+z).disabled = !this.checked;
+    };
+  }
+  </script>
+
+  <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+        background-color: #ECEFF1;
+      }
+      input[type=text] {
+          width: 130px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-image: url('asset/image/searching.png');
+          background-position: 10px 10px; 
+          background-repeat: no-repeat;
+          padding: 12px 20px 12px 40px;
+          -webkit-transition: width 0.4s ease-in-out;
+          transition: width 0.4s ease-in-out;
+      }
+
+      input[type=text]:focus {
+          width: 100%;
+      }
+    </style>
+</head>
+<body ">
+      <div class="bs-example">
+          <%- include header.ejs %>
+      </div>
+
+      </br>
+      </br>
+
+<!--customer deteis and 1st grid--------------------> 
+
+
+    <div class="row-md-*">
+     
+<!--customer details and 1st grid end point--------------------> 
+
+   <!-- add, post details and 2nd grid--------------------> 
+        <!-- Main content -->
+    <section class="content">
+
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+        
+        <!-- /.col -->
+    <div class="col-md-2">
+    </div>
+		<div class="col-md-2">
+
+      <div div class="callout callout-info" style="margin-bottom: 0!important;">
+      <h3>Updating Qty</h3>
+
+      <form action="/listupqty" method="post">
+        <div class="form-group">
+          <label>Product</label>
+          <input type="hidden" style="color: black" name="order" value="<%=grncont.idgrnorder%>">
+          <input list="suggestions" style="color: black" name="product">
+          <datalist id="suggestions">
+               <%      
+                if(inventory.length){ 
+                for(var i = 0;i < inventory.length;i++) { 
+              %>
+              <option value="<%=inventory[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>QTY</label>
+          <input type="number" min="0" class="form-control"  placeholder="Qty" name="qty">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary mb-2">Add to list</button>
+        </div>
+      </form>
+
+      </div>
+
+      <hr/>
+
+      <h3>Add New Product</h3>
+
+      <form action="/addnewproduct" method="post">
+        <div class="form-group">
+          <label>Product Name & serial</label>
+          <input type="text" class="form-control"  placeholder="Product name" name="name">
+          <br/>
+          <input type="text" class="form-control"  placeholder="Serial Num" name="serial">
+        </div>
+        <div class="form-group">
+          <label>Store</label>
+          <input list="suggestions1" style="color: black" name="store" class="form-control">
+          <datalist id="suggestions1">
+              <%      
+                if(store.length){ 
+                for(var i = 0;i < store.length;i++) { 
+              %>
+              <option value="<%=store[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <input list="suggestions2" style="color: black" name="category" class="form-control">
+          <datalist id="suggestions2">
+              <%      
+                if(category.length){ 
+                for(var i = 0;i < category.length;i++) { 
+              %>
+              <option value="<%=category[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Generic</label>
+          <input list="suggestions3" style="color: black" name="generic" class="form-control">
+          <datalist id="suggestions3">
+              <%      
+                if(generic.length){ 
+                for(var i = 0;i < generic.length;i++) { 
+              %>
+              <option value="<%=generic[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Brand</label>
+          <input list="suggestions4" style="color: black" name="brand" class="form-control">
+          <datalist id="suggestions4">
+              <%      
+                if(brand.length){ 
+                for(var i = 0;i < brand.length;i++) { 
+              %>
+              <option value="<%=brand[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Make</label>
+          <input list="suggestions5" style="color: black" name="make" class="form-control">
+          <datalist id="suggestions5">
+              <%      
+                if(make.length){ 
+                for(var i = 0;i < make.length;i++) { 
+              %>
+              <option value="<%=make[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Model</label>
+          <input list="suggestions6" style="color: black" name="model" class="form-control">
+          <datalist id="suggestions6">
+              <%      
+                if(model.length){ 
+                for(var i = 0;i < model.length;i++) { 
+              %>
+              <option value="<%=model[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Unit</label>
+          <input list="suggestions7" style="color: black" name="unit" class="form-control">
+          <datalist id="suggestions7">
+              <%      
+                if(unit.length){ 
+                for(var i = 0;i < unit.length;i++) { 
+              %>
+              <option value="<%=unit[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Supplier</label>
+          <input list="suggestions8" style="color: black" name="supplier" class="form-control">
+          <datalist id="suggestions8">
+              <%      
+                if(supplier.length){ 
+                for(var i = 0;i < supplier.length;i++) { 
+              %>
+              <option value="<%=supplier[i].name%>">
+              <%      
+                }
+              } 
+              %>
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label>Product Price</label>
+          <input type="text" class="form-control"  placeholder="Cost" name="cost">
+          <br/>
+          <input type="text" class="form-control"  placeholder="Retail Price" name="retailprice">
+          <br/>
+          <input type="text" class="form-control"  placeholder="Retail Credit" name="retailcredit">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary mb-2">Add to Database</button>
+        </div>
+      </form>
+
+		</div>
+
+    <div class="col-md-8">
+
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        GRN
+        <small>#Not issued</small>
+      </h1>
+    </section>
+
+    <div class="pad margin no-print">
+      <div class="callout callout-info" style="margin-bottom: 0!important;">
+        <h4><i class="fa fa-info"></i> Note:</h4>
+        Qtys add to the stock when you save the the GRN.!
+      </div>
+    </div>
+          <%
+          var now = new Date(); 
+          var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+
+          var datetime1 = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+          datetime1 += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
+          %>
+
+    <!-- Main content -->
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">
+            <i class="fa fa-globe"></i> Cloud Partners (PVT) Ltd. GRN
+            <small class="pull-right">Date: <%=datetime %></small>
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          From
+          <address>
+            <strong><%= user.fname %> <%= user.lname %></strong><br>
+            Cloud Partners<br>
+            Maradana<br>
+            Phone: (804) 123-5432<br>
+            Email: info@cloudpartners.biz
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          To
+          <address>
+            <textarea>
+              
+            </textarea>
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          <b>GRN #Not issued</b><br>
+          <br>
+          <b>Order ID:</b> <%=grncont.idgrnorder %><br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Product</th>
+              <th>Serial #</th>
+              <th>Description</th>
+              <th>unit</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            
+              <% 
+                var total = 0;                            
+                if(products.length){ 
+                for(var i = 0;i < products.length;i++) { 
+                if(products[i].grnorder_idgrnorder==grncont.idgrnorder){
+
+                var subtotal= products[i].unitcost * products[i].qty;
+                total = total+subtotal;
+                var name = "";
+                var des = "";
+
+                  if(inventory.length){ 
+                  for(var j = 0;j < inventory.length;j++) { 
+                  if(inventory[j].idinventory==products[i].inventory_idinventory){
+
+                      name = inventory[j].name;
+                      des = inventory[j].description;
+                  
+                      }
+                    }
+                  }
+
+
+              %>
+              <tr>
+              <td><%=products[i].qty%></td>
+              <td><%=name %></td>
+              <td><%=products[i].productserial%></td>
+              <td><%=des %></td>
+              <td>Rs. <%=products[i].unitcost%></td>
+              <td>Rs. <%=subtotal %> </td>
+              <td> <form action="/delfromlist" method="post">
+                <input type="hidden" name="todel" value="<%=products[i].idgrnproducts%>">
+                <button class="btn-link"><i class="fa fa-times"></i></button>
+              </form> </td>
+              </tr>
+
+              <% 
+
+              }
+            }
+          }
+
+              %>
+
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+            Click 'Finish and Save' when payment is done. Warning - This will upatade the stocks.
+          </p>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th>Total:</th>
+                <td>Rs. <%=total %></td>
+              </tr>
+              <tr>
+                <th>Payment:</th>
+                <td>Pending</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- this row will not appear when printing -->
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="invoice-print.html" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+
+          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Finish and Save
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+    <div class="clearfix"></div>
+  </div>
+          
+    </div>
+		
+        <!-- /.col -->
+    </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+
+
+  
+   
+   
+</div>
+
+
+
+
+
+
+</div>
+</div>
+
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+ 
+ 
+
+
+</body>
+</html>

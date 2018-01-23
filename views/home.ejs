@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <title> Home </title>
+
+		
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.all.js"></script>
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+</script>
+
+    <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+        background-color: #ECEFF1; 
+        padding-top: 60px;
+      }
+
+      .wrap {
+      flex: 1;
+      height: 200vh;
+      overflow-y: scroll;
+      
+      }
+
+    </style>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+
+            
+    </script>
+
+    <script>
+      function alt(){
+
+      swal({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          swal(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+          document.getElementById('delform').submit();
+        }
+      })
+
+      } 
+
+      function alt1(){
+      var myVar = <%- JSON.stringify(message) %>;
+      if(myVar=="posterr"){
+        swal({
+          position: 'top-right',
+          type: 'error',
+          title: 'Inputs too long or wrong format',
+          showConfirmButton: false,
+          timer: 2500
+        })
+      }else if (myVar=="posted") {
+        swal({
+          position: 'top-right',
+          type: 'success',
+          title: 'Posted',
+          showConfirmButton: false,
+          timer: 2500
+        })
+      }
+     
+
+      } 
+
+    </script>
+	
+    
+</head>
+
+
+
+
+ <div class="container">
+
+  <body onload="alt1();">
+      <div class="bs-example">
+          <%- include header.ejs %>
+      </div>
+
+      </br>
+      </br>
+
+<!--customer deteis and 1st grid--------------------> 
+
+
+    <div class="row-md-*">
+     
+<!--customer details and 1st grid end point--------------------> 
+
+   <!-- add, post details and 2nd grid--------------------> 
+        <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+        
+        <!-- /.col -->
+		<div class="col-md-1">
+		</div>
+        <div class="col-md-7">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">Feeder</a></li>
+              <li><a href="#timeline" data-toggle="tab">My posts</a></li>
+              <li><a href="#settings" data-toggle="tab">Announcements</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+			  
+				<div class="post">
+                  <div class="user-block">
+					
+					<% if(level == "admin"){ %>
+
+             <div class="mu sh sp abk">
+              <div class="mv">
+                <div class="row-md-1">
+                   <img class="img-circle img-bordered-sm" src=<%=user.image %> >
+                   <label class="control-label" style="color: #336666"><%= user.fname %> <%= user.lname %></label>
+             
+                </div>
+                <div class="row-md-5">                    
+                                <form action="/posting" role="form"  method="post">
+
+                                <div class="form-group">
+                                      <textarea class="form-control" rows="3" name="postnews" placeholder="Type Here"></textarea>
+                                </div>
+                                <div>
+                                  <%
+                                    var now = new Date(); 
+                                    var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+                                    datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+                                    %>
+                                  <input name="datetime" type="hidden" value= <%=datetime %> >
+                                  <input name="msgtype" type="hidden" value="text" >
+                                  <input name="url" type="hidden" value="no url" >
+                                </div>
+                                <div class="form-group">
+                                    <label >Posting For :</label>
+                                      
+                                      <div class="form-group" >
+                                        <select class="form-control" id="sel2" name="depid">
+										  <option value="1">All</option>
+                                          <option value="2">Marketing</option>
+                                          <option value="3">Developing</option>
+                                        </select>
+                                      </div>
+                                    
+                                </div>
+                                <div class="row"> 
+                        
+                                <div class="col-md-10 col-sm-5">
+                                  <a href="#"  data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-link "></span>Link</a>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; </span>
+                                  <a href="/gdrive" data-toggle="tooltip" title="Drive"> Share </a>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;  </span>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
+                                  <button class="btn btn-default btn-sm" align="right"><span class="glyphicon glyphicon-send"></span> Send  </button>
+
+                                </div>
+                                </div>
+
+                              </form>
+                     </div>
+              </div>
+            </div>
+
+            <%
+          }else{
+            %>
+            <div class="mu sh sp abk">
+              <div class="mv">
+                <div class="row-md-1">
+                   <img class="img-circle img-bordered-sm" src=<%=user.image %> >
+                   <label class="control-label" style="color: #336666"><%= user.fname %> <%= user.lname %></label>
+             
+                </div>
+                <div class="row-md-5">                    
+                 <form action="/posting" role="form"  method="post">
+
+                    <div class="form-group">
+                          <textarea class="form-control" rows="3" name="postnews" placeholder="Type Here"></textarea>
+                    </div>
+                    <div>
+                      <%
+                        var now = new Date(); 
+                        var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+                        datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+                        %>
+                      <input name="datetime" type="hidden" value= <%=datetime %> >
+                      <input name="depid" type="hidden" value= <%=user.department_iddepartment %> >
+                      <input name="msgtype" type="hidden" value="text" >
+                      <input name="url" type="hidden" value="no url" >
+                    </div>
+                              <div class="row"> 
+                        
+                                <div class="col-md-10 col-sm-5">
+                                  <a href="#"  data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-link "></span>Link</a>
+                                  <a href="/gdrive" data-toggle="tooltip" title="Drive"> Share </a>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;  </span>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
+                                  <button class="btn btn-default btn-sm" align="right"><span class="glyphicon glyphicon-send"></span> Send  </button>
+
+                                </div>
+                                </div>
+
+                  </form>
+               </div>
+              </div>
+            </div>
+            <%
+            }
+            %>
+					
+				  </div>
+				</div>
+				
+				<div>
+                <!-- Post -->
+				<% 
+                        
+                          if(data.length){ 
+                          for(var i = 0;i < data.length;i++) { 
+
+                %>
+				
+                <div class="post">
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src=<%
+                              for(var j = 0;j < employeelist.length;j++) {
+                                if(data[i].employee_idemployee==employeelist[j].idemployee){
+                              %>
+                                <%=employeelist[j].image%> 
+                              <%
+                                }
+                              }
+                              %> alt="user image">
+                        <span class="username">
+                          <a href="#">
+						  <%
+                              for(var j = 0;j < employeelist.length;j++) {
+                                if(data[i].employee_idemployee==employeelist[j].idemployee){
+                              %>
+                                <%=employeelist[j].fname%> <%=employeelist[j].lname%>
+                              <%
+                                }
+                              }
+                          %>
+						  </a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+                    <span class="description"><%=data[i].when%></span>
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    <%if(data[i].type=="text"){%>
+                            <label><%=data[i].post%></label>
+                            <% }else if(data[i].type=="url"){%>
+                            <label><%=data[i].post%></label><br/>
+                            <a href="<%=data[i].url%>" target="_blank"><%=data[i].url%></a>
+                            <br/>
+                              <object src="<%=data[i].post%>">
+                                  <img src="/cssFiles/links.jpg" style="width: 100px; height: 100px">
+                               </object>
+                            <% }else {%>
+                            <label><%=data[i].post%></label>
+                    <% }%>
+                  </p>
+                  <ul class="list-inline">
+                    <li>
+					<%
+                            if(data[i].employee_idemployee==user.idemployee){
+                              %>
+                                <form action="delpost" method="post" id="delform">
+                                  <div class="form-group">
+                                  <input name="delid" type="hidden" value= <%=data[i].idposts %> >
+                                  </div>
+                                  <div class="form-group">
+                                    
+                                  </div>
+                                </form>
+                                <div class="buttons">
+
+                                  <button onclick="alt();" class="glyphicon glyphicon-trash" style="background:none!important;
+                                    border:none; 
+                                    padding:0!important;
+                                    /*border is optional*/
+                                    border-bottom:1px solid #444; ">Delete</button>
+                                </div>
+                              <%
+                            }
+                    %>
+                  </ul>
+
+                </div>
+				
+				<% 
+                        
+                      }
+                        }
+				%>
+				
+                <!-- /.post -->
+				</div>
+               
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="timeline">
+                <!-- The timeline -->
+                 <!-- Post -->
+        <% 
+                        
+                          if(data.length){ 
+                          for(var i = 0;i < data.length;i++) { 
+                          if(data[i].employee_idemployee==user.idemployee ){
+
+                %>
+        
+                <div class="post">
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src=<%
+                              for(var j = 0;j < employeelist.length;j++) {
+                                if(data[i].employee_idemployee==employeelist[j].idemployee){
+                              %>
+                                <%=employeelist[j].image%> 
+                              <%
+                                }
+                              }
+                              %> alt="user image">
+                        <span class="username">
+                          <a href="#">
+              <%
+                              for(var j = 0;j < employeelist.length;j++) {
+                                if(data[i].employee_idemployee==employeelist[j].idemployee){
+                              %>
+                                <%=employeelist[j].fname%> <%=employeelist[j].lname%>
+                              <%
+                                }
+                              }
+                          %>
+              </a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+                    <span class="description"><%=data[i].when%></span>
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    <%if(data[i].type=="text"){%>
+                            <label><%=data[i].post%></label>
+                            <% }else if(data[i].type=="url"){%>
+                            <label><%=data[i].post%></label><br/>
+                            <a href="<%=data[i].url%>" target="_blank"><%=data[i].url%></a>
+                            <br/>
+                              <object src="<%=data[i].post%>">
+                                  <img src="/cssFiles/links.jpg" style="width: 100px; height: 100px">
+                               </object>
+                            <% }else {%>
+                            <label><%=data[i].post%></label>
+                    <% }%>
+                  </p>
+                  <ul class="list-inline">
+                    <li>
+          <%
+                            if(data[i].employee_idemployee==user.idemployee){
+                              %>
+                                <form action="delpost" method="post" id="delform">
+                                  <div class="form-group">
+                                  <input name="delid" type="hidden" value= <%=data[i].idposts %> >
+                                  </div>
+                                  <div class="form-group">
+                                    
+                                  </div>
+                                </form>
+                                <div class="buttons">
+
+                                  <button onclick="alt();" class="glyphicon glyphicon-trash" style="background:none!important;
+                                    border:none; 
+                                    padding:0!important;
+                                    /*border is optional*/
+                                    border-bottom:1px solid #444; ">Delete</button>
+                                </div>
+                              <%
+                            }
+                    %>
+                  </ul>
+
+                </div>
+        
+        <% 
+                     }   
+                      }
+                        }
+        %>
+        
+                <!-- /.post -->
+              </div>
+              <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="settings">
+                <table class="table table-dark">
+                <% 
+                                            
+                  if(ann.length){ 
+                  for(var i = 0;i < ann.length;i++) { 
+
+                  %>
+                        
+                              <tr>
+
+                                <td>
+                                  <label><%=ann[i].when %></label>
+                                </td>
+                                                        
+                                <td>
+                                  <label>Post: </label>
+                                  <label><%=ann[i].post %></label>
+                                </td>
+                                
+                              </tr>
+                          
+
+              <% 
+
+                }
+              }
+
+                %>
+
+                </table>
+
+              </div>
+
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+		<div class="col-md-4">
+		
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <div class="embed-responsive embed-responsive-4by3">
+                <center>
+                <iframe class="embed-responsive-item" src="https://calendar.google.com/calendar/embed?src=cloudpartners.biz_mmfv7u05m6dpnrf2k1dcoe4kpg%40group.calendar.google.com&ctz=Asia/Colombo" style="border: 0"  frameborder="0" scrolling="no"></iframe>
+                </center>
+			  </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Upcoming Events in Cloud Partners</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" >
+			<pre id="content" style="height: 150px">
+			</pre>
+			<button id="authorize-button"  class="btn btn-primary">Authorize</button>
+			<button id="signout-button" class="btn btn-primary" style="visibility : hidden">Sign Out</button>  
+			  
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+
+
+  
+   
+   
+</div>
+
+<!--  url pop up menu  -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Sharing URLs</h4>
+              </div>
+              <div class="modal-body">
+               
+                    <form action="/posting" role="form"  method="post">
+
+                    <div class="form-group">
+                          <textarea class="form-control" rows="3" name="postnews" placeholder="Past text here"></textarea>
+                    </div>
+                    <div class="form-group">
+                          <input class="form-control" rows="3" name="url" placeholder="Past URL here"></input>
+                    </div>
+                    <div>
+                      <%
+                        var now = new Date(); 
+                        var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+                        datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+                        %>
+                      <input name="datetime" type="hidden" value= <%=datetime %> >
+                      <input name="depid" type="hidden" value= <%=user.department_iddepartment %> >
+                      <input name="msgtype" type="hidden" value="url" >
+                    </div>
+                    <div class="row">              
+                    <div class="col-md-10 col-sm-5" align="left">  <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-send"></span> Send  </button></div>
+                    <button type="button" class="btn btn-defaultbtn pull-right" data-dismiss="modal">Close</button>
+                    </div>
+
+                    </form>
+                         
+              </div>
+                            
+                         
+             </div>
+          </div>
+                      
+        </div>
+
+
+
+
+
+
+
+</div>
+</div>
+
+	<script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '633621342907-g5a3e121npdtb8ms06mvsmc6ivcrlhbl.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyBGAEL4JNkrdjBhoRpFqsqcWZN_nLZkdgw';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
+      var authorizeButton = document.getElementById('authorize-button');
+      var signoutButton = document.getElementById('signout-button');
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          listUpcomingEvents();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       * @param {string} message Text to be placed in pre element.
+       */
+      function appendPre(message) {
+        var pre = document.getElementById('content');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      function listUpcomingEvents() {
+        gapi.client.calendar.events.list({
+          'calendarId':'cloudpartners.biz_mmfv7u05m6dpnrf2k1dcoe4kpg@group.calendar.google.com',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        }).then(function(response) {
+          var events = response.result.items;
+          appendPre('');
+
+          if (events.length > 0) {
+            for (i = 0; i < events.length; i++) {
+              var event = events[i];
+              var when = event.start.dateTime;
+              if (!when) {
+                when = event.start.date;
+              }
+              appendPre(event.summary + ' (' + when + ')')
+            }
+          } else {
+            appendPre('No upcoming events found.');
+          }
+        });
+      }
+
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+ 
+ 
+
+
+</body>
+</html>

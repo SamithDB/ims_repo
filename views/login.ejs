@@ -1,0 +1,76 @@
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	
+    <link href="/cssFiles/css.css" rel="stylesheet" type="text/css">
+    <link href="/cssFiles/toolkit.css" rel="stylesheet">
+    <link href="/cssFiles/application.css" rel="stylesheet">
+
+    <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+        background-color: #ECEFF1;
+        padding-top: 200px;
+        padding-bottom: : 0px;
+      }
+      
+
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            
+            
+            <!-- LOGIN FORM -->
+            <form action="/login" role="form" class="adq arx j" method="post">
+                  <div class="jt">
+                  <img src="/cssFiles/Cloud_Partners_Logo.png" alt="brand" style="height: 150px; width:200px;  margin-right: 0px; " >
+                  </div>
+                  <br/>
+                  <div class="jt">
+                    <input class="form-control" placeholder="Username" name="username">
+                  </div>
+
+                  <div class="jt abd">
+                    <input class="form-control" placeholder="Password" type="password" name="password">
+                  </div>
+
+                  <div class="abr">
+                    <button class="cg kr">Log In</button>
+                    <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span></a>
+                  </div>
+
+              </form>
+
+            <hr>
+
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+
+            <p>Need an account? <a href="/signup">Signup</a></p>
+            <p>Or go <a href="/">home</a>.</p>
+        </div>
+
+        
+
+    </div>
+    <%- include footer.ejs %>
+
+    <script>
+
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+
+</body>
+</html>

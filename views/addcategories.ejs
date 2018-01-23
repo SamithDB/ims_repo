@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" ag-app>
+<head>
+  <title>Dashbord</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.all.js"></script>
+
+  
+  <script type="text/javascript">
+    function disableact(tex , y, z) {
+    document.getElementById(y+z).onchange = function() {
+    document.getElementById(tex+z).disabled = !this.checked;
+    };
+  }
+  </script>
+
+  <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+        background-color: #ECEFF1;
+      }
+      input[type=text] {
+          width: 130px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-image: url('asset/image/searching.png');
+          background-position: 10px 10px; 
+          background-repeat: no-repeat;
+          padding: 12px 20px 12px 40px;
+          -webkit-transition: width 0.4s ease-in-out;
+          transition: width 0.4s ease-in-out;
+      }
+
+      input[type=text]:focus {
+          width: 100%;
+      }
+    </style>
+</head>
+
+
+<body >
+      <div class="bs-example">
+          <%- include header.ejs %>
+      </div>
+
+      </br>
+      </br>
+
+<!--customer deteis and 1st grid--------------------> 
+
+
+    <div class="row-md-*">
+     
+<!--customer details and 1st grid end point--------------------> 
+
+   <!-- add, post details and 2nd grid--------------------> 
+        <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+        
+        <!-- /.col -->
+		<div class="col-md-2">
+		</div>
+        <div class="col-md-10">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li><a href="#Categories" data-toggle="tab">Categories</a></li>
+              <li><a href="#Stores" data-toggle="tab">Stores</a></li>
+              <li><a href="#Generics" data-toggle="tab">Generics</a></li>
+              <li><a href="#Makes" data-toggle="tab">Makes</a></li>
+              <li><a href="#Brands" data-toggle="tab">Brands</a></li>
+              <li><a href="#Units" data-toggle="tab">Units</a></li>
+              <li><a href="#Models" data-toggle="tab">Models</a></li>
+            </ul>
+            <div class="tab-content">
+
+              <div class="active tab-pane" id="Categories">
+
+                <div class="col-md-7">
+
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(category.length){ 
+                      for(var i = 0;i < category.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editcat" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= category[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= category[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= category[i].idcategory %>">
+                        <label><input type="checkbox" class="agree" id="<%= category[i].idcategory + 'ct' %>" onclick="disableact('<%= category[i].name %>', '<%= category[i].idcategory %>', 'ct')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= category[i].name + 'ct' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-4">
+
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addcategory" method="post">
+                  <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" class="form-control"  placeholder="Category" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+
+                </div>
+                
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="Stores">
+                
+                <div class="col-md-7">
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(store.length){ 
+                      for(var i = 0;i < store.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editst" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= store[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= store[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= store[i].idstore %>">
+                        <label><input type="checkbox" class="agree" id="<%= store[i].idstore + 'st' %>" onclick="disableact('<%= store[i].name  %>', '<%= store[i].idstore %>', 'st')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= store[i].name + 'st' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addst" method="post">
+                  <div class="form-group">
+                    <label>Store Name</label>
+                    <input type="text" class="form-control"  placeholder="Store" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+                </div>
+
+              </div>
+              <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="Generics">
+
+                <div class="col-md-7">
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(generic.length){ 
+                      for(var i = 0;i < generic.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editgn" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= generic[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= generic[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= generic[i].idgeneric %>">
+                        <label><input type="checkbox" class="agree" id="<%= generic[i].idgeneric + 'gn' %>" onclick="disableact('<%= generic[i].name %>', '<%= generic[i].idgeneric %>', 'gn')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= generic[i].name + 'gn' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addgn" method="post">
+                  <div class="form-group">
+                    <label>Generic Name</label>
+                    <input type="text" class="form-control"  placeholder="Generic" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+                </div>
+					
+              </div>
+
+              <div class="tab-pane" id="Makes">
+
+                <div class="col-md-7">
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(make.length){ 
+                      for(var i = 0;i < make.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editmk" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= make[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= make[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= make[i].idmake %>">
+                        <label><input type="checkbox" class="agree" id="<%= make[i].idmake + 'mk' %>" onclick="disableact('<%= make[i].name %>', '<%= make[i].idmake %>', 'mk')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= make[i].name + 'mk' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addmk" method="post">
+                  <div class="form-group">
+                    <label>Make Name</label>
+                    <input type="text" class="form-control"  placeholder="Make" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+                </div>
+                
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="Brands">
+                
+                <div class="col-md-7">
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(brand.length){ 
+                      for(var i = 0;i < brand.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editbr" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= brand[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= brand[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= brand[i].idbrand %>">
+                        <label><input type="checkbox" class="agree" id="<%= brand[i].idbrand + 'br' %>" onclick="disableact('<%= brand[i].name %>', '<%= brand[i].idbrand %>', 'br')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= brand[i].name + 'br' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addbr" method="post">
+                  <div class="form-group">
+                    <label>Brand Name</label>
+                    <input type="text" class="form-control"  placeholder="Brand" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+
+                </div>
+
+              </div>
+              <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="Units">
+                
+                <div class="col-md-7">
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(unit.length){ 
+                      for(var i = 0;i < unit.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editun" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= unit[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= unit[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= unit[i].idunit %>">
+                        <label><input type="checkbox" class="agree" id="<%= unit[i].idunit + 'un' %>" onclick="disableact('<%= unit[i].name %>', '<%= unit[i].idunit %>', 'un')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= unit[i].name + 'un' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addun" method="post">
+                  <div class="form-group">
+                    <label>Unit Name</label>
+                    <input type="text" class="form-control"  placeholder="Unit" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+                </div>
+          
+              </div>
+
+            
+
+            <!-- /.tab-pane -->
+
+            <div class="tab-pane" id="Models">
+                
+                <div class="col-md-7">
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(model.length){ 
+                      for(var i = 0;i < model.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editmd" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= model[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= model[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= model[i].idmodel %>">
+                        <label><input type="checkbox" class="agree" id="<%= model[i].idmodel + 'md' %>" onclick="disableact('<%= model[i].name %>', '<%= model[i].idmodel %>', 'md')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= model[i].name + 'md' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
+                <div class="col-md-4">
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addmd" method="post">
+                  <div class="form-group">
+                    <label>Model Name</label>
+                    <input type="text" class="form-control"  placeholder="Model" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+                </div>
+          
+              </div>
+
+              <!-- /.tab-content -->
+
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+
+
+  
+   
+   
+</div>
+
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+ 
+ 
+
+
+</body>
+</html>

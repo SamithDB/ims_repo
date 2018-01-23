@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" ag-app>
+<head>
+  <title>Dashbord</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.all.js"></script>
+  
+  <script type="text/javascript">
+    function disableact(tex , y, z) {
+    document.getElementById(y+z).onchange = function() {
+    document.getElementById(tex+z).disabled = !this.checked;
+    };
+  }
+  </script>
+
+  <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+        background-color: #ECEFF1;
+      }
+      input[type=text] {
+          width: 130px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-image: url('asset/image/searching.png');
+          background-position: 10px 10px; 
+          background-repeat: no-repeat;
+          padding: 12px 20px 12px 40px;
+          -webkit-transition: width 0.4s ease-in-out;
+          transition: width 0.4s ease-in-out;
+      }
+
+      input[type=text]:focus {
+          width: 100%;
+      }
+    </style>
+</head>
+<body ">
+      <div class="bs-example">
+          <%- include header.ejs %>
+      </div>
+
+      </br>
+      </br>
+
+<!--customer deteis and 1st grid--------------------> 
+
+
+    <div class="row-md-*">
+     
+<!--customer details and 1st grid end point--------------------> 
+
+   <!-- add, post details and 2nd grid--------------------> 
+        <!-- Main content -->
+    <section class="content">
+
+    <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-10">
+      <h3>Add Images of <%=product.name %>(<%=product.itemcode %>)</h3>
+    </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        
+        <!-- /.col -->
+    <div class="col-md-2">
+    </div>
+
+		<div class="col-md-3">
+      <li class="list-group-item">
+        <center>
+          <img height="200px" src=<%=product.imagelink1 %> alt="product picture" >
+        </center>
+      </li>
+      <li class="list-group-item">
+        <b>Upload product Image 1</b> <a class="pull-right  " href="" data-toggle="modal" data-target="#myupload1"><span class="glyphicon glyphicon-open"></span></a>
+      </li>
+
+		</div>
+
+    <div class="col-md-3">
+      <li class="list-group-item">
+        <center>
+          <img height="200px" src=<%=product.imagelink2 %> alt="product picture" >
+        </center>
+      </li>
+      <li class="list-group-item">
+        <b>Upload ptoduct Image 2</b> <a class="pull-right  " href="" data-toggle="modal" data-target="#myupload2"><span class="glyphicon glyphicon-open"></span></a>
+      </li>
+
+    </div>
+
+    <div class="col-md-3">
+      <li class="list-group-item">
+        <center>
+          <img height="200px" src=<%=product.imagelink3 %> alt="product picture" >
+        </center>
+      </li>
+      <li class="list-group-item">
+        <b>Upload product Image 3</b> <a class="pull-right  " href="" data-toggle="modal" data-target="#myupload3"><span class="glyphicon glyphicon-open"></span></a>
+      </li>
+    </div>
+		
+        <!-- /.col -->
+    </div>
+      <!-- /.row -->
+
+    <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-5">
+      <h3>Product Description : <%=product.description %></h3>
+    </div>
+    <div class="col-md-5">
+      <h3></h3>
+    </div>
+
+    </div>
+
+    </section>
+    <!-- /.content -->
+
+
+  
+   
+   
+</div>
+
+
+
+
+
+
+</div>
+</div>
+
+<!--  upload pop up menu  -->
+<div class="modal fade" id="myupload1" role="dialog">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Upload a picture</h4>
+              </div>
+              <div class="modal-body">
+               
+                    <form 
+                      action='/picupload1' 
+                      method='post' 
+                      encType="multipart/form-data">
+                        <input type="hidden" name="proid" value="<%=product.idinventory %>" />
+                        
+                        <input type="file" name="sampleFile" />
+                        <br/>
+                        <input type='submit' value='Upload!' />
+                    </form>
+                         
+              </div>
+                            
+                         
+             </div>
+          </div>
+                      
+        </div>
+
+    <!--  upload pop up menu  -->
+    <div class="modal fade" id="myupload2" role="dialog">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Upload a picture</h4>
+              </div>
+              <div class="modal-body">
+               
+                    <form 
+                      action='/picupload2' 
+                      method='post' 
+                      encType="multipart/form-data">
+                        <input type="hidden" name="proid" value="<%=product.idinventory %>" />
+                        
+                        <input type="file" name="sampleFile" />
+                        <br/>
+                        <input type='submit' value='Upload!' />
+                    </form>
+                         
+              </div>
+                            
+                         
+             </div>
+          </div>
+                      
+        </div>
+
+    <!--  upload pop up menu  -->
+
+    <div class="modal fade" id="myupload3" role="dialog">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Upload a picture</h4>
+              </div>
+              <div class="modal-body">
+               
+                    <form 
+                      action='/picupload3' 
+                      method='post' 
+                      encType="multipart/form-data">
+                        <input type="hidden" name="proid" value="<%=product.idinventory %>" />
+                        
+                        <input type="file" name="sampleFile" />
+                        <br/>
+                        <input type='submit' value='Upload!' />
+                    </form>
+                         
+              </div>
+                            
+                         
+             </div>
+          </div>
+                      
+        </div>
+
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+ 
+ 
+
+
+</body>
+</html>
