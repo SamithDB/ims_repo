@@ -16,7 +16,7 @@
 	// Product page =====================
 	// =====================================
 	app.get('/propage', isLoggedIn, function(req, res) {
-
+console.log('propage is working');
 			connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
                     if (err)
                          console.log(err);
@@ -25,12 +25,42 @@
 						user : rows[0], //  pass to template
 						message: ""
 					});
+        });	
+
+		
+	});
+		// =====================================
+	// Product-Details page =====================
+	// =====================================
+	app.get('/proInfopage', isLoggedIn, function(req, res) {
+console.log('proInfopage is working');
+			connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
+                    if (err)
+                         console.log(err);
+
+                    res.render('product_details.ejs', {
+						user : rows[0], //  pass to template
+						message: ""
+					});
+        });	
+	});
+	// =====================================
+	// Product-Cart page =====================
+	// =====================================
+		app.get('/proCart', isLoggedIn, function(req, res) {
+console.log('proInfopage is working');
+			connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
+                    if (err)
+                         console.log(err);
+
+                    res.render('product_cart.ejs', {
+						user : rows[0], //  pass to template
+						message: ""
+					});
         });
 
 		
 	});
-
-
 
 }
 
