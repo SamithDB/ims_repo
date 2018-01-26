@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" ag-app>
+<head>
+  <title>Dashbord</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.all.js"></script>
+  
+  <script type="text/javascript">
+    function disableact(tex , y, z) {
+    document.getElementById(y+z).onchange = function() {
+    document.getElementById(tex+z).disabled = !this.checked;
+    };
+  }
+  </script>
+
+  <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+        background-color: #ECEFF1;
+      }
+      input[type=text] {
+          width: 130px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          background-color: white;
+          background-image: url('asset/image/searching.png');
+          background-position: 10px 10px; 
+          background-repeat: no-repeat;
+          padding: 12px 20px 12px 40px;
+          -webkit-transition: width 0.4s ease-in-out;
+          transition: width 0.4s ease-in-out;
+      }
+
+      input[type=text]:focus {
+          width: 100%;
+      }
+    </style>
+</head>
+<body>
+      <div class="bs-example">
+          <%- include header.ejs %>
+      </div>
+
+      </br>
+      </br>
+
+<!--customer deteis and 1st grid--------------------> 
+
+
+    <div class="row-md-*">
+     
+<!--customer details and 1st grid end point--------------------> 
+
+   <!-- add, post details and 2nd grid--------------------> 
+        <!-- Main content -->
+    <section class="content">
+
+    <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-10">
+    </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        
+        <!-- /.col -->
+    <div class="col-md-3">
+    </div>
+
+		<div class="col-md-7">
+
+        <table class="table table-striped">
+          <%
+          if(inventory.length){ 
+            for(var i = 0;i < inventory.length;i++) {
+          %>
+          <tr>
+            <td>
+              <strong>&nbsp;ID:<%=inventory[i].idinventory %>_Status:<%=inventory[i].status %></strong>
+              
+              <br/>
+              <br/>
+
+              <img src="<%=inventory[i].imagelink1 %>" style="height: 100px">
+
+
+              <br/>
+              <br/>
+           
+              <form>
+                <input type="hidden" name="todel" value="<%=inventory[i].idinventory %>">
+                <button class="btn-link"> View more & edite <i class="glyphicon glyphicon-cog"></i></button>
+                
+              </form>
+            </td>
+            <td>
+                <%=inventory[i].name %> <hr/>
+                Product Serial :<strong><%=inventory[i].itemcode %></strong> <hr/>
+                <%=inventory[i].description %> 
+            </td>
+            <td></td>
+            <td>
+              Unit Cost(Rs) : <%=inventory[i].costprice %> <hr/>
+              Retail Cash(Rs) : <%=inventory[i].retailcash %> <hr/>
+              Retail Credit(Rs) : <%=inventory[i].retailcredit %>
+            </td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+          </tr>
+          <%
+          } 
+        }
+          %>
+        </table>
+            
+		</div>
+
+    <div class="col-md-1">
+    </div>
+		
+        <!-- /.col -->
+    </div>
+      <!-- /.row -->
+
+    </section>
+    </div>
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+ 
+ 
+
+
+</body>
+</html>

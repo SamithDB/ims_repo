@@ -279,11 +279,15 @@
     <!-- Main content -->
     <section class="invoice">
       <!-- title row -->
+      <form action="/savegrn" method="post">
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> Cloud Partners (PVT) Ltd. GRN
             <small class="pull-right">Date: <%=datetime %></small>
+            <div class="form-group">
+              <input type="hidden" name="datetime" value="<%=datetime1 %>">
+            </div>
           </h2>
         </div>
         <!-- /.col -->
@@ -294,6 +298,9 @@
           From
           <address>
             <strong><%= user.fname %> <%= user.lname %></strong><br>
+            <div class="form-group">
+              <input type="hidden" name="emp" value="<%=user.idemployee %>">
+            </div>
             Cloud Partners<br>
             Maradana<br>
             Phone: (804) 123-5432<br>
@@ -304,9 +311,12 @@
         <div class="col-sm-4 invoice-col">
           To
           <address>
-            <textarea>
-              
-            </textarea>
+            <div class="form-group">
+              <input type="text" name="to" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="tel" placeholder="Contact num.">
+            </div>
           </address>
         </div>
         <!-- /.col -->
@@ -314,6 +324,9 @@
           <b>GRN #Not issued</b><br>
           <br>
           <b>Order ID:</b> <%=grncont.idgrnorder %><br>
+          <div class="form-group">
+              <input type="hidden" name="order" value="<%=grncont.idgrnorder %>">
+          </div>
         </div>
         <!-- /.col -->
       </div>
@@ -367,10 +380,12 @@
               <td><%=des %></td>
               <td>Rs. <%=products[i].unitcost%></td>
               <td>Rs. <%=subtotal %> </td>
-              <td> <form action="/delfromlist" method="post">
-                <input type="hidden" name="todel" value="<%=products[i].idgrnproducts%>">
+              <td> 
+                <form action="/delfromlist" method="post">
+                <input type="hidden" name="delitem" value="<%=products[i].idgrnproducts%>">
                 <button class="btn-link"><i class="fa fa-times"></i></button>
-              </form> </td>
+                </form> 
+              </td>
               </tr>
 
               <% 
@@ -402,6 +417,9 @@
               <tr>
                 <th>Total:</th>
                 <td>Rs. <%=total %></td>
+                <div class="form-group">
+                <input type="hidden" name="total" value="<%=total %>">
+                </div>
               </tr>
               <tr>
                 <th>Payment:</th>
@@ -418,9 +436,10 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <a href="invoice-print.html" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
-
-          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Finish and Save
-          </button>
+          <div class="form-group">
+                <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Finish and Save</button>
+          </div>
+          </form>
         </div>
       </div>
     </section>
