@@ -7,8 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	
-<!-- Bootstrap style -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- Bootstrap style-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <!--CALL CSS-->   
@@ -31,7 +31,7 @@
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
-	<div class="span6">Welcome!<strong> User</strong></div>
+	<div class="span6">Welcome! <strong> <%=user.fname %> <%=user.lname %></strong></div>
 	<div class="span6">
 	<div class="pull-right">
 	</div>
@@ -46,47 +46,27 @@
 </a>
   <div class="navbar-inner">
     <a class="brand" href="ShowCase.ejs"><img src="/cssFilespro/images/logo.png" alt="Bootsshop"/></a>
-		<form class="form-inline navbar-search" method="post" action="/powertool" >
+		<form class="form-inline navbar-search" method="post" action="/productserch" >
 		<input id="srchFld" class="srchTxt" type="text" />
 		  <select class="srchTxt"  id="mySelect" name="mySelect">
 			<option>All</option>
-			<option>POWER TOOL </option>
-			<option>HAND TOOL </option>
-			<option>CARPENTORY </option>
-			<option>COSTRUCTION</option>
+			<%      
+                if(category.length){ 
+                for(var i = 0;i < category.length;i++) { 
+              %>
+            <option><%=category[i].name%></option>
+              <%      
+                }
+              } 
+            %>
 		</select> 
 		  <button type="submit" class="btn btn-primary">Go</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
-	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
-	 <li class=""><a href="normal.html">Delivery</a></li>
-	 <li class=""><a href="contact.html">Contact</a></li>
-	 <li class="">
-	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">LogOut</span></a>
-	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3>Login Block</h3>
-		  </div>
-		  <div class="modal-body">
-			<form class="form-horizontal loginFrm">
-			  <div class="control-group">								
-				<input type="text" id="inputEmail" placeholder="Email">
-			  </div>
-			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
-			  </div>
-			  <div class="control-group">
-				<label class="checkbox">
-				<input type="checkbox"> Remember me
-				</label>
-			  </div>
-			</form>		
-			<button type="submit" class="btn btn-success">Sign in</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		  </div>
-	</div>
-	</li>
+	 <li class=""><a href="\home">Specials Offer</a></li>
+	 <li class=""><a href="\profile">My Profile</a></li>
+
+	 <li><a href="/viewcart" name="cart" class="btn-link"><i class="icon-shopping-cart" style="font-size:26px;color:red;"></i>Cart</a></li>
     </ul>
   </div>
 </div>
@@ -98,7 +78,7 @@
 		<div class="carousel-inner">
 		  <div class="item active">
 		  <div class="container">
-			<a href="register.html"><img style="width:100%" src="/cssFilespro/images/carousel/1.png" alt="special offers"/></a>
+			<a href="/proInfopage"><img style="width:100%" src="/cssFilespro/images/carousel/1.png" alt="special offers"/></a>
 			<!--<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -107,34 +87,31 @@
 		  </div>
 		  <div class="item">
 		  <div class="container">
-			<a href="register.html"><img style="width:100%" src="/cssFilespro/images/carousel/2.png" alt=""/></a>
-				<!--<div class="carousel-caption">
-				  <h4>Second Thumbnail label</h4>
-				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-				</div> -->
+			<a href="/proInfopage"><img style="width:100%" src="/cssFilespro/images/carousel/2.png" alt=""/></a>
+				
 		  </div>
 		  </div>
 		  <div class="item">
 		  <div class="container">
-			<a href="register.html"><img src="/cssFilespro/images/carousel/3.png" alt=""/></a>
+			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/3.png" alt=""/></a>
 			
 		  </div>
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="register.html"><img src="/cssFilespro/images/carousel/4.png" alt=""/></a>
+			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/4.png" alt=""/></a>
 			
 		  </div>
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="register.html"><img src="/cssFilespro/images/carousel/5.png" alt=""/></a>
+			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/5.png" alt=""/></a>
 		
 		  </div>
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="register.html"><img src="/cssFilespro/images/carousel/6.png" alt=""/></a>
+			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/6.png" alt=""/></a>
 
 		  </div>
 		  </div>
@@ -149,41 +126,60 @@
 <!-- Sidebar ================================================== -->
 	<div class="col-xs-3"> 
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="/cssFilespro/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">$155.00</span></a></div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<li class="subMenu open"><a> POWER TOOLS</a>
+			<li class="subMenu open"><a> Category</a>
 				<ul>
-				<li><a class="active" href="#"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Computers, Tablets & laptop (30)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Mobile Phone (80)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Sound & Vision (15)</a></li>
+				<%      
+                if(category.length){ 
+                for(var i = 0;i < category.length;i++) { 
+              	%>
+				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=category[i].name %> </a></li>
+				<%      
+                }
+            		} 
+              	%>
 				</ul>
 			</li>
-			<li class="subMenu"><a>HAND TOOL </a>
+			<li class="subMenu"><a>Store </a>
 			<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>	
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>												
+				<%      
+                if(store.length){ 
+                for(var i = 0;i < store.length;i++) { 
+              	%>
+				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=store[i].name %> </a></li>
+				<%      
+                }
+            		} 
+              	%>											
 			</ul>
 			</li>
-			<li class="subMenu"><a>CARPENTER</a>
+			<li class="subMenu"><a>Generic</a>
 				<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>	
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>												
+				<%      
+                if(generic.length){ 
+                for(var i = 0;i < generic.length;i++) { 
+              	%>
+				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=generic[i].name %> </a></li>
+				<%      
+                }
+            		} 
+              	%>													
 			</ul>
 			</li>
-			<li><a href="products.html">CONSTRUCTION</a></li>
-			<li><a href="products.html">SPAIR PARTS</a></li>
+			<li class="subMenu"><a>Brand</a>
+				<ul style="display:none">
+				<%      
+                if(brand.length){ 
+                for(var i = 0;i < brand.length;i++) { 
+              	%>
+				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=brand[i].name %> </a></li>
+				<%      
+                }
+            		} 
+              	%>													
+			</ul>
+			</li>
 			
 		</ul>
 		<br/>
@@ -191,273 +187,167 @@
 			<img src="/cssFilespro/images/products/bosch0.jpg" alt="Excellance Bosch New tool"/>
 			<div class="caption">
 			  <h5>BOSCH</h5>
-				<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+				<h4 style="text-align:center"><a class="btn" href=""> <i class="icon-zoom-in"></i></a> <a class="btn btn-primary" href="#">View</a></h4>
 			</div>
 		  </div><br/>
 			<div class="thumbnail">
 				<img src="/cssFilespro/images/products/hitachi.jpg" title="Bootshop New Kindel" alt="Bootshop Kindel">
 				<div class="caption">
 				  <h5>HITACHI</h5>
-				    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+				    <h4 style="text-align:center"><a class="btn" href=""> <i class="icon-zoom-in"></i></a> <a class="btn btn-primary" href="#">View</a></h4>
 				</div>
 			  </div><br/>
 			  </div>
 	</div>
 <!-- Sidebar end=============================================== -->
-	<div class="col-xs-9"> 
+	
 		<div class="span9">		
 			<div class="well well-small">
-			<h4>Featured Products <small class="pull-right">200+ featured products</small></h4>
+			<h4>Featured Products <small class="pull-right">100+ featured products</small></h4>
 			<div class="row-fluid">
 			<div id="featured" class="carousel slide">
 			<div class="carousel-inner">
 			  <div class="item active">
 			  <ul class="thumbnails">
+
+				<%      
+                if(inventory.length>=4){ 
+                for(var i = 0;i < 4;i++) { 
+              	%>
 				<li class="span3">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href="product_details.html"><img src="/cssFilespro/images/products/b1.jpg" alt=""></a>
+					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
 					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
+					  <h5><%=inventory[i].name%> </h5>
+					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>"><button class="btn" type="submit">VIEW</button><form> 
+					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="/cssFilespro/images/products/b2.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="/cssFilespro/images/products/b3.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="/cssFilespro/images/products/b4.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
+				<%      
+                	}
+            	} 
+              	%>
+
 			  </ul>
 			  </div>
-			   <div class="item">
+
+			  <div class="item">
 			  <ul class="thumbnails">
+				
+			  	<%      
+                if(inventory.length>=8){ 
+                for(var i = 4;i < 8;i++) { 
+              	%>
 				<li class="span3">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href="product_details.html"><img src="/cssFilespro/images/products/5.jpg" alt=""></a>
+					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
 					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
+					  <h5><%=inventory[i].name%> </h5>
+					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>" ><button class="btn" type="submit">VIEW</button><form> 
+					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
 				</li>
+				<%      
+                	}
+            	} 
+              	%>
+
+			  </ul>
+			  </div>
+
+			  <div class="item">
+			  <ul class="thumbnails">
+				
+			  	<%      
+                if(inventory.length>=12){ 
+                for(var i = 8;i < 12;i++) { 
+              	%>
 				<li class="span3">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href="product_details.html"><img src="/cssFilespro/images/products/6.jpg" alt=""></a>
+					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
 					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
+					  <h5><%=inventory[i].name%> </h5>
+					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>" ><button class="btn" type="submit">VIEW</button><form> 
+					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/7.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/8.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
+				<%      
+                	}
+            	} 
+              	%>
+
 			  </ul>
 			  </div>
-			   <div class="item">
+
+			  <div class="item">
 			  <ul class="thumbnails">
+
+			  	<%      
+                if(inventory.length>=16){ 
+                for(var i = 12;i < 16;i++) { 
+              	%>
 				<li class="span3">
 				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/9.jpg" alt=""></a>
+				  <i class="tag"></i>
+					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
 					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
+					  <h5><%=inventory[i].name%> </h5>
+					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>" ><button class="btn" type="submit">VIEW</button><form> 
+					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/10.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/11.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/1.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
+				<%      
+                	}
+            	} 
+              	%>
+				
 			  </ul>
 			  </div>
-			   <div class="item">
-			  <ul class="thumbnails">
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/2.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/3.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/4.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="/cssFilespro/images/products/5.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					   <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">$222.00</span></h4>
-					</div>
-				  </div>
-				</li>
-			  </ul>
-			  </div>
+
 			  </div>
 			  <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
 			  <a class="right carousel-control" href="#featured" data-slide="next">›</a>
 			  </div>
 			  </div>
 		</div>
+
 		<h4>Latest Products </h4>
 			  <ul class="thumbnails">
+
+			  	<%      
+                if(inventory.length){ 
+                for(var i = 0;i < inventory.length;i++) { 
+              	%>
 				<li class="span3">
 				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="/cssFilespro/images/products/6.jpg" alt=""/></a>
+					<a  href=""><img src="<%=inventory[i].imagelink1 %>" alt=""/ style="height: 200px"></a>
 					<div class="caption">
-					  <h5>Product name</h5>
+					  <h5><%=inventory[i].name%></h5>
+					  <h5>( <%=inventory[i].itemcode%> )</h5>
 					  <p> 
-						Lorem Ipsum is simply dummy text. 
+						<%=inventory[i].description%>. 
 					  </p>
 					 
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <span class="glyphicon glyphicon-shopping-cart"></span></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+					  <h4 style="text-align:center"><a class="btn" href=""> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to<i class="icon-shopping-cart"></i></span></a> <a class="btn btn-primary" href="#">Rs. <%=inventory[i].retailcash%></a></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="/cssFilespro/images/products/7.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="/cssFilespro/images/products/8.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="/cssFilespro/images/products/9.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="/cssFilespro/images/products/10.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="/cssFilespro/images/products/11.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
+				<%      
+                	}
+            	} 
+              	%>
+
 			  </ul>	
 
 		</div>

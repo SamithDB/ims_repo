@@ -15,11 +15,11 @@ var flash    = require('connect-flash');
 var MySQLStore = require('express-mysql-session')(session);
  
 var options = {
-    host: '35.202.126.209',
+    host: '104.154.129.180',
     port: 3306,
     user: 'root',
     password: 'sam123admin',
-    database: 'EmployeePortal_DB'
+    database: 'inventoryhub'
 };
  
 var sessionStore = new MySQLStore(options);
@@ -30,8 +30,11 @@ var sessionStore = new MySQLStore(options);
 require('./config/passport')(passport); // pass passport for configuration
 
 app.use('/cssFiles', express.static(__dirname + '/assets')); // for CSS
-app.use('/pics', express.static(__dirname + '/propics')); // for CSS
-app.use('/public', express.static(__dirname + '/public')); // for CSS
+app.use('/cssFilespro', express.static(__dirname + '/assets/productpage'));
+app.use('/pics', express.static(__dirname + '/propics')); 
+app.use('/productpics', express.static(__dirname + '/products'));
+app.use('/promos', express.static(__dirname + '/promos'));
+app.use('/public', express.static(__dirname + '/public')); 
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
@@ -58,6 +61,10 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/ims_cat.js')(app, passport); 
+require('./app/ims_grn.js')(app, passport); 
+require('./app/ims_product.js')(app, passport); 
+require('./app/customer_routs.js')(app, passport);
 
 // launch ======================================================================
 app.listen(port);

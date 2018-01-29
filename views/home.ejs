@@ -125,13 +125,12 @@
       <div class="row">
         
         <!-- /.col -->
-		<div class="col-md-1">
+		<div class="col-md-2">
 		</div>
-        <div class="col-md-7">
+        <div class="col-md-10">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab">Feeder</a></li>
-              <li><a href="#timeline" data-toggle="tab">My posts</a></li>
               <li><a href="#settings" data-toggle="tab">Announcements</a></li>
             </ul>
             <div class="tab-content">
@@ -170,7 +169,7 @@
                                       
                                       <div class="form-group" >
                                         <select class="form-control" id="sel2" name="depid">
-										  <option value="1">All</option>
+										                      <option value="1">All</option>
                                           <option value="2">Marketing</option>
                                           <option value="3">Developing</option>
                                         </select>
@@ -183,6 +182,8 @@
                                   <a href="#"  data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-link "></span>Link</a>
                                   <span>  &nbsp;  &nbsp;  &nbsp; </span>
                                   <a href="/gdrive" data-toggle="tooltip" title="Drive"> Share </a>
+                                  <span>  &nbsp;  &nbsp;  &nbsp; </span>
+                                  <a href="#"  data-toggle="modal" data-target="#imgmodel" ></span>Add Image</a>
                                   <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;  </span>
                                   <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
                                   <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
@@ -200,45 +201,9 @@
           }else{
             %>
             <div class="mu sh sp abk">
-              <div class="mv">
-                <div class="row-md-1">
-                   <img class="img-circle img-bordered-sm" src=<%=user.image %> >
-                   <label class="control-label" style="color: #336666"><%= user.fname %> <%= user.lname %></label>
-             
-                </div>
-                <div class="row-md-5">                    
-                 <form action="/posting" role="form"  method="post">
 
-                    <div class="form-group">
-                          <textarea class="form-control" rows="3" name="postnews" placeholder="Type Here"></textarea>
-                    </div>
-                    <div>
-                      <%
-                        var now = new Date(); 
-                        var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
-                        datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
-                        %>
-                      <input name="datetime" type="hidden" value= <%=datetime %> >
-                      <input name="depid" type="hidden" value= <%=user.department_iddepartment %> >
-                      <input name="msgtype" type="hidden" value="text" >
-                      <input name="url" type="hidden" value="no url" >
-                    </div>
-                              <div class="row"> 
-                        
-                                <div class="col-md-10 col-sm-5">
-                                  <a href="#"  data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-link "></span>Link</a>
-                                  <a href="/gdrive" data-toggle="tooltip" title="Drive"> Share </a>
-                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;  </span>
-                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
-                                  <span>  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp; </span>
-                                  <button class="btn btn-default btn-sm" align="right"><span class="glyphicon glyphicon-send"></span> Send  </button>
-
-                                </div>
-                                </div>
-
-                  </form>
-               </div>
-              </div>
+              <h2>New Offers and news</h2>
+              
             </div>
             <%
             }
@@ -279,7 +244,7 @@
                               }
                           %>
 						  </a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                          <a onclick="alt();" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
                         </span>
                     <span class="description"><%=data[i].when%></span>
                   </div>
@@ -294,8 +259,12 @@
                               <object src="<%=data[i].post%>">
                                   <img src="/cssFiles/links.jpg" style="width: 100px; height: 100px">
                                </object>
-                            <% }else {%>
-                            <label><%=data[i].post%></label>
+                            <% }else if(data[i].type=="img"){%>
+                            <label><%=data[i].post%></label><br/>
+                            <a href="<%=data[i].url%>" target="_blank"><%=data[i].url%></a>
+                            <img src="/promos/<%=data[i].idposts%>promo.jpg" style="width: 100%; height: auto;">
+                    <% }else{%>
+                            <label>Sorry! Post Unavailable.</label>
                     <% }%>
                   </p>
                   <ul class="list-inline">
@@ -307,18 +276,16 @@
                                   <div class="form-group">
                                   <input name="delid" type="hidden" value= <%=data[i].idposts %> >
                                   </div>
-                                  <div class="form-group">
-                                    
-                                  </div>
+                                  <div class="buttons">
                                 </form>
-                                <div class="buttons">
-
-                                  <button onclick="alt();" class="glyphicon glyphicon-trash" style="background:none!important;
+                                <button onclick="alt();" class="glyphicon glyphicon-trash" style="background:none!important;
                                     border:none; 
                                     padding:0!important;
                                     /*border is optional*/
-                                    border-bottom:1px solid #444; ">Delete</button>
+                                    border-bottom:1px solid #444; ">Delete
+                                </button>
                                 </div>
+                                
                               <%
                             }
                     %>
@@ -333,100 +300,10 @@
 				%>
 				
                 <!-- /.post -->
-				</div>
+				      </div>
                
               </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="timeline">
-                <!-- The timeline -->
-                 <!-- Post -->
-        <% 
-                        
-                          if(data.length){ 
-                          for(var i = 0;i < data.length;i++) { 
-                          if(data[i].employee_idemployee==user.idemployee ){
-
-                %>
-        
-                <div class="post">
-                  <div class="user-block">
-                    <img class="img-circle img-bordered-sm" src=<%
-                              for(var j = 0;j < employeelist.length;j++) {
-                                if(data[i].employee_idemployee==employeelist[j].idemployee){
-                              %>
-                                <%=employeelist[j].image%> 
-                              <%
-                                }
-                              }
-                              %> alt="user image">
-                        <span class="username">
-                          <a href="#">
-              <%
-                              for(var j = 0;j < employeelist.length;j++) {
-                                if(data[i].employee_idemployee==employeelist[j].idemployee){
-                              %>
-                                <%=employeelist[j].fname%> <%=employeelist[j].lname%>
-                              <%
-                                }
-                              }
-                          %>
-              </a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                        </span>
-                    <span class="description"><%=data[i].when%></span>
-                  </div>
-                  <!-- /.user-block -->
-                  <p>
-                    <%if(data[i].type=="text"){%>
-                            <label><%=data[i].post%></label>
-                            <% }else if(data[i].type=="url"){%>
-                            <label><%=data[i].post%></label><br/>
-                            <a href="<%=data[i].url%>" target="_blank"><%=data[i].url%></a>
-                            <br/>
-                              <object src="<%=data[i].post%>">
-                                  <img src="/cssFiles/links.jpg" style="width: 100px; height: 100px">
-                               </object>
-                            <% }else {%>
-                            <label><%=data[i].post%></label>
-                    <% }%>
-                  </p>
-                  <ul class="list-inline">
-                    <li>
-          <%
-                            if(data[i].employee_idemployee==user.idemployee){
-                              %>
-                                <form action="delpost" method="post" id="delform">
-                                  <div class="form-group">
-                                  <input name="delid" type="hidden" value= <%=data[i].idposts %> >
-                                  </div>
-                                  <div class="form-group">
-                                    
-                                  </div>
-                                </form>
-                                <div class="buttons">
-
-                                  <button onclick="alt();" class="glyphicon glyphicon-trash" style="background:none!important;
-                                    border:none; 
-                                    padding:0!important;
-                                    /*border is optional*/
-                                    border-bottom:1px solid #444; ">Delete</button>
-                                </div>
-                              <%
-                            }
-                    %>
-                  </ul>
-
-                </div>
-        
-        <% 
-                     }   
-                      }
-                        }
-        %>
-        
-                <!-- /.post -->
-              </div>
-              <!-- /.tab-pane -->
+              
 
               <div class="tab-pane" id="settings">
                 <table class="table table-dark">
@@ -468,50 +345,7 @@
           </div>
           <!-- /.nav-tabs-custom -->
         </div>
-		<div class="col-md-4">
-		<!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-				  <div class="col-sm-2" > <a href="https://script.google.com/a/cloudpartners.biz/macros/s/AKfycbwuFo59ZlETZsr1Kb1-5Xtq_eftcqN_OaX_nPM_LWN1-N3YB5Lx/exec" data-toggle="tooltip" title="File Uploader"><img src="/cssFiles/cdrive.png"/></a></div>
-                  <div class="col-sm-2" > <a href="https://calendar.google.com/calendar/r?cid=cloudpartners.biz_mmfv7u05m6dpnrf2k1dcoe4kpg@group.calendar.google.com" data-toggle="tooltip" title="Calendar" target="_blank"><img src="/cssFiles/gcalendar.png"/> </a></div>
-                  <div class="col-sm-2" > <a href="" data-toggle="tooltip" title="Contacts" target="_blank"><img src="/cssFiles/contact.png"/> </a></div>
-                  <div class="col-sm-2" > <a href="" data-toggle="tooltip" title="My Contact" target="_blank"><img src="/cssFiles/my_contact.png"/></a></div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-          <!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-              <div class="embed-responsive embed-responsive-4by3">
-                <center>
-                <iframe class="embed-responsive-item" src="https://calendar.google.com/calendar/embed?src=cloudpartners.biz_mmfv7u05m6dpnrf2k1dcoe4kpg%40group.calendar.google.com&ctz=Asia/Colombo" style="border: 0"  frameborder="0" scrolling="no"></iframe>
-                </center>
-			  </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-          <!-- About Me Box -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Upcoming Events in Cloud Partners</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body" >
-			<pre id="content" style="height: 150px">
-			</pre>
-			<button id="authorize-button"  class="btn btn-primary">Authorize</button>
-			<button id="signout-button" class="btn btn-primary" style="visibility : hidden">Sign Out</button>  
-			  
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
+        
       </div>
       <!-- /.row -->
 
@@ -543,7 +377,7 @@
                           <textarea class="form-control" rows="3" name="postnews" placeholder="Past text here"></textarea>
                     </div>
                     <div class="form-group">
-                          <input class="form-control" rows="3" name="url" placeholder="Past URL here"></input>
+                          <input class="form-control" rows="3" name="url" placeholder="Past URL here">
                     </div>
                     <div>
                       <%
@@ -557,7 +391,7 @@
                     </div>
                     <div class="row">              
                     <div class="col-md-10 col-sm-5" align="left">  <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-send"></span> Send  </button></div>
-                    <button type="button" class="btn btn-defaultbtn pull-right" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-defaultbtn " data-dismiss="modal">Close</button>
                     </div>
 
                     </form>
@@ -578,6 +412,49 @@
 
 </div>
 </div>
+  <!-- Modal for image uplod for feeder-->
+  <div class="modal fade" id="imgmodel" role="dialog">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Upload a picture</h4>
+              </div>
+              <div class="modal-body">
+               
+                <form  action='/imgfeeder' method='post' encType="multipart/form-data">
+                <input type="hidden" name="proid" value="1" />
+                <input type="file" name="sampleFile" />
+                <br/>
+                <div class="form-group">
+                  <textarea class="form-control" rows="3" name="postnews" placeholder="Past text here"></textarea>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" rows="3" name="url" placeholder="Past URL here">
+                </div>
+                <div>
+                      <%
+                      var now = new Date(); 
+                      var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+                      datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+                      %>
+                  <input name="datetime" type="hidden" value= <%=datetime %> >
+                  <input name="depid" type="hidden" value= <%=user.department_iddepartment %> >
+                  <input name="msgtype" type="hidden" value="img" >
+                </div>
+                <input type='submit' value='Upload!' />
+                </form> 
+                         
+              </div>
+                            
+                         
+             </div>
+          </div>
+                      
+        </div>
 
 	<script type="text/javascript">
       // Client ID and API key from the Developer Console

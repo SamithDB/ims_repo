@@ -31,7 +31,7 @@
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/home', // redirect to the secure home section
+            successRedirect : '/propage', // redirect to the secure home section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
 		}),
@@ -64,6 +64,7 @@
 
 	}));
 
+	
 	// =====================================
 	// PROFILE SECTION =====================
 	// =====================================
@@ -86,7 +87,7 @@
 	});
 
 	// =====================================
-	// Fill Profile =========================
+	// Fill Profile ========================
 	// =====================================
 
 	app.get('/fillprofile', isLoggedIn, function(req, res) {
@@ -352,6 +353,105 @@
 
 		});
 
+	// =====================================
+	// =====================================
+	// UPLOAD PRODUCT PIC 1
+
+	app.post('/picupload1', function(req, res) {
+
+		  if (!req.files)
+		    res.redirect('/addproductpics'); 
+		 
+		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		  let sampleFile = req.files.sampleFile;
+		 
+		  // Use the mv() method to place the file somewhere on your server
+		  sampleFile.mv('products/'+req.body.proid+'productimage1.jpg', function(err) {
+		    if (err){
+		      return res.status(500).send(err);
+		    }else{
+		    	connection.query('UPDATE inventory SET imagelink1 = ? WHERE idinventory = ?',['productpics/'+req.body.proid+'productimage1.jpg', req.body.proid], function(err, result) {
+				if (err) 
+					console.log(err);
+
+               res.redirect('/addproductpics');
+
+				});
+
+
+		    }
+		 
+		    
+		  });
+
+		});
+
+	// =====================================
+	// =====================================
+	// UPLOAD PRODUCT PIC 2
+
+	app.post('/picupload2', function(req, res) {
+
+		  if (!req.files)
+		    res.redirect('/addproductpics'); 
+		 
+		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		  let sampleFile = req.files.sampleFile;
+		 
+		  // Use the mv() method to place the file somewhere on your server
+		  sampleFile.mv('products/'+req.body.proid+'productimage2.jpg', function(err) {
+		    if (err){
+		      return res.status(500).send(err);
+		    }else{
+		    	connection.query('UPDATE inventory SET imagelink2 = ? WHERE idinventory = ?',['productpics/'+req.body.proid+'productimage2.jpg', req.body.proid], function(err, result) {
+				if (err) 
+					console.log(err);
+
+               res.redirect('/addproductpics');
+
+				});
+
+
+		    }
+		 
+		    
+		  });
+
+		});
+
+	// =====================================
+	// =====================================
+	// UPLOAD PRODUCT PIC 3
+
+	app.post('/picupload3', function(req, res) {
+
+		  if (!req.files)
+		    res.redirect('/addproductpics'); 
+		 
+		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		  let sampleFile = req.files.sampleFile;
+		 
+		  // Use the mv() method to place the file somewhere on your server
+		  sampleFile.mv('products/'+req.body.proid+'productimage3.jpg', function(err) {
+		    if (err){
+		      return res.status(500).send(err);
+		    }else{
+		    	connection.query('UPDATE inventory SET imagelink3 = ? WHERE idinventory = ?',['productpics/'+req.body.proid+'productimage3.jpg', req.body.proid], function(err, result) {
+				if (err) 
+					console.log(err);
+
+               res.redirect('/addproductpics');
+
+				});
+
+
+		    }
+		 
+		    
+		  });
+
+		});
+
 
 	// =====================================
 	// Home SECTION =========================
@@ -455,9 +555,7 @@
 													        		});
 										                   
 										        			});
-								                        	
-
-
+								        
 							                        }else{
 							                        	connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
 									                    if (err1)
@@ -503,6 +601,66 @@
 			});
 
 	// =====================================
+	// =====================================
+	// UPLOAD A IMAGE TO FEEDER
+
+	app.post('/imgfeeder', function(req, res) {
+
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
+			if (err)
+				console.log(err);
+						                    
+			var newPost = new Object();
+			newPost.when = req.body.datetime;
+			newPost.post = req.body.postnews;
+			newPost.type = req.body.msgtype;
+			newPost.employee_idemployee = rows[0].idemployee;
+			newPost.department_iddepartment = req.body.depid;
+			newPost.url = req.body.url;
+						                        
+			console.log("Connected!");
+			var insertQuery = "INSERT INTO posts (posts.post, posts.when, posts.type, posts.employee_idemployee,posts.department_iddepartment,posts.url) values (?,?,?,?,?,?)";
+			connection.query(insertQuery,[ newPost.post, newPost.when,newPost.type,newPost.employee_idemployee,newPost.department_iddepartment,newPost.url],function(err, postrows) {
+			if (err){
+				console.log(err);
+			}else{
+
+			newPost.idposts = postrows.insertId;
+
+			if (!req.files)
+		    	res.redirect('/home'); 
+		 
+		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		  let sampleFile = req.files.sampleFile;
+		 
+		  // Use the mv() method to place the file somewhere on your server
+		  sampleFile.mv('promos/'+newPost.idposts+'promo.jpg', function(err) {
+		    if (err){
+		      return res.status(500).send(err);
+		    }else{
+		    	//connection.query('UPDATE inventory SET imagelink1 = ? WHERE idinventory = ?',['promos/'+req.body.proid+'promo.jpg', req.body.proid], function(err, result) {
+				//if (err) 
+					//console.log(err);
+
+               res.redirect('/home');
+
+				//});
+
+
+		    }
+		 
+		    
+		  });
+
+			}
+		});
+		  
+	});
+	  
+	});
+
+	// =====================================
 	// G Drive SECTION =====================
 	// =====================================
 	app.get('/gdrive', function(req, res) {
@@ -526,16 +684,16 @@
 	// =====================================
 
 	app.post('/delpost', function(req, res) {
+				console.log(req.body.delid);
+				connection.query("DELETE FROM posts WHERE idposts = ?",[req.body.delid], function(err, rows) {
+				if (err)
+					console.log(err);
 
-										connection.query("DELETE FROM posts WHERE idposts = ?",[req.body.delid], function(err, rows) {
-						                if (err)
-						                    console.log(err);
-
-						                console.log("Post deleted");
-						                res.redirect('/home'); 
+				console.log("Post deleted");
+				res.redirect('/home'); 
 						                    
 						                        
-						            });
+				});
 
 			});
 
@@ -690,7 +848,7 @@
     app.get('/auth/google/callback',
             passport.authenticate('google', {
                     failureFlash : true,
-					successRedirect : '/home',
+					successRedirect : '/propage',
                     failureRedirect : '/signup'
 					
             }));
@@ -774,5 +932,3 @@ function isLoggedIn(req, res, next) {
 	// if they aren't redirect them to the home page
 	res.redirect('/');
 }
-
-

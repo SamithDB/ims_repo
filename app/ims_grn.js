@@ -67,9 +67,8 @@
 
 								        							var x = "new" ;
 
-								        							for(var i = 0;i <grnorderlist.length;i++) { 
 
-								        							if(grnorderlist[i].status=='A'){
+								        							if(grnorderlist[0].status=='A'){
 
 								        								x = "res";
 
@@ -84,14 +83,15 @@
 																		model: modellist,
 																		supplier : supplierlist,
 																		inventory : inventorylist,
-																		grncont : grnorderlist[i],
+																		grncont : grnorderlist[0],
 																		products : grnproducts
 
 																		});
 
+
 								        							}
 
-								        						}
+								        						
 
 								        						if(x == "new"){
 
@@ -99,13 +99,15 @@
 																newgrnorder.emp = req.user.idlogin;
 
 																var insertQuery = "INSERT INTO grnorder (grnorder.employee_idemployee) values (?)";
-																connection.query(insertQuery,[ newgrnorder.emp],function(err, rows) {
+																connection.query(insertQuery,[ newgrnorder.emp],function(err, result) {
 																 if (err)
 																	 console.log(err);
 
-																for(var i = 0;i <grnorderlist.length;i++) { 
+																var query = connection.query('SELECT * FROM grnorder ORDER BY idgrnorder DESC',function(err9,grnorderlist2){
+								        						if(err9)
+								        							console.log(err9);
 
-										        					if(grnorderlist[i].status=='B'){
+										        					if(grnorderlist[0].status=='A'){
 
 								        								res.render('newgrn.ejs', {
 																		user : rows[0],		//  pass to template
@@ -118,19 +120,22 @@
 																		model: modellist,
 																		supplier : supplierlist,
 																		inventory : inventorylist,
-																		grncont : grnorderlist[i],
+																		grncont : grnorderlist2[0],
 																		products : grnproducts
 
 																		});
 
-								        							}
-																}
+								        								}else{
+								        									res.redirect('/home');
+								        								}
 
-						        							});
+																		});
 
-								        				  }
+						        									});
 
-								        				});
+								        				  		}
+
+								        					});
 
 								        				});
 
@@ -179,6 +184,53 @@
 
 		});
 		});
+
+	// =====================================
+	// =====================================
+	// add qtys to list
+
+	app.post('/delfromlist', function(req, res) {
+
+		connection.query("DELETE FROM grnproducts WHERE idgrnproducts = ?",[req.body.delitem], function(err, rows) {
+			if (err)
+			 console.log(err);
+
+			console.log("delete from list");
+			res.redirect('/newgrn'); 
+						                    
+			});
+
+		});
+
+	// =====================================
+	// =====================================
+	// Saving order to GRN
+
+	app.post('/savegrn', function(req, res) {
+
+			var newgrn = new Object();
+			newgrn.date = req.body.datetime;
+			newgrn.emp = req.body.emp;
+			newgrn.order = req.body.order;
+			newgrn.total = req.body.total;
+			newgrn.to = req.body.to;
+			newgrn.tel = req.body.tel;
+
+			var insertQuery = "INSERT INTO grn ( grn.to, grn.grnorder_idgrnorder, grn.total, grn.date, grn.emp ) values (?,?,?,?,?)";
+			connection.query(insertQuery,[newgrn.to, newgrn.order, newgrn.total, newgrn.date, newgrn.emp],function(err, rows) {
+			if (err)
+				console.log(err);
+
+				connection.query('UPDATE grnorder SET status = ? WHERE idgrnorder = ?',['B', newgrn.order], function(err, result) {
+				if (err) 
+					console.log(err);
+				
+				res.redirect('/home');
+
+				});
+		});
+	});
+
 
 
 
