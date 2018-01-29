@@ -31,7 +31,7 @@
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/propage', // redirect to the secure home section
+            successRedirect : '/home', // redirect to the secure home section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
 		}),
@@ -64,7 +64,6 @@
 
 	}));
 
-	
 	// =====================================
 	// PROFILE SECTION =====================
 	// =====================================
@@ -87,7 +86,7 @@
 	});
 
 	// =====================================
-	// Fill Profile ========================
+	// Fill Profile =========================
 	// =====================================
 
 	app.get('/fillprofile', isLoggedIn, function(req, res) {
@@ -342,105 +341,6 @@
 
 				}
 
-
-				});
-
-
-		    }
-		 
-		    
-		  });
-
-		});
-
-	// =====================================
-	// =====================================
-	// UPLOAD PRODUCT PIC 1
-
-	app.post('/picupload1', function(req, res) {
-
-		  if (!req.files)
-		    res.redirect('/addproductpics'); 
-		 
-		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-		  let sampleFile = req.files.sampleFile;
-		 
-		  // Use the mv() method to place the file somewhere on your server
-		  sampleFile.mv('products/'+req.body.proid+'productimage1.jpg', function(err) {
-		    if (err){
-		      return res.status(500).send(err);
-		    }else{
-		    	connection.query('UPDATE inventory SET imagelink1 = ? WHERE idinventory = ?',['productpics/'+req.body.proid+'productimage1.jpg', req.body.proid], function(err, result) {
-				if (err) 
-					console.log(err);
-
-               res.redirect('/addproductpics');
-
-				});
-
-
-		    }
-		 
-		    
-		  });
-
-		});
-
-	// =====================================
-	// =====================================
-	// UPLOAD PRODUCT PIC 2
-
-	app.post('/picupload2', function(req, res) {
-
-		  if (!req.files)
-		    res.redirect('/addproductpics'); 
-		 
-		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-		  let sampleFile = req.files.sampleFile;
-		 
-		  // Use the mv() method to place the file somewhere on your server
-		  sampleFile.mv('products/'+req.body.proid+'productimage2.jpg', function(err) {
-		    if (err){
-		      return res.status(500).send(err);
-		    }else{
-		    	connection.query('UPDATE inventory SET imagelink2 = ? WHERE idinventory = ?',['productpics/'+req.body.proid+'productimage2.jpg', req.body.proid], function(err, result) {
-				if (err) 
-					console.log(err);
-
-               res.redirect('/addproductpics');
-
-				});
-
-
-		    }
-		 
-		    
-		  });
-
-		});
-
-	// =====================================
-	// =====================================
-	// UPLOAD PRODUCT PIC 3
-
-	app.post('/picupload3', function(req, res) {
-
-		  if (!req.files)
-		    res.redirect('/addproductpics'); 
-		 
-		  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-		  let sampleFile = req.files.sampleFile;
-		 
-		  // Use the mv() method to place the file somewhere on your server
-		  sampleFile.mv('products/'+req.body.proid+'productimage3.jpg', function(err) {
-		    if (err){
-		      return res.status(500).send(err);
-		    }else{
-		    	connection.query('UPDATE inventory SET imagelink3 = ? WHERE idinventory = ?',['productpics/'+req.body.proid+'productimage3.jpg', req.body.proid], function(err, result) {
-				if (err) 
-					console.log(err);
-
-               res.redirect('/addproductpics');
 
 				});
 
@@ -790,7 +690,7 @@
     app.get('/auth/google/callback',
             passport.authenticate('google', {
                     failureFlash : true,
-					successRedirect : '/propage',
+					successRedirect : '/home',
                     failureRedirect : '/signup'
 					
             }));
@@ -874,3 +774,5 @@ function isLoggedIn(req, res, next) {
 	// if they aren't redirect them to the home page
 	res.redirect('/');
 }
+
+
