@@ -706,20 +706,26 @@
 
 		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
                     if (err1)
-                         console.log(err1);;
+                         console.log(err1);
 
 			        			var query = connection.query('SELECT * FROM employee',function(err3,rowlist){
 				        		if(err3)
-				        			console.log(err3);;
+				        			console.log(err3);
 
 				        			var query = connection.query('SELECT * FROM login',function(err4,usrlist){
 				        			if(err3)
-				        				console.log(err4);;
+				        				console.log(err4);
+
+				        			var query = connection.query('SELECT * FROM department',function(err4,deplist){
+				        			if(err3)
+				        				console.log(err4);
+
 				        			if(req.user.level=="admin"){
 				        				res.render('dashboard.ejs', {
 										employeelist : rowlist,
 										user : rows[0],		//  pass to template
-										allusrs : usrlist
+										allusrs : usrlist,
+										department : deplist
 										});
 				        			}else{
 				        				res.render('profile.ejs', {
@@ -728,6 +734,7 @@
 										});
 				        			}
 				        				
+				        			});
 
 			        			  	});
 				        			

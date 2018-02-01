@@ -56,7 +56,7 @@
         <!-- Main content -->
     <section class="content">
 
-      <div class="row">
+    <div class="row">
         
         <!-- /.col -->
 		<div class="col-md-2">
@@ -71,7 +71,43 @@
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
 			  
-				
+				        <div>
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(department.length){ 
+                      for(var i = 0;i < department.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editst" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= department[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= department[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= department[i].iddepartment %>">
+                        <label><input type="checkbox" class="agree" id="<%= department[i].iddepartment + 'st' %>" onclick="disableact('<%= department[i].name  %>', '<%= department[i].iddepartment %>', 'st')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= department[i].name + 'st' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+                </div>
 
                
               </div>

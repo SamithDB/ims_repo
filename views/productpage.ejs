@@ -214,13 +214,13 @@
                 if(inventory.length>=4){ 
                 for(var i = 0;i < 4;i++) { 
               	%>
-				<li class="span3">
+				<li class="span3" style="height:300px">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
+					<a href="" ><img src="<%=inventory[i].imagelink1 %>" alt="" style="height:160px"></a>
 					<div class="caption">
-					  <h5><%=inventory[i].name%> </h5>
-					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					 
+					  
 					  <h4>
 					  	<form action="\viewproduct" method="post">
 					  		<div class="form-control">
@@ -228,9 +228,12 @@
 					  		</div>
 					  		<div class="form-control">
 					  		<button class="btn" type="submit">VIEW</button>
+					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
 					  		</div>
+					  		 <h5><%=inventory[i].name%> </h5>
+					  		<h5>( <%=inventory[i].itemcode%> )</h5>
 					  	</form> 
-					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
+					  	</h4>
 					</div>
 				  </div>
 				</li>
@@ -249,22 +252,25 @@
                 if(inventory.length>=8){ 
                 for(var i = 4;i < 8;i++) { 
               	%>
-				<li class="span3">
+				<li class="span3" style="height:300px">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
+					<a href="" ><img src="<%=inventory[i].imagelink1 %>" alt="" style="height:160px"></a>
 					<div class="caption">
-					  <h5><%=inventory[i].name%> </h5>
-					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					  
+					  
 					  <h4><form action="\viewproduct" method="post">
 					  		<div class="form-control">
 					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
 					  		</div>
 					  		<div class="form-control">
 					  		<button class="btn" type="submit">VIEW</button>
+					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
 					  		</div>
+					  		<h5><%=inventory[i].name%> </h5>
+					  		<h5>( <%=inventory[i].itemcode%> )</h5>
 					  	</form> 
-					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
+					  	</h4>
 					</div>
 				  </div>
 				</li>
@@ -283,22 +289,25 @@
                 if(inventory.length>=12){ 
                 for(var i = 8;i < 12;i++) { 
               	%>
-				<li class="span3">
+				<li class="span3" style="height:300px">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
+					<a href=""><img src="<%=inventory[i].imagelink1 %>" style="height:160px" alt=""></a>
 					<div class="caption">
-					  <h5><%=inventory[i].name%> </h5>
-					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					 
+					  
 					  <h4><form action="\viewproduct" method="post">
 					  		<div class="form-control">
 					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
 					  		</div>
 					  		<div class="form-control">
 					  		<button class="btn" type="submit">VIEW</button>
+					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
 					  		</div>
+					  		 <h5><%=inventory[i].name%> </h5>
+					  		<h5>( <%=inventory[i].itemcode%> )</h5>
 					  	</form> 
-					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
+					  	</h4>
 					</div>
 				  </div>
 				</li>
@@ -317,22 +326,26 @@
                 if(inventory.length>=16){ 
                 for(var i = 12;i < 16;i++) { 
               	%>
-				<li class="span3">
+				<li class="span3" style="height:300px">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href=""><img src="<%=inventory[i].imagelink1 %>" alt=""></a>
+					<a href=""><img src="<%=inventory[i].imagelink1 %>" style="height:160px" alt=""></a>
 					<div class="caption">
-					  <h5><%=inventory[i].name%> </h5>
-					  <h5>( <%=inventory[i].itemcode%> )</h5>
+					  
+					  
 					  <h4><form action="\viewproduct" method="post">
 					  		<div class="form-control">
 					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
 					  		</div>
 					  		<div class="form-control">
 					  		<button class="btn" type="submit">VIEW</button>
+					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
 					  		</div>
+					  		<h5><%=inventory[i].name%> </h5>
+					  		<h5>( <%=inventory[i].itemcode%> )</h5>
 					  	</form>
-					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
+					  	</h4>
+					  	
 					</div>
 				  </div>
 				</li>
@@ -360,13 +373,11 @@
               	%>
 				<li class="span3">
 				  <div class="thumbnail">
-					<a  href=""><img src="<%=inventory[i].imagelink1 %>" alt=""/ style="height: 200px"></a>
+					<a  href=""><img src="<%=inventory[i].imagelink1 %>" alt="" style="height:160px"></a>
 					<div class="caption">
 					  <h5><%=inventory[i].name%></h5>
 					  <h5>( <%=inventory[i].itemcode%> )</h5>
-					  <p> 
-						<%=inventory[i].description%>. 
-					  </p>
+					  
 					 <p> <strong>Rs. <%=inventory[i].retailcash%></strong> </p>
 					  <h4 style="text-align:center">
 					  	
