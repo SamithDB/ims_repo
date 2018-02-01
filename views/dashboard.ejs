@@ -36,6 +36,15 @@
           width: 100%;
       }
     </style>
+
+    <script type="text/javascript">
+    function disableact(tex , y, z) {
+    document.getElementById(y+z).onchange = function() {
+    document.getElementById(tex+z).disabled = !this.checked;
+    };
+  }
+  </script>
+
 </head>
 <body ">
       <div class="bs-example">
@@ -70,9 +79,26 @@
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
-			  
+
+                  <hr/>
+                  <h4>Insert New Group</h4>
+                  <hr/>
+                  <form action="/addgp" method="post">
+                  <div class="form-group">
+                    <label>Group Name</label>
+                    <input type="text" class="form-control"  placeholder="Group" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+			           <hr/>
 				        <div>
-                  <h3>Existing</h3>
+                  <h3>Groups</h3>
                   <table class="table table-hover">
                     <thead>
                     <tr>
@@ -88,13 +114,13 @@
                       for(var i = 0;i < department.length;i++) { 
                     %>
                     <tr >
-                      <form class="success" action="/editst" method="post">
+                      <form class="success" action="/editgp" method="post">
                       <td><lable></lable></td>  
-                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= department[i].name %>" > </td>
-                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= department[i].description %>" > </td>
+                      <td class="success"> <input  type="text" name="gpname" class="form-control"  value="<%= department[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="gpdes" class="form-control"  value="<%= department[i].description %>" > </td>
 
                       <td>
-                        <input type="hidden" name="catid" class="form-control"  value="<%= department[i].iddepartment %>">
+                        <input type="hidden" name="gpid" class="form-control"  value="<%= department[i].iddepartment %>">
                         <label><input type="checkbox" class="agree" id="<%= department[i].iddepartment + 'st' %>" onclick="disableact('<%= department[i].name  %>', '<%= department[i].iddepartment %>', 'st')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= department[i].name + 'st' %>" disabled>Save</button>
                       </td>
 
@@ -145,8 +171,15 @@
                                                           <td>
                                                           <div class="form-group" >
                                                             <select class="form-control" id="sel2" name="dep">
-                                                              <option value="3">Developing</option>
-                                                              <option value="4">Marketing</option>
+                                                              <% 
+                                                                if(department.length){ 
+                                                                for(var j = 0;j < department.length;j++) { 
+                                                              %>
+                                                              <option value="<%=department[j].iddepartment%>"><%=department[j].name%></option>
+                                                              <% 
+                                                                }
+                                                              } 
+                                                              %>
                                                             </select>
                                                           </div>
                                                           </td>
@@ -162,6 +195,7 @@
                                                           </form>
                                                           <form action="/revk" role="form"  method="post">
                                                           <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
+                                                          <input type="hidden" name="empid" value=<%=allusrs[i].idemployee%> />
                                                           <td><button  class="btn btn-success" >Revoke User</button></td>
                                                           </form>
                                                         </tr>

@@ -784,6 +784,7 @@
 
 		
 			var newusr = new Object();
+			newusr.empid = req.body.empid;
 			newusr.usrid = req.body.usrid;
 			newusr.level = req.body.level;
 			newusr.status = "B";
@@ -795,7 +796,7 @@
 					console.log(err);
 				
 				} else {
-					connection.query("UPDATE employee SET department_iddepartment = ? WHERE login_idlogin = ?",[req.body.dep, req.user.idlogin], function(err, rows) {
+					connection.query("UPDATE employee SET department_iddepartment = ? WHERE login_idlogin = ?",[req.body.dep, newusr.usrid], function(err, rows) {
                     if (err)
                          console.log(err);;
                      });
@@ -830,6 +831,51 @@
 		
 
 	});
+
+	// =====================================
+	// Groups ==============================
+	// =====================================
+
+	app.post('/addgp', function(req, res) {
+
+			var newgroup = new Object();
+			newgroup.name = req.body.name;
+			newgroup.description = req.body.desc;
+
+			var insertQuery = "INSERT INTO department (department.name, department.description) values (?,?)";
+			connection.query(insertQuery,[newgroup.name, newgroup.description ],function(err, rows) {
+			 if (err)
+				 console.log(err);
+
+			console.log("Done!");
+			res.redirect('/dash'); 
+
+			});
+
+		});
+
+		app.post('/editgp', function(req, res) {
+
+			var newgroup = new Object();
+			newgroup.id = req.body.gpid;
+			newgroup.name = req.body.gpname;
+			newgroup.description = req.body.gpdes;
+
+
+			var insertQuery = "UPDATE department SET department.name = ?, department.description = ? WHERE department.iddepartment = ?";
+			connection.query(insertQuery,[ newgroup.name, newgroup.description,newgroup.id ],function(err, rows) {
+				 if (err) {
+					console.log(err);
+				
+				} else {
+					
+					console.log('edited');
+					res.redirect('/dash'); 
+					
+				}
+			})
+
+		});
 
 
 	// =====================================

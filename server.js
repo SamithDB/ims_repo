@@ -65,6 +65,8 @@ require('./app/ims_cat.js')(app, passport);
 require('./app/ims_grn.js')(app, passport); 
 require('./app/ims_product.js')(app, passport); 
 require('./app/customer_routs.js')(app, passport);
+require('./app/ims_cart.js')(app, passport);
+
 
 // launch ======================================================================
 app.listen(port);
