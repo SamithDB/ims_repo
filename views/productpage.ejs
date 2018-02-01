@@ -221,7 +221,15 @@
 					<div class="caption">
 					  <h5><%=inventory[i].name%> </h5>
 					  <h5>( <%=inventory[i].itemcode%> )</h5>
-					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>"><button class="btn" type="submit">VIEW</button><form> 
+					  <h4>
+					  	<form action="\viewproduct" method="post">
+					  		<div class="form-control">
+					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
+					  		</div>
+					  		<div class="form-control">
+					  		<button class="btn" type="submit">VIEW</button>
+					  		</div>
+					  	</form> 
 					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
@@ -248,7 +256,14 @@
 					<div class="caption">
 					  <h5><%=inventory[i].name%> </h5>
 					  <h5>( <%=inventory[i].itemcode%> )</h5>
-					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>" ><button class="btn" type="submit">VIEW</button><form> 
+					  <h4><form action="\viewproduct" method="post">
+					  		<div class="form-control">
+					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
+					  		</div>
+					  		<div class="form-control">
+					  		<button class="btn" type="submit">VIEW</button>
+					  		</div>
+					  	</form> 
 					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
@@ -275,7 +290,14 @@
 					<div class="caption">
 					  <h5><%=inventory[i].name%> </h5>
 					  <h5>( <%=inventory[i].itemcode%> )</h5>
-					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>" ><button class="btn" type="submit">VIEW</button><form> 
+					  <h4><form action="\viewproduct" method="post">
+					  		<div class="form-control">
+					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
+					  		</div>
+					  		<div class="form-control">
+					  		<button class="btn" type="submit">VIEW</button>
+					  		</div>
+					  	</form> 
 					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
@@ -302,7 +324,14 @@
 					<div class="caption">
 					  <h5><%=inventory[i].name%> </h5>
 					  <h5>( <%=inventory[i].itemcode%> )</h5>
-					  <h4><form action="\viewproduct" method="post"><input type="hidden" name="product" value="<%=inventory[i].idinventory%>" ><button class="btn" type="submit">VIEW</button><form> 
+					  <h4><form action="\viewproduct" method="post">
+					  		<div class="form-control">
+					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
+					  		</div>
+					  		<div class="form-control">
+					  		<button class="btn" type="submit">VIEW</button>
+					  		</div>
+					  	</form>
 					  	<span class="pull-right">Rs. <%=inventory[i].retailcash%></span></h4>
 					</div>
 				  </div>
@@ -338,8 +367,19 @@
 					  <p> 
 						<%=inventory[i].description%>. 
 					  </p>
-					 
-					  <h4 style="text-align:center"><a class="btn" href=""> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to<i class="icon-shopping-cart"></i></span></a> <a class="btn btn-primary" href="#">Rs. <%=inventory[i].retailcash%></a></h4>
+					 <p> <strong>Rs. <%=inventory[i].retailcash%></strong> </p>
+					  <h4 style="text-align:center">
+					  	
+					  	
+					  	<a class="btn" href=""> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to<i class="icon-shopping-cart"></i></span></a> 
+					  		<form action="\viewproduct" method="post">
+					  		<div class="form-control">
+					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
+					  		</div>
+					  		<div class="form-control">
+					  		<button class="btn btn-primary" type="submit">VIEW</button>
+					  		</div>
+					  		</form></h4>
 					</div>
 				  </div>
 				</li>

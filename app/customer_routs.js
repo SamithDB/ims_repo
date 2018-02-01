@@ -107,7 +107,7 @@
 	// =====================================
 	app.post('/viewproduct', isLoggedIn, function(req, res) {
 
-		console.log(req.body.product);
+		console.log(req.body.productid);
 
 		
 
