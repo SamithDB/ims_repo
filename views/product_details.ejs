@@ -169,8 +169,9 @@
 				  <div class="control-group">
 					<label class="control-label"><span>Rs. <%=inventory.retailcash%></span></label>
 					<div class="controls">
-					  <input type="number" min="1" class="span1" placeholder="Qty." name="crtqty"/>
+					  <input type="number" min="1" class="span1" name="crtqty" value="1" />
 					  <input type="hidden" class="span1" name="proid" value="<%=inventory.idinventory%>" />
+					  <input type="hidden" class="span1" name="unit" value="<%=inventory.retailcash%>" />
 					  <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
 					</div>
 				  </div>

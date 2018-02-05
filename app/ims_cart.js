@@ -60,11 +60,17 @@
 								        							if(err10)
 								        							console.log(err10);
 
-								        							var query = connection.query("SELECT * FROM cart WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err11,cart){
+								        							var query = connection.query("SELECT * FROM cart WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err11,cartlist){
 								        							if(err11)
-								        							console.log(err11)
+								        								console.log(err11)
 
-								        							res.render('product_cart.ejs', {
+								        							if(cartlist.length){
+
+								        								var query = connection.query("SELECT * FROM cartproducts WHERE cart_idcart = ? ",[cartlist[0].idcart],function(err12,cartpros){
+								        								if(err12)
+								        								console.log(err12)
+
+								        								res.render('product_cart.ejs', {
 																		user : rows[0],		//  pass to template
 																		store : storelist,
 																		category : categorylist,
@@ -76,8 +82,27 @@
 																		supplier : supplierlist,
 																		inventory : inventorypro,
 																		stock : stock,
-																		mycart : cart
+																		mycart : cartlist[0],
+																		cartproducts : cartpros
 																		});
+
+																		});
+
+								        							}else{
+
+								        								var newcart = new Object();
+																		newcart.empid = rows[0].idemployee;
+
+																		var insertQuery = "INSERT INTO cart (cart.employee_idemployee) values (?)";
+																		connection.query(insertQuery,[ newcart.empid ],function(err, newrow) {
+																		 if (err)
+																			 console.log(err);
+
+																		res.redirect('/viewcart'); 
+
+																		});
+
+								        							}
 								        				});
 		
 								        			});
@@ -109,19 +134,51 @@
 	// Add to Cart ===============
 	// ===========================
 
-	app.post('/addcategory', function(req, res) {
+	app.post('/addtocart', function(req, res) {
 
-			var newcategory = new Object();
-			newcategory.name = req.body.name;
-			newcategory.description = req.body.desc;
+			connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+              if (err1)
+                console.log(err1);
 
-			var insertQuery = "INSERT INTO category (category.name, category.description) values (?,?)";
-			connection.query(insertQuery,[ newcategory.name, newcategory.description ],function(err, rows) {
+            var query = connection.query("SELECT * FROM cart WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err2,cartlist){
+			  if(err2)
+				console.log(err2);
+
+			if(cartlist.length){
+
+			var tocart = new Object();
+			tocart.cart_idcart = cartlist[0].idcart;
+			tocart.inventory_idinventory = req.body.proid;
+			tocart.qty = req.body.crtqty;
+			tocart.unit = req.body.unit;
+
+			var insertQuery = "INSERT INTO cartproducts (cartproducts.cart_idcart, cartproducts.inventory_idinventory,cartproducts.qty,cartproducts.unit) values (?,?,?,?)";
+			connection.query(insertQuery,[ tocart.cart_idcart, tocart.inventory_idinventory, tocart.qty, tocart.unit],function(err, newprorow) {
 			 if (err)
 				 console.log(err);
 
-			console.log("Done!");
-			res.redirect('/addcat'); 
+			console.log("Product add to cart!");
+			res.redirect('/viewcart'); 
+
+			});
+
+			}else{
+
+				var newcart = new Object();
+				newcart.empid = rows[0].idemployee;
+
+				var insertQuery = "INSERT INTO cart (cart.employee_idemployee) values (?)";
+				connection.query(insertQuery,[ newcart.empid ],function(err, newrow) {
+					if (err)
+						console.log(err);
+
+				res.redirect('/addtocart'); 
+
+			});
+
+			}
+
+			});
 
 			});
 
