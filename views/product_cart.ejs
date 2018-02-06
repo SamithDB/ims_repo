@@ -51,7 +51,7 @@
 	<span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href=""><img src="/cssFilespro/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="/propage"><img src="/cssFilespro/images/logo.png" alt="Bootsshop"/></a>
 		<form class="form-inline navbar-search" method="post" action="/productserch" >
 		<input id="srchFld" class="srchTxt" type="text" />
 		  <select class="srchTxt"  id="mySelect" name="mySelect">
@@ -85,7 +85,10 @@
 <!-- Sidebar ================================================== -->
 	<div class="col-xs-3"> 
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">$155.00</span></a></div>
+
+		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">Rs. </span></a></div>
+
+
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<li class="subMenu open"><a> Category</a>
 				<ul>
@@ -93,7 +96,14 @@
                 if(category.length){ 
                 for(var i = 0;i < category.length;i++) { 
               	%>
-				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=category[i].name %> </a></li>
+				<li>
+				<form action="/prosearchside" method="post">
+					<input type="hidden" name="id" value="cat">
+					<input type="hidden" name="name" value="<%=category[i].name %>">
+					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=category[i].name %> 
+					</button>
+				</form>
+				</li>
 				<%      
                 }
             		} 
@@ -106,7 +116,14 @@
                 if(store.length){ 
                 for(var i = 0;i < store.length;i++) { 
               	%>
-				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=store[i].name %> </a></li>
+				<li>
+				<form action="/prosearchside" method="post">
+					<input type="hidden" name="id" value="st">
+					<input type="hidden" name="name" value="<%=store[i].name %>">
+					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=store[i].name %> 
+					</button>
+				</form>
+				</li>
 				<%      
                 }
             		} 
@@ -119,7 +136,14 @@
                 if(generic.length){ 
                 for(var i = 0;i < generic.length;i++) { 
               	%>
-				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=generic[i].name %> </a></li>
+				<li>
+				<form action="/prosearchside" method="post">
+					<input type="hidden" name="id" value="gn">
+					<input type="hidden" name="name" value="<%=generic[i].name %>">
+					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=generic[i].name %> 
+					</button>
+				</form>
+				</li>
 				<%      
                 }
             		} 
@@ -132,7 +156,14 @@
                 if(brand.length){ 
                 for(var i = 0;i < brand.length;i++) { 
               	%>
-				<li><a class="active" href="#"><i class="icon-chevron-right"></i><%=brand[i].name %> </a></li>
+				<li>
+				<form action="/prosearchside" method="post">
+					<input type="hidden" name="id" value="brd">
+					<input type="hidden" name="name" value="<%=brand[i].name %>">
+					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=brand[i].name %> 
+					</button>
+				</form>
+				</li>
 				<%      
                 }
             		} 
@@ -146,14 +177,12 @@
 			<img src="/cssFilespro/images/products/bosch0.jpg" alt="Excellance Bosch New tool"/>
 			<div class="caption">
 			  <h5>BOSCH</h5>
-				<h4 style="text-align:center"> </h4>
 			</div>
 		  </div><br/>
 			<div class="thumbnail">
 				<img src="/cssFilespro/images/products/hitachi.jpg" title="Bootshop New Kindel" alt="Bootshop Kindel">
 				<div class="caption">
 				  <h5>HITACHI</h5>
-				    <h4 style="text-align:center"> </h4>
 				</div>
 			  </div><br/>
 			  </div>

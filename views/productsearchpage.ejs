@@ -73,54 +73,7 @@
 </div>
 </div><!--end 1st container-->
 </div>
-<!-- Header End====================================================================== -->
-<div id="carouselBlk">
-	<div id="myCarousel" class="carousel slide">
-		<div class="carousel-inner">
-		  <div class="item active">
-		  <div class="container">
-			<a href="/proInfopage"><img style="width:100%" src="/cssFilespro/images/carousel/1.png" alt="special offers"/></a>
-			<!--<div class="carousel-caption">
-				  <h4>Second Thumbnail label</h4>
-				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-				</div>-->
-		  </div>
-		  </div>
-		  <div class="item">
-		  <div class="container">
-			<a href="/proInfopage"><img style="width:100%" src="/cssFilespro/images/carousel/2.png" alt=""/></a>
-				
-		  </div>
-		  </div>
-		  <div class="item">
-		  <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/3.png" alt=""/></a>
-			
-		  </div>
-		  </div>
-		   <div class="item">
-		   <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/4.png" alt=""/></a>
-			
-		  </div>
-		  </div>
-		   <div class="item">
-		   <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/5.png" alt=""/></a>
-		
-		  </div>
-		  </div>
-		   <div class="item">
-		   <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/6.png" alt=""/></a>
 
-		  </div>
-		  </div>
-		</div>
-		<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-		<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-	  </div> 
-</div>
 <div id="mainBody">
 	<div class="container-fluid">
 	<div class="row">
@@ -128,7 +81,7 @@
 	<div class="col-xs-3"> 
 	<div id="sidebar" class="span3">
 
-		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">Rs. <%=mycart.total %></span></a></div>
+		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">Rs. </span></a></div>
 
 
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
@@ -231,170 +184,9 @@
 	</div>
 <!-- Sidebar end=============================================== -->
 	
-		<div class="span9">		
-			<div class="well well-small">
-			<h4>Featured Products <small class="pull-right">100+ featured products</small></h4>
-			<div class="row-fluid">
-			<div id="featured" class="carousel slide">
-			<div class="carousel-inner">
-			  <div class="item active">
-			  <ul class="thumbnails">
+		<div class="span9">	
 
-				<%      
-                if(inventory.length>=4){ 
-                for(var i = 0;i < 4;i++) { 
-              	%>
-				<li class="span3" style="height:300px">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="" ><img src="<%=inventory[i].imagelink1 %>" alt="" style="height:160px"></a>
-					<div class="caption">
-					 
-					  
-					  <h4>
-					  	<form action="\viewproduct" method="post">
-					  		<div class="form-control">
-					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
-					  		</div>
-					  		<div class="form-control">
-					  		<button class="btn" type="submit">VIEW</button>
-					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
-					  		</div>
-					  		 <h5><%=inventory[i].name%> </h5>
-					  		<h5>( <%=inventory[i].itemcode%> )</h5>
-					  	</form> 
-					  	</h4>
-					</div>
-				  </div>
-				</li>
-				<%      
-                	}
-            	} 
-              	%>
-
-			  </ul>
-			  </div>
-
-			  <div class="item">
-			  <ul class="thumbnails">
-				
-			  	<%      
-                if(inventory.length>=8){ 
-                for(var i = 4;i < 8;i++) { 
-              	%>
-				<li class="span3" style="height:300px">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="" ><img src="<%=inventory[i].imagelink1 %>" alt="" style="height:160px"></a>
-					<div class="caption">
-					  
-					  
-					  <h4><form action="\viewproduct" method="post">
-					  		<div class="form-control">
-					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
-					  		</div>
-					  		<div class="form-control">
-					  		<button class="btn" type="submit">VIEW</button>
-					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
-					  		</div>
-					  		<h5><%=inventory[i].name%> </h5>
-					  		<h5>( <%=inventory[i].itemcode%> )</h5>
-					  	</form> 
-					  	</h4>
-					</div>
-				  </div>
-				</li>
-				<%      
-                	}
-            	} 
-              	%>
-
-			  </ul>
-			  </div>
-
-			  <div class="item">
-			  <ul class="thumbnails">
-				
-			  	<%      
-                if(inventory.length>=12){ 
-                for(var i = 8;i < 12;i++) { 
-              	%>
-				<li class="span3" style="height:300px">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href=""><img src="<%=inventory[i].imagelink1 %>" style="height:160px" alt=""></a>
-					<div class="caption">
-					 
-					  
-					  <h4><form action="\viewproduct" method="post">
-					  		<div class="form-control">
-					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
-					  		</div>
-					  		<div class="form-control">
-					  		<button class="btn" type="submit">VIEW</button>
-					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
-					  		</div>
-					  		 <h5><%=inventory[i].name%> </h5>
-					  		<h5>( <%=inventory[i].itemcode%> )</h5>
-					  	</form> 
-					  	</h4>
-					</div>
-				  </div>
-				</li>
-				<%      
-                	}
-            	} 
-              	%>
-
-			  </ul>
-			  </div>
-
-			  <div class="item">
-			  <ul class="thumbnails">
-
-			  	<%      
-                if(inventory.length>=16){ 
-                for(var i = 12;i < 16;i++) { 
-              	%>
-				<li class="span3" style="height:300px">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href=""><img src="<%=inventory[i].imagelink1 %>" style="height:160px" alt=""></a>
-					<div class="caption">
-					  
-					  
-					  <h4><form action="\viewproduct" method="post">
-					  		<div class="form-control">
-					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
-					  		</div>
-					  		<div class="form-control">
-					  		<button class="btn" type="submit">VIEW</button>
-					  		<span class="pull-right">Rs. <%=inventory[i].retailcash%></span>
-					  		</div>
-					  		<h5><%=inventory[i].name%> </h5>
-					  		<h5>( <%=inventory[i].itemcode%> )</h5>
-					  	</form>
-					  	</h4>
-					  	
-					</div>
-				  </div>
-				</li>
-				<%      
-                	}
-            	} 
-              	%>
-				
-			  </ul>
-			  </div>
-
-			  </div>
-			  <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
-			  <a class="right carousel-control" href="#featured" data-slide="next">›</a>
-			  </div>
-			  </div>
-		</div>
-
-		<h4>Latest Products </h4>
+		<h4>Search Results </h4>
 			  <ul class="thumbnails">
 
 			  	<%      

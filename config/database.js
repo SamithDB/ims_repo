@@ -1,9 +1,9 @@
 // config/database.js
 module.exports = {
     'connection': {
-        'host': '104.154.129.180',
+        'host': '35.186.155.24',
         'user': 'root',
-        'password': 'sam123admin'
+        'password': 'm8heNWI9wQRz'
     },
 	'database': 'inventoryhub',
     'users_table': 'login'

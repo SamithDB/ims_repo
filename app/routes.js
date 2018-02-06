@@ -108,7 +108,8 @@
 	});
 
 	// =====================================
-	// VIEW SECTION ========================
+	// VIEW Profile ========================
+
 	app.post('/viewprofile', function(req, res) {
 
 		var newview = new Object();

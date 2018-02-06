@@ -169,12 +169,12 @@
 
 				var insertQuery = "INSERT INTO cart (cart.employee_idemployee) values (?)";
 				connection.query(insertQuery,[ newcart.empid ],function(err, newrow) {
-					if (err)
-						console.log(err);
+				 if (err)
+					console.log(err);
 
 				res.redirect('/addtocart'); 
 
-			});
+				});
 
 			}
 
