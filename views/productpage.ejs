@@ -79,7 +79,7 @@
 		<div class="carousel-inner">
 		  <div class="item active">
 		  <div class="container">
-			<a href="/proInfopage"><img style="width:100%" src="/cssFilespro/images/carousel/1.png" alt="special offers"/></a>
+			<a href="/propage"><img style="width:100%" src="/cssFilespro/images/carousel/1.png" alt="special offers"/></a>
 			<!--<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -88,31 +88,31 @@
 		  </div>
 		  <div class="item">
 		  <div class="container">
-			<a href="/proInfopage"><img style="width:100%" src="/cssFilespro/images/carousel/2.png" alt=""/></a>
+			<a href="/propage"><img style="width:100%" src="/cssFilespro/images/carousel/2.png" alt=""/></a>
 				
 		  </div>
 		  </div>
 		  <div class="item">
 		  <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/3.png" alt=""/></a>
+			<a href="/propage"><img src="/cssFilespro/images/carousel/3.png" alt=""/></a>
 			
 		  </div>
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/4.png" alt=""/></a>
+			<a href="/propage"><img src="/cssFilespro/images/carousel/4.png" alt=""/></a>
 			
 		  </div>
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/5.png" alt=""/></a>
+			<a href="/propage"><img src="/cssFilespro/images/carousel/5.png" alt=""/></a>
 		
 		  </div>
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="/proInfopage"><img src="/cssFilespro/images/carousel/6.png" alt=""/></a>
+			<a href="/propage"><img src="/cssFilespro/images/carousel/6.png" alt=""/></a>
 
 		  </div>
 		  </div>
@@ -140,8 +140,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="cat">
-					<input type="hidden" name="name" value="<%=category[i].name %>">
+					<input type="hidden" name="name" value="category_idcategory">
+					<input type="hidden" name="id" value="<%=category[i].idcategory %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=category[i].name %> 
 					</button>
 				</form>
@@ -160,8 +160,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="st">
-					<input type="hidden" name="name" value="<%=store[i].name %>">
+					<input type="hidden" name="name" value="store_idstore">
+					<input type="hidden" name="id" value="<%=store[i].idstore %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=store[i].name %> 
 					</button>
 				</form>
@@ -180,8 +180,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="gn">
-					<input type="hidden" name="name" value="<%=generic[i].name %>">
+					<input type="hidden" name="name" value="generic_idgeneric">
+					<input type="hidden" name="id" value="<%=generic[i].idgeneric %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=generic[i].name %> 
 					</button>
 				</form>
@@ -200,8 +200,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="brd">
-					<input type="hidden" name="name" value="<%=brand[i].name %>">
+					<input type="hidden" name="name" value="brand_idbrand">
+					<input type="hidden" name="id" value="<%=brand[i].idbrand %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=brand[i].name %> 
 					</button>
 				</form>
@@ -412,7 +412,13 @@
 					  <h4 style="text-align:center">
 					  	
 					  	
-					  	<a class="btn" href="<%=inventory[i].imagelink1 %>"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to<i class="icon-shopping-cart"></i></span></a> 
+					  	<a class="btn" href="<%=inventory[i].imagelink1 %>"> <i class="icon-zoom-in"></i></a> 
+					  	<form action="/addtocart" method="post">
+					  	<input type="hidden" min="1" class="span1" name="crtqty" value="1" />
+					  	<input type="hidden" class="span1" name="proid" value="<%=inventory.idinventory%>" />
+					  	<input type="hidden" class="span1" name="unit" value="<%=inventory.retailcash%>" />
+					  	<button class="btn" type="submit">Add to<i class="icon-shopping-cart"></i></span></button> 
+					  	</form>
 					  		<form action="\viewproduct" method="post">
 					  		<div class="form-control">
 					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">

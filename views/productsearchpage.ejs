@@ -81,7 +81,7 @@
 	<div class="col-xs-3"> 
 	<div id="sidebar" class="span3">
 
-		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">Rs. </span></a></div>
+		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">Rs. <%=mycart.total %></span></a></div>
 
 
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
@@ -93,8 +93,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="cat">
-					<input type="hidden" name="name" value="<%=category[i].name %>">
+					<input type="hidden" name="name" value="category_idcategory">
+					<input type="hidden" name="id" value="<%=category[i].idcategory %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=category[i].name %> 
 					</button>
 				</form>
@@ -113,8 +113,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="st">
-					<input type="hidden" name="name" value="<%=store[i].name %>">
+					<input type="hidden" name="name" value="store_idstore">
+					<input type="hidden" name="id" value="<%=store[i].idstore %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=store[i].name %> 
 					</button>
 				</form>
@@ -133,8 +133,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="gn">
-					<input type="hidden" name="name" value="<%=generic[i].name %>">
+					<input type="hidden" name="name" value="generic_idgeneric">
+					<input type="hidden" name="id" value="<%=generic[i].idgeneric %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=generic[i].name %> 
 					</button>
 				</form>
@@ -153,8 +153,8 @@
               	%>
 				<li>
 				<form action="/prosearchside" method="post">
-					<input type="hidden" name="id" value="brd">
-					<input type="hidden" name="name" value="<%=brand[i].name %>">
+					<input type="hidden" name="name" value="brand_idbrand">
+					<input type="hidden" name="id" value="<%=brand[i].idbrand %>">
 					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=brand[i].name %> 
 					</button>
 				</form>

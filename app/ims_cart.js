@@ -152,12 +152,25 @@
 			tocart.qty = req.body.crtqty;
 			tocart.unit = req.body.unit;
 
+			var price = tocart.qty * req.body.unit;
+			var newtotal = cartlist[0].total + price;
+
+			console.log(newtotal);
+
 			var insertQuery = "INSERT INTO cartproducts (cartproducts.cart_idcart, cartproducts.inventory_idinventory,cartproducts.qty,cartproducts.unit) values (?,?,?,?)";
 			connection.query(insertQuery,[ tocart.cart_idcart, tocart.inventory_idinventory, tocart.qty, tocart.unit],function(err, newprorow) {
 			 if (err)
 				 console.log(err);
 
 			console.log("Product add to cart!");
+
+			var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+			connection.query(insertQuery1,[ newtotal, tocart.cart_idcart],function(err, rows) {
+				if (err) 
+					console.log(err);
+				
+			});
+
 			res.redirect('/viewcart'); 
 
 			});
@@ -185,6 +198,65 @@
 		});
 
 
+	// ===========================
+	// Change qty in cart ========
+	// ===========================
+
+	app.post('/cartqty', function(req, res) {
+
+			var newqty = new Object();
+			newqty.proid = req.body.proid;
+			newqty.qty = req.body.newqty;
+
+
+			var insertQuery = "UPDATE cartproducts SET cartproducts.qty = ? WHERE cartproducts.idcartproducts = ?";
+			connection.query(insertQuery,[ newqty.qty, newqty.proid],function(err, rows) {
+				if (err) 
+					console.log(err);
+
+				res.redirect('/viewcart');
+				
+			});
+			
+		});
+
+	// ===========================
+	// Remove from the cart ======
+	// ===========================
+
+	app.post('/delfrmcart', function(req, res) {
+
+		console.log(req.body.delid);
+		var cart = new Object();
+		cart.crtid = req.body.crtid;
+		cart.oldtot = req.body.crttot;
+		cart.price = req.body.price;
+
+		var tot = cart.oldtot - cart.price;
+		console.log(tot);
+		console.log(cart.crtid);
+
+		connection.query("DELETE FROM cartproducts WHERE idcartproducts = ?",[req.body.delid], function(err, rows) {
+			if (err){
+				console.log(err);
+			}else{
+				console.log("Remove from the cart");
+
+				var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+				connection.query(insertQuery1,[ tot, cart.crtid],function(err, rows) {
+					if (err) 
+						console.log(err);
+					
+				});
+			}
+
+			res.redirect('/viewcart'); 
+						                    
+						                        
+				});
+
+			
+		});
 
 }
 
