@@ -128,6 +128,21 @@
 		<div class="col-md-2">
 		</div>
         <div class="col-md-10">
+
+          <nav class="navbar navbar-default" style="background-color: #ECEFF1">
+            <div class="container">
+              <div class="col-xs-3">
+              </div>
+                <ul class="nav navbar-nav" >
+                <div class="col-xs-2">   <li><a href="/propage" data-toggle="tooltip" title="Products"><img src="/cssFilespro/images/ishop.jpg" class="img-circle" alt="Cinque Terre" width="45" height="45"></a></li></div>
+                <div class="col-xs-2">  <li><a href="/home" data-toggle="tooltip" title="Promos"><img src="/cssFilespro/images/ipromotion.jpg" class="img-circle" alt="Cinque Terre" width="45" height="45"></a></li></div>
+                <div class="col-xs-2">  <li><a href="/profile" data-toggle="tooltip" title="Profile"><img src="/cssFilespro/images/iproduct.jpg" class="img-circle" alt="Cinque Terre" width="45" height="45"></a></li></div>
+                <div class="col-xs-2"> <li><a href="#" data-toggle="tooltip" title="Invoices"><img src="/cssFilespro/images/iinvoice.jpg" class="img-circle" alt="Cinque Terre" width="45" height="45"></a></li></div>
+                <div class="col-xs-2">  <li><a href="/viewcart" data-toggle="tooltip" title="Cart"><img src="/cssFilespro/images/icart.jpg" class="img-circle" alt="Cinque Terre" width="45" height="45"></a></li></div>
+                </ul>
+            </div>
+          </nav>
+
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab">Feeder</a></li>
@@ -323,6 +338,16 @@
                                 <td>
                                   <label>Post: </label>
                                   <label><%=ann[i].post %></label>
+                                </td>
+                                <td>
+                                  <form action="/delann" method="post">
+                                      <input type="hidden" value="<%=ann[i].idannouncements%>" name="annid"> 
+                                      <button type="submit" style="background:none!important;
+                                    border:none; 
+                                    padding:0!important; ">
+                                    <i class="fa fa-times"></i>
+                                  </button>
+                                  </form>
                                 </td>
                                 
                               </tr>

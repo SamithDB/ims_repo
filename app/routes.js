@@ -749,19 +749,18 @@
 
 	// =====================================
 	// =====================================
-	// EDIT Announcements
+	// Set Announcements
 
 	app.post('/ann', function(req, res, next) {
 
 		
 			var newann = new Object();
-			newann.annid = req.body.annnum;
 			newann.post = req.body.postann;
 			newann.when = req.body.datetime;
 			newann.employee_idemployee = req.body.usr;
 
-			var insertQuery = "UPDATE announcements SET announcements.post = ?, announcements.when = ?, announcements.employee_idemployee = ? WHERE announcements.idannouncements = ?";
-			connection.query(insertQuery,[ newann.post, newann.when,newann.employee_idemployee,newann.annid],function(err, rows) {
+			var insertQuery = "INSERT INTO announcements (announcements.post, announcements.when, announcements.employee_idemployee)values (?,?,?)";
+			connection.query(insertQuery,[ newann.post, newann.when,newann.employee_idemployee],function(err, rows) {
 				 if (err) {
 					console.log(err);
 				
@@ -775,6 +774,22 @@
 			})
 		
 
+	});
+
+	// =====================================
+	// =====================================
+	// Del Announcements
+
+	app.post('/delann', function(req, res, next) {
+				console.log(req.body.annid);
+				connection.query("DELETE FROM announcements WHERE idannouncements = ?",[req.body.annid], function(err, rows) {
+				if (err)
+					console.log(err);
+
+				res.redirect('/home'); 
+						                    
+						                        
+				});
 	});
 
 	// =====================================
