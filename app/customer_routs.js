@@ -293,6 +293,56 @@
 								        						if(err10)
 								        							console.log(err10);
 
+								        						// for 'all' category search
+								        						if(req.body.cat == "All"){
+
+								        							var query = connection.query("SELECT * FROM inventory WHERE name LIKE ? ORDER BY idinventory DESC",["%"+req.body.word+"%"],function(err11,inventorylist){
+								        							if(err11)
+								        								console.log(err11);
+
+								        								var query = connection.query("SELECT * FROM cart WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err12,cartlist){
+								        								if(err12)
+								        									console.log(err12);
+
+								        								if(cartlist.length){
+
+								        								res.render('productsearchpage.ejs', {
+																		user : rows[0],		//  pass to template
+																		store : storelist,
+																		category : categorylist,
+																		generic : genericlist,
+																		make : makelist,
+																		brand : brandlist,
+																		unit : unitlist,
+																		model: modellist,
+																		supplier : supplierlist,
+																		inventory : inventorylist,
+																		stock : stock,
+																		mycart : cartlist[0]
+
+																		});
+
+																		}else{
+
+																		var newcart = new Object();
+																		newcart.empid = rows[0].idemployee;
+
+																		var insertQuery = "INSERT INTO cart (cart.employee_idemployee) values (?)";
+																		connection.query(insertQuery,[ newcart.empid ],function(err, newrow) {
+																		 if (err)
+																			console.log(err);
+
+																		res.redirect('/prosearch');
+
+																		});
+
+																	}
+																	});
+
+								        							});
+
+								        						}else{
+
 								        						 var query = connection.query("SELECT idcategory FROM category WHERE name = ?",[req.body.cat],function(err13,catid){
 												        			if(err13)
 												        				console.log(err13);
@@ -345,6 +395,8 @@
 								        				});
 
 								        			});
+
+								        			}  ///if else end for 'all' search
 
 				        						});
 

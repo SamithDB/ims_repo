@@ -213,16 +213,68 @@
 			var newqty = new Object();
 			newqty.proid = req.body.proid;
 			newqty.qty = req.body.newqty;
+			newqty.oldqty = req.body.oldqty;
+			newqty.cartid = req.body.crtid;
+			newqty.unit = req.body.price;
 
+			var tot = req.body.crttot;
+			var changingprice = 0;
 
-			var insertQuery = "UPDATE cartproducts SET cartproducts.qty = ? WHERE cartproducts.idcartproducts = ?";
-			connection.query(insertQuery,[ newqty.qty, newqty.proid],function(err, rows) {
-				if (err) 
-					console.log(err);
+			if(newqty.qty==newqty.oldqty){
 
 				res.redirect('/viewcart');
-				
+
+			}else if(newqty.qty>newqty.oldqty){
+
+				var insertQuery = "UPDATE cartproducts SET cartproducts.qty = ? WHERE cartproducts.idcartproducts = ?";
+				connection.query(insertQuery,[ newqty.qty, newqty.proid],function(err, rows) {
+					if (err){
+						console.log(err);
+					
+						}else{
+							changingprice = (newqty.qty-newqty.oldqty) * newqty.unit;
+							console.log(changingprice);
+							tot = req.body.crttot-1 +1 + changingprice ;
+							console.log(tot);
+
+							var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+							connection.query(insertQuery1,[ tot, newqty.cartid],function(err, rows) {
+							if (err) 
+								console.log(err);
+							
+							});
+
+						}
 			});
+
+				res.redirect('/viewcart');
+
+			}else if(newqty.qty<newqty.oldqty){
+
+				var insertQuery = "UPDATE cartproducts SET cartproducts.qty = ? WHERE cartproducts.idcartproducts = ?";
+				connection.query(insertQuery,[ newqty.qty, newqty.proid],function(err, rows) {
+					if (err){
+						console.log(err);
+					
+						}else{
+							changingprice = (newqty.oldqty-newqty.qty) * newqty.unit;
+							console.log(changingprice);
+							tot = req.body.crttot-1 +1 - changingprice ;
+							console.log(tot);
+
+							var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+							connection.query(insertQuery1,[ tot, newqty.cartid],function(err, rows) {
+							if (err) 
+								console.log(err);
+							
+							});
+
+						}
+			});
+
+				res.redirect('/viewcart');
+
+			}
 			
 		});
 
