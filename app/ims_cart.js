@@ -152,6 +152,9 @@
 			tocart.qty = req.body.crtqty;
 			tocart.unit = req.body.unit;
 
+			console.log(tocart.cart_idcart);
+			console.log(tocart.inventory_idinventory);
+
 			var price = tocart.qty * req.body.unit;
 			var newtotal = cartlist[0].total + price;
 
@@ -159,8 +162,9 @@
 
 			var insertQuery = "INSERT INTO cartproducts (cartproducts.cart_idcart, cartproducts.inventory_idinventory,cartproducts.qty,cartproducts.unit) values (?,?,?,?)";
 			connection.query(insertQuery,[ tocart.cart_idcart, tocart.inventory_idinventory, tocart.qty, tocart.unit],function(err, newprorow) {
-			 if (err)
+			 if (err){
 				 console.log(err);
+			}else{
 
 			console.log("Product add to cart!");
 
@@ -170,6 +174,8 @@
 					console.log(err);
 				
 			});
+
+			}
 
 			res.redirect('/viewcart'); 
 

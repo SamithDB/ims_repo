@@ -204,7 +204,13 @@
 					  <h4 style="text-align:center">
 					  	
 					  	
-					  	<a class="btn" href="<%=inventory[i].imagelink1 %>"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to<i class="icon-shopping-cart"></i></span></a> 
+					  	<a class="btn" href="<%=inventory[i].imagelink1 %>"> <i class="icon-zoom-in"></i></a> 
+					  	<form action="/addtocart" method="post">
+					  	<input type="hidden" min="1" class="span1" name="crtqty" value="1" />
+					  	<input type="hidden" class="span1" name="proid" value="<%=inventory[i].idinventory%>" />
+					  	<input type="hidden" class="span1" name="unit" value="<%=inventory[i].retailcash%>" />
+					  	<button class="btn" type="submit">Add to<i class="icon-shopping-cart"></i></span></button> 
+					  	</form> 
 					  		<form action="\viewproduct" method="post">
 					  		<div class="form-control">
 					  		<input type="hidden" name="productid" value="<%=inventory[i].idinventory%>">
