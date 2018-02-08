@@ -82,7 +82,7 @@
 	<div class="col-xs-3"> 
 	<div id="sidebar" class="span3">
 
-		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">Purchase your cart <span class="badge badge-warning pull-right">Rs. <%=mycart.total %></span></a></div>
+		<div class="well well-small"><a id="myCart" href="/viewcart"><img src="/cssFilespro/images/ico-cart.png" alt="cart">My Cart <span class="badge badge-warning pull-right">Rs. <%=mycart.total %></span></a></div>
 
 
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
@@ -229,7 +229,6 @@
 				<%=inventory.description%>
 
 				</p>
-				<a class="btn btn-small pull-right" href="">More Details</a>
 				<br class="clr"/>
 			<a href="#" name="detail"></a>
 			<hr class="soft"/>
@@ -246,11 +245,86 @@
                 <table class="table table-bordered">
 				<tbody>
 				<tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">Fujifilm</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Model:</td><td class="techSpecTD2">FinePix S2950HD</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Released on:</td><td class="techSpecTD2"> 2011-01-28</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Dimensions:</td><td class="techSpecTD2"> 5.50" h x 5.50" w x 2.00" l, .75 pounds</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Display size:</td><td class="techSpecTD2">3</td></tr>
+				<tr class="techSpecRow">
+					<td class="techSpecTD1">Brand: </td>
+					<%
+					if(brand.length){ 
+                	for(var i = 0;i < brand.length;i++) { 
+                		if(brand[i].idbrand==inventory.brand_idbrand){
+                	%>
+					<td class="techSpecTD2"><%=brand[i].name%></td>
+					<%
+							}
+						}
+					}
+					%>
+
+				</tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Model:</td>
+					<%
+					if(model.length){ 
+                	for(var i = 0;i < model.length;i++) { 
+                		if(model[i].idmodel==inventory.model_idmodel){
+                	%>
+					<td class="techSpecTD2"><%=model[i].name%></td>
+					<%
+							}
+						}
+					}
+					%>
+				</tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Category:</td>
+					<%
+					if(category.length){ 
+                	for(var i = 0;i < category.length;i++) { 
+                		if(category[i].idcategory==inventory.category_idcategory){
+                	%>
+					<td class="techSpecTD2"><%=category[i].name%></td>
+					<%
+							}
+						}
+					}
+					%>
+				</tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Generic:</td>
+					<%
+					if(generic.length){ 
+                	for(var i = 0;i < generic.length;i++) { 
+                		if(generic[i].idgeneric==inventory.generic_idgeneric){
+                	%>
+					<td class="techSpecTD2"><%=generic[i].name%></td>
+					<%
+							}
+						}
+					}
+					%>
+				</tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Make:</td>
+					<%
+					if(make.length){ 
+                	for(var i = 0;i < make.length;i++) { 
+                		if(make[i].idmake==inventory.make_idmake){
+                	%>
+					<td class="techSpecTD2"><%=make[i].name%></td>
+					<%
+							}
+						}
+					}
+					%>
+				</tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Unit:</td>
+					<%
+					if(unit.length){ 
+                	for(var i = 0;i < unit.length;i++) { 
+                		if(unit[i].idunit==inventory.unit_idunit){
+                	%>
+					<td class="techSpecTD2"><%=unit[i].name%></td>
+					<%
+							}
+						}
+					}
+					%>
+				</tr>
 				</tbody>
 				</table>
 				
