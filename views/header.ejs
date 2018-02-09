@@ -12,6 +12,16 @@
 
 <body class="hold-transition skin-blue fixed sidebar-mini">
 <!-- Site wrapper -->
+
+<% 
+var userlevel="";
+if(level){
+    userlevel = level;
+}else{
+  userlevel = "user";
+}
+%>
+
 <div class="wrapper">
 
   <header class="main-header">
@@ -170,7 +180,7 @@
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
 		
-		<li>
+		    <li>
           <a href="/propage">
             <i class="fa fa-th"></i> <span>Products</span>
             <span class="pull-right-container">
@@ -183,7 +193,7 @@
           <a href="/home">
             <i class="fa fa-home"></i> <span>News & Promos</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-green">Feeder</small>
+              <small class="label pull-right bg-red">Feeder</small>
             </span>
           </a>
         </li>
@@ -214,15 +224,20 @@
           </ul>
         </li>
 
-    <li>
-			<a href=""><i class="fa fa-book"></i> <span>Records</span>
-      <span class="pull-right-container">
-			<small class="label pull-right bg-red">View</small>
-      </span>
-			</a>
-		  </li>
+      <%
+      if(level=="manager" || level=="admin"){
+      %>
 		
-      <li class="header">Admin Options</li>
+      <li class="header">Manager Options</li>
+
+        <li>
+          <a href="/viewstock">
+            <i class="fa fa-th"></i> <span>Inventory</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green">List</small>
+            </span>
+          </a>
+        </li>
 
         <li class="treeview">
           <a href="#">
@@ -233,22 +248,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/newproduct"><i class="fa fa-circle-o"></i> New Product</a></li>
-            <li><a href="/dash"><i class="fa fa-circle-o"></i> View and Edit</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Inventory</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/viewstock"><i class="fa fa-circle-o"></i> View Inventory</a></li>
-            <li><a href="/newgrn"><i class="fa fa-circle-o"></i> Add new Stock with GRN</a></li>
-            <li><a href="/addcat"><i class="fa fa-circle-o"></i> Add Categories</a></li>
-            <li><a href="/dash"><i class="fa fa-circle-o"></i> Edit</a></li>
+            <li><a href="/addcat"><i class="fa fa-circle-o"></i> Add Category</a></li>
           </ul>
         </li>
 
@@ -261,9 +261,8 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="/newgrn"><i class="fa fa-circle-o"></i> Add new Stock with GRN</a></li>
-            <li><a href="/dash"><i class="fa fa-circle-o"></i> View GRNs</a></li>
-            <li><a href="/supp"><i class="fa fa-circle-o"></i> Add Suppliers</a></li>
-            <li><a href="/supp"><i class="fa fa-circle-o"></i> View Suppliers</a></li>
+            <li><a href="/grn"><i class="fa fa-circle-o"></i> View GRNs</a></li>
+            <li><a href="/supp"><i class="fa fa-circle-o"></i>Suppliers</a></li>
           </ul>
         </li>
 
@@ -280,18 +279,30 @@
           </ul>
         </li>
 
+        <%
+        }
+
+        if(level=="admin"){
+        %>
+
+        <li class="header">Admin Options</li>
+
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-book"></i> <span>Records</span>
+            <i class="fa fa-edit"></i> <span>Products</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/dash"><i class="fa fa-circle-o"></i> View Invoices</a></li>
-            <li><a href="/dash"><i class="fa fa-circle-o"></i> View GRNs</a></li>
+            <li><a href="/newproduct"><i class="fa fa-circle-o"></i> New Product</a></li>
+            <li><a href="/dash"><i class="fa fa-circle-o"></i> View and Edit</a></li>
           </ul>
         </li>
+
+        <%
+        }
+        %>
 
       </ul>
     </section>

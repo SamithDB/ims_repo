@@ -57,7 +57,8 @@
 															make : makelist,
 															brand : brandlist,
 															unit : unitlist,
-															model: modellist
+															model: modellist,
+															level : req.user.level
 
 															});
 
@@ -392,7 +393,8 @@
 
 	                     res.render('suppliers.ejs', {
 							user : rows[0],	 //  pass to template
-							supplier : suppl
+							supplier : suppl,
+							level : req.user.level
 						});
 
                     });

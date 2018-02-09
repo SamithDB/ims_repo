@@ -154,7 +154,7 @@
 				<div class="post">
                   <div class="user-block">
 					
-					<% if(level == "admin"){ %>
+					<% if(level == "admin" || level == "mansger"){ %>
 
              <div class="mu sh sp abk">
               <div class="mv">
@@ -184,9 +184,15 @@
                                       
                                       <div class="form-group" >
                                         <select class="form-control" id="sel2" name="depid">
-										                      <option value="1">All</option>
-                                          <option value="2">Marketing</option>
-                                          <option value="3">Developing</option>
+										                      <% 
+                                          if(deps.length){ 
+                                          for(var j = 0;j < deps.length;j++) { 
+                                          %>
+                                          <option value="<%=deps[j].iddepartment%>"><%=deps[j].name%></option>
+                                          <% 
+                                              }
+                                            } 
+                                          %>
                                         </select>
                                       </div>
                                     
@@ -229,7 +235,7 @@
 				
 				<div>
                 <!-- Post -->
-				<% 
+				        <% 
                         
                           if(data.length){ 
                           for(var i = 0;i < data.length;i++) { 

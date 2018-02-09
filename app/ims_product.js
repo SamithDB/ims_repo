@@ -80,7 +80,8 @@
 																		model: modellist,
 																		supplier : supplierlist,
 																		inventory : inventorylist,
-																		grncont : grnorderlist[i]
+																		grncont : grnorderlist[i],
+																		level : req.user.level
 
 																		});
 
@@ -113,7 +114,8 @@
 																		model: modellist,
 																		supplier : supplierlist,
 																		inventory : inventorylist,
-																		grncont : grnorderlist[i]
+																		grncont : grnorderlist[i],
+																		level : req.user.level
 
 																		});
 
@@ -374,7 +376,8 @@
                     console.log(req.session.newproductid);
 					res.render('addproduct2.ejs', {
 						user : rows[0],	
-						product : productdetails[0] //  pass to template
+						product : productdetails[0], //  pass to template
+						level : req.user.level
 					});
 				});
 				});
@@ -444,7 +447,8 @@
 																		model: modellist,
 																		supplier : supplierlist,
 																		inventory : inventorylist,
-																		stock : stock
+																		stock : stock,
+																		level : req.user.level
 
 																		});
 

@@ -78,7 +78,8 @@
 
                     res.render('profile.ejs', {
 						user : rows[0], //  pass to template
-						message: ""
+						message: "",
+						level : req.user.level
 					});
 
         });
@@ -129,12 +130,14 @@
 	                     	if(view.length!=0){
 	                     		res.render('profileview.ejs', {
 								user : rows[0], //  pass to template
-								view : view[0]
+								view : view[0],
+								level : req.user.level
 								});
 	                     	}else{
 	                     		res.render('profile.ejs', {
 								user : rows[0], //  pass to template
-								message: "err"
+								message: "err",
+								level : req.user.level
 								});
 	                     	}
 	                     	
@@ -165,7 +168,8 @@
 
                     res.render('profile.ejs', {
 						user : rows[0], //  pass to template
-						message: "upfail"
+						message: "upfail",
+						level : req.user.level
 					});
 
         			});
@@ -177,7 +181,8 @@
 
                     res.render('profile.ejs', {
 						user : rows[0], //  pass to template
-						message: "Updated"
+						message: "Updated",
+						level : req.user.level
 					});
 
         			});
@@ -206,7 +211,8 @@
                     res.render('fillprofile.ejs', {
 						user : rows[0], //  pass to template
 						message: "upfail",
-						message2: "Please fill Your details and login to the system! (Admin approvel require for login)"
+						message2: "Please fill Your details and login to the system! (Admin approvel require for login)",
+						level : req.user.level
 					});
 
         			});
@@ -219,7 +225,8 @@
                     res.render('fillprofile.ejs', {
 						user : rows[0], //  pass to template
 						message: "Updated",
-						message2: "Please fill Your details and login to the system! (Admin approvel require for login)"
+						message2: "Please fill Your details and login to the system! (Admin approvel require for login)",
+						level : req.user.level
 					});
 
         			});
@@ -259,7 +266,8 @@
 
                     res.render('profile.ejs', {
 						user : rows[0], //  pass to template
-						message: "notuploaded"
+						message: "notuploaded",
+						level : req.user.level
 					});
 
         			});
@@ -273,7 +281,8 @@
 
                     res.render('profile.ejs', {
 						user : rows[0], //  pass to template
-						message: "Uploaded"
+						message: "Uploaded",
+						level : req.user.level
 					});
 
         			});
@@ -320,7 +329,8 @@
                     res.render('fillprofile.ejs', {
 						user : rows[0], //  pass to template
 						message: "notuploaded",
-						message2: "Please fill Your details and login to the system! (Admin approvel require for login)"
+						message2: "Please fill Your details and login to the system! (Admin approvel require for login)",
+						level : req.user.level
 					});
 
         			});
@@ -335,7 +345,8 @@
                     res.render('fillprofile.ejs', {
 						user : rows[0], //  pass to template
 						message: "Uploaded",
-						message2: "Please fill Your details and login to the system! (Admin approvel require for login)"
+						message2: "Please fill Your details and login to the system! (Admin approvel require for login)",
+						level : req.user.level
 					});
 
         			});
@@ -463,27 +474,36 @@
 
 					connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
                     if (err1)
-                         console.log(err1);;
-
-                     		var query = connection.query('SELECT * FROM posts ORDER BY idposts DESC',function(err2,post){
+                         console.log(err1);
+                     		if(req.user.level == "admin"){
+                     				var searchquery= "SELECT * FROM posts ORDER BY idposts DESC";
+                     			}else{
+                     				var searchquery= "SELECT * FROM posts WHERE posts.department_iddepartment = ? || posts.department_iddepartment = 1 ORDER BY idposts DESC";
+                     			}
+                     		 connection.query(searchquery,[rows[0].department_iddepartment],function(err2,post){
 			        		if(err2)
-			        			console.log(err2);;
+			        			console.log(err2);
 
 			        			var query = connection.query('SELECT * FROM employee',function(err3,rowlist){
 				        		if(err3)
-				        			console.log(err3);; 
+				        			console.log(err3);
 
 				        			var query = connection.query('SELECT * FROM announcements ORDER BY idannouncements DESC',function(err4,anns){
 				        			if(err4)
-				        				console.log(err4);;
+				        				console.log(err4);
+
+				        			var query = connection.query('SELECT * FROM department',function(err5,deplist){
+				        			if(err5)
+				        				console.log(err5);
 
 				        			if(req.user.status=="B"){
 										res.render('home.ejs', {
 										employeelist : rowlist,
-										user : rows[0],							//  pass to template
+										user : rows[0],	//  pass to template
 										data : post,
 										ann : anns,
 										message: "",
+										deps: deplist,
 										level: req.user.level
 										});
 
@@ -492,6 +512,8 @@
 				        				res.render('login.ejs', { message:"Not approved your account yet! Please contact your admin. " });
 
 				        			}
+
+				        			});
 				        						
 			        				});
 			        			});
@@ -542,15 +564,21 @@
 														        			if(err4)
 														        				console.log(err4);;
 
+														        				var query = connection.query('SELECT * FROM department',function(err5,deplist){
+															        			if(err5)
+															        				console.log(err5);
+
 														        				res.render('home.ejs', {
 																				employeelist : rowlist,
 																				user : rows[0],							//  pass to template
 																				data : post,
 																				ann : anns,
 																				message: "posterr",
+																				deps: deplist,
 																				level: req.user.level
 																				});
 
+														        				});
 													        				});
 													        			});
 													        		});
@@ -572,7 +600,11 @@
 
 													        			var query = connection.query('SELECT * FROM announcements',function(err4,anns){
 													        			if(err4)
-													        				console.log(err4);;
+													        				console.log(err4);
+
+													        				var query = connection.query('SELECT * FROM department',function(err5,deplist){
+															        		if(err5)
+															        			console.log(err5);
 
 													        				res.render('home.ejs', {
 																			employeelist : rowlist,
@@ -580,7 +612,10 @@
 																			data : post,
 																			ann : anns,
 																			message: "posted",
+																			deps: deplist,
 																			level: req.user.level
+																			});
+
 																			});
 
 												        				});
@@ -671,7 +706,8 @@
                          console.log(err);;
 
                     res.render('gdrive.ejs', {
-						user : rows[0] //  pass to template
+						user : rows[0], //  pass to template
+						level : req.user.level
 					});
 
         			});
@@ -726,12 +762,14 @@
 										employeelist : rowlist,
 										user : rows[0],		//  pass to template
 										allusrs : usrlist,
-										department : deplist
+										department : deplist,
+										level : req.user.level
 										});
 				        			}else{
 				        				res.render('profile.ejs', {
 										user : rows[0], //  pass to template
-										message: "notadmin"
+										message: "notadmin",
+										level : req.user.level
 										});
 				        			}
 				        				

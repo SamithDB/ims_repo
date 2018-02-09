@@ -84,7 +84,8 @@
 																		supplier : supplierlist,
 																		inventory : inventorylist,
 																		grncont : grnorderlist[0],
-																		products : grnproducts
+																		products : grnproducts,
+																		level : req.user.level
 
 																		});
 
@@ -121,7 +122,9 @@
 																		supplier : supplierlist,
 																		inventory : inventorylist,
 																		grncont : grnorderlist2[0],
-																		products : grnproducts
+																		products : grnproducts,
+																		level : req.user.level
+
 
 																		});
 
