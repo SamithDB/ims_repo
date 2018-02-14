@@ -137,7 +137,7 @@
 				  <td>
 					<div class="input-append">
 						<form action="/invqty" method="post">
-						<input type="hidden" value="<%=myinv.idinvoive%>" name="inv">
+						<input type="hidden" value="<%=myinv.idinvoice%>" name="inv">
 						<input type="hidden" value="<%=myinv.total%>" name="invtot">
 						<input type="hidden" value="<%=invproducts[i].idinvoiceproducts%>" name="invid">
 						<input type="hidden" value="<%=invproducts[i].qty%>" name="oldqty">
@@ -151,7 +151,7 @@
                   <td>
                   	<form action="/delfrminv" method="post">
                   		<input type="hidden" value="<%=myinv.total %>" name="invtot">
-                  		<input type="hidden" value="<%=invproducts[i].invoice_idinvoice%>" name="invid">
+                  		<input type="hidden" value="<%=invproducts[i].invoice_idinvoice%>" name="inv">
                   		<input type="hidden" value="<%=invproducts[i].idinvoiceproducts%>" name="delid">
                   		<input type="hidden" value="<%=invproducts[i].unit*invproducts[i].qty%>" name="price">
                   		<button class="btn btn-warning" type="submit"><i class="material-icons"></i>Remove</button>

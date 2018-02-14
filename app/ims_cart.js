@@ -4,6 +4,7 @@
 	var connection = mysql.createConnection(dbconfig.connection);
 	var cookieParser = require('cookie-parser');
 	const fileUpload = require('express-fileupload');
+	var math = require('mathjs');
 		
 	connection.query('USE ' + dbconfig.database);
 
