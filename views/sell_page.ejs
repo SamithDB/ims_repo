@@ -74,16 +74,16 @@
       			
       		</div>
       		<div class="col-md-3">
-      			<form action="/addbyname">
+      			<form action="/addbyname" method="post">
 				  <div class="form-group">
 				    <label for="exampleInputPassword1">Select by product name :</label>
 				      
-			         	<select  name="proname" style="color: black">
+			         	<select  name="pro" style="color: black">
 						<%      
 			                if(inventory.length){ 
 			                for(var i = 0;i < inventory.length;i++) { 
 			              %>
-			            <option style="color: black"><%=inventory[i].name%></option>
+			            <option style="color: black" value="<%=inventory[i].idinventory%>"><%=inventory[i].name%></option>
 			              <%      
 			                }
 			              } 
@@ -91,7 +91,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="number" min=1 class="form-control" placeholder="qty" name="qty">
+						<input type="number" min=1 value=1 class="form-control" placeholder="qty" name="qty">
 				  	</div>
 				  <button type="submit" class="btn btn-primary">Add</button>
 				</form>
@@ -136,24 +136,24 @@
                   <td><%=inventory[j].name%><br/>- <%=inventory[j].itemcode%></td>
 				  <td>
 					<div class="input-append">
-						<form action="/cartqty" method="post">
-						<input type="hidden" value="<%=mycart.idcart%>" name="crtid">
-						<input type="hidden" value="<%=mycart.total%>" name="crttot">
-						<input type="hidden" value="<%=cartproducts[i].idcartproducts%>" name="proid">
-						<input type="hidden" value="<%=cartproducts[i].qty%>" name="oldqty">
-						<input type="hidden" value="<%=cartproducts[i].unit%>" name="price">
-						<input class="span1" id="appendedInputButtons" size="16" type="number" value="<%=cartproducts[i].qty%>" name="newqty"><button class="btn btn-info" type="submit"><i class="material-icons"></i>change</button>
+						<form action="/invqty" method="post">
+						<input type="hidden" value="<%=myinv.idinvoive%>" name="inv">
+						<input type="hidden" value="<%=myinv.total%>" name="invtot">
+						<input type="hidden" value="<%=invproducts[i].idinvoiceproducts%>" name="invid">
+						<input type="hidden" value="<%=invproducts[i].qty%>" name="oldqty">
+						<input type="hidden" value="<%=invproducts[i].unit%>" name="price">
+						<input class="span1" id="appendedInputButtons" size="16" type="number" value="<%=invproducts[i].qty%>" name="newqty" min=1><button class="btn btn-info" type="submit"><i class="material-icons"></i>change</button>
 						</form>				
 					</div>
 				  </td>
                   <td>Rs. <%=invproducts[i].unit%></td>
                   <td>Rs. <%=invproducts[i].unit*invproducts[i].qty%></td>
                   <td>
-                  	<form action="/delfrmcart" method="post">
-                  		<input type="hidden" value="<%=mycart.total %>" name="crttot">
-                  		<input type="hidden" value="<%=cartproducts[i].cart_idcart%>" name="crtid">
-                  		<input type="hidden" value="<%=cartproducts[i].idcartproducts%>" name="delid">
-                  		<input type="hidden" value="<%=cartproducts[i].unit*cartproducts[i].qty%>" name="price">
+                  	<form action="/delfrminv" method="post">
+                  		<input type="hidden" value="<%=myinv.total %>" name="invtot">
+                  		<input type="hidden" value="<%=invproducts[i].invoice_idinvoice%>" name="invid">
+                  		<input type="hidden" value="<%=invproducts[i].idinvoiceproducts%>" name="delid">
+                  		<input type="hidden" value="<%=invproducts[i].unit*invproducts[i].qty%>" name="price">
                   		<button class="btn btn-warning" type="submit"><i class="material-icons"></i>Remove</button>
                   	</form>
                   </td>

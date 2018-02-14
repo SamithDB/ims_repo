@@ -67,9 +67,10 @@
 
 								        							if(invlist.length){
 
-								        								var query = connection.query("SELECT * FROM invoiceproducts WHERE invoice_idinvoice = ? ",[invlist[0].idcart],function(err12,invpros){
+								        								var query = connection.query("SELECT * FROM invoiceproducts WHERE invoice_idinvoice = ? ",[invlist[0].idinvoice],function(err12,invpros){
 								        								if(err12)
 								        									console.log(err12)
+
 
 								        								res.render('sell_page.ejs', {
 																		user : rows[0],		//  pass to template
@@ -136,7 +137,7 @@
 	// Add to INV ===============
 	// ===========================
 
-	app.post('/addtoinv', function(req, res) {
+	app.post('/addbyname', function(req, res) {
 
 			connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
               if (err1)
@@ -146,13 +147,17 @@
 			  if(err2)
 				console.log(err2);
 
-			if(cartlist.length){
+			var query = connection.query("SELECT * FROM inventory WHERE idinventory = ? ",[req.body.pro],function(err3,pro){
+			  if(err3)
+				console.log(err3);
+			
+			if(invlist.length){
 
 			var toinv = new Object();
-			toinv.cart_idcart = invlist[0].idinvoice;
-			toinv.inventory_idinventory = req.body.proid;
-			toinv.qty = req.body.crtqty;
-			toinv.unit = req.body.unit;
+			toinv.invoice_idinvoice = invlist[0].idinvoice;
+			toinv.inventory_idinventory = req.body.pro;
+			toinv.qty = req.body.qty;
+			toinv.unit = pro[0].retailcash;
 
 			var price = toinv.qty * toinv.unit;
 			var newtotal = invlist[0].total + price;
@@ -176,7 +181,7 @@
 
 			}
 
-			res.redirect('/viewcart'); 
+			res.redirect('/sellpage'); 
 
 			});
 
@@ -190,7 +195,7 @@
 				 if (err)
 					console.log(err);
 
-				res.redirect('/addtocart'); 
+				res.redirect('/addbyname'); 
 
 				});
 
@@ -200,33 +205,35 @@
 
 			});
 
+			});
+
 		});
 
 
 	// ===========================
-	// Change qty in cart ========
+	// Change qty in inv ========
 	// ===========================
 
-	app.post('/cartqty', function(req, res) {
+	app.post('/invqty', function(req, res) {
 
 			var newqty = new Object();
 			newqty.proid = req.body.proid;
 			newqty.qty = req.body.newqty;
 			newqty.oldqty = req.body.oldqty;
-			newqty.cartid = req.body.crtid;
+			newqty.invid = req.body.invid;
 			newqty.unit = req.body.price;
 
-			var tot = req.body.crttot;
+			var tot = req.body.invtot;
 			var changingprice = 0;
 
 			if(newqty.qty==newqty.oldqty){
 
-				res.redirect('/viewcart');
+				res.redirect('/sellpage');
 
 			}else if(newqty.qty>newqty.oldqty){
 
-				var insertQuery = "UPDATE cartproducts SET cartproducts.qty = ? WHERE cartproducts.idcartproducts = ?";
-				connection.query(insertQuery,[ newqty.qty, newqty.proid],function(err, rows) {
+				var insertQuery = "UPDATE invoiceproducts SET invoiceproducts.qty = ? WHERE invoiceproducts.idinvoiceproducts = ?";
+				connection.query(insertQuery,[ newqty.qty, newqty.invid],function(err, rows) {
 					if (err){
 						console.log(err);
 					
@@ -236,78 +243,77 @@
 							tot = req.body.crttot-1 +1 + changingprice ;
 							console.log(tot);
 
-							var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
-							connection.query(insertQuery1,[ tot, newqty.cartid],function(err, rows) {
-							if (err) 
-								console.log(err);
+							//var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+							//connection.query(insertQuery1,[ tot, newqty.invid],function(err, rows) {
+							//if (err) 
+							//	console.log(err);
 							
-							});
-
+							//});
 						}
 			});
 
-				res.redirect('/viewcart');
+				res.redirect('/sellpage');
 
 			}else if(newqty.qty<newqty.oldqty){
 
-				var insertQuery = "UPDATE cartproducts SET cartproducts.qty = ? WHERE cartproducts.idcartproducts = ?";
-				connection.query(insertQuery,[ newqty.qty, newqty.proid],function(err, rows) {
+				var insertQuery = "UPDATE invoiceproducts SET invoiceproducts.qty = ? WHERE invoiceproducts.idinvoiceproducts = ?";
+				connection.query(insertQuery,[ newqty.qty, newqty.invid],function(err, rows) {
 					if (err){
 						console.log(err);
 					
 						}else{
 							changingprice = (newqty.oldqty-newqty.qty) * newqty.unit;
 							console.log(changingprice);
-							tot = req.body.crttot-1 +1 - changingprice ;
+							tot = req.body.invtot-1 +1 - changingprice ;
 							console.log(tot);
 
-							var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
-							connection.query(insertQuery1,[ tot, newqty.cartid],function(err, rows) {
-							if (err) 
-								console.log(err);
+							//var insertQuery1 = "UPDATE invoice SET cart.total = ? WHERE cart.idcart = ?";
+							//connection.query(insertQuery1,[ tot, newqty.cartid],function(err, rows) {
+							//if (err) 
+							//	console.log(err);
 							
-							});
+							//});
 
 						}
 			});
 
-				res.redirect('/viewcart');
+				res.redirect('/sellpage');
 
 			}
 			
 		});
 
 	// ===========================
-	// Remove from the cart ======
+	// Remove from the inv ======
 	// ===========================
 
-	app.post('/delfrmcart', function(req, res) {
+	app.post('/delfrminv', function(req, res) {
 
 		console.log(req.body.delid);
-		var cart = new Object();
-		cart.crtid = req.body.crtid;
-		cart.oldtot = req.body.crttot;
-		cart.price = req.body.price;
+		var inv = new Object();
+		inv.invid = req.body.crtid;
+		inv.oldtot = req.body.crttot;
+		inv.price = req.body.price;
 
-		var tot = cart.oldtot - cart.price;
+		var tot = inv.oldtot - inv.price;
 		console.log(tot);
-		console.log(cart.crtid);
+		console.log(inv.invid);
 
-		connection.query("DELETE FROM cartproducts WHERE idcartproducts = ?",[req.body.delid], function(err, rows) {
+		connection.query("DELETE FROM invoiceproducts WHERE idinvoiceproducts = ?",[req.body.delid], function(err, rows) {
 			if (err){
 				console.log(err);
 			}else{
 				console.log("Remove from the cart");
 
-				var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
-				connection.query(insertQuery1,[ tot, cart.crtid],function(err, rows) {
-					if (err) 
-						console.log(err);
+				//var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+				//connection.query(insertQuery1,[ tot, cart.crtid],function(err, rows) {
+				//	if (err) 
+				//		console.log(err);
 					
-				});
+				//});
 			}
 
-			res.redirect('/viewcart'); 
+			res.redirect('/sellpage'); 
 						                    
 						                        
 				});
