@@ -160,8 +160,80 @@
 			toinv.qty = req.body.qty;
 			toinv.unit = pro[0].retailcash;
 
-			var price = toinv.qty * toinv.unit;
-			var newtotal = invlist[0].total + price;
+			var price = math.eval(toinv.qty * toinv.unit);
+			var newtotal = math.add(invlist[0].total,price);
+
+			console.log(newtotal);
+
+			var insertQuery = "INSERT INTO invoiceproducts (invoiceproducts.invoice_idinvoice, invoiceproducts.inventory_idinventory,invoiceproducts.qty,invoiceproducts.unit) values (?,?,?,?)";
+			connection.query(insertQuery,[ toinv.invoice_idinvoice, toinv.inventory_idinventory, toinv.qty, toinv.unit],function(err, newprorow) {
+			 if (err){
+				 console.log(err);
+			}else{
+
+			console.log("Product add to inv!");
+
+			var insertQuery1 = "UPDATE invoice SET invoice.total = ? WHERE invoice.idinvoice = ?";
+			connection.query(insertQuery1,[ newtotal, toinv.invoice_idinvoice],function(err, rows) {
+			 if (err) 
+				console.log(err);
+				
+			});
+
+			}
+
+			res.redirect('/sellpage'); 
+
+			});
+
+			}else{
+
+				var newinv = new Object();
+				newinv.empid = rows[0].idemployee;
+
+				var insertQuery = "INSERT INTO invoice (invoice.employee_idemployee) values (?)";
+				connection.query(insertQuery,[ newinv.empid ],function(err, newrow) {
+				if (err)
+					console.log(err);
+
+				res.redirect('/sellpage');
+
+				});
+
+			}
+
+			});
+
+			});
+
+			});
+
+		});
+
+	app.post('/addbyserial', function(req, res) {
+
+			connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+              if (err1)
+                console.log(err1);
+
+            var query = connection.query("SELECT * FROM invoice WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err2,invlist){
+			  if(err2)
+				console.log(err2);
+
+			var query = connection.query("SELECT * FROM inventory WHERE itemcode = ? ",[req.body.proserial],function(err3,pro){
+			  if(err3)
+				console.log(err3);
+			
+			if(invlist.length){
+
+			var toinv = new Object();
+			toinv.invoice_idinvoice = invlist[0].idinvoice;
+			toinv.inventory_idinventory = pro[0].idinventory;
+			toinv.qty = req.body.qty;
+			toinv.unit = pro[0].retailcash;
+
+			var price = math.eval(toinv.qty * toinv.unit);
+			var newtotal = math.add(invlist[0].total,price);
 
 			console.log(newtotal);
 

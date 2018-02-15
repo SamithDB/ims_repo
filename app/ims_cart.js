@@ -156,8 +156,8 @@
 			console.log(tocart.cart_idcart);
 			console.log(tocart.inventory_idinventory);
 
-			var price = tocart.qty * req.body.unit;
-			var newtotal = cartlist[0].total + price;
+			var price = math.eval(tocart.qty * req.body.unit);
+			var newtotal = math.add(cartlist[0].total , price);
 
 			console.log(newtotal);
 
@@ -233,9 +233,9 @@
 						console.log(err);
 					
 						}else{
-							changingprice = (newqty.qty-newqty.oldqty) * newqty.unit;
+							changingprice = math.eval((newqty.qty-newqty.oldqty) * newqty.unit);
 							console.log(changingprice);
-							tot = req.body.crttot-1 +1 + changingprice ;
+							tot = math.add(req.body.crttot , changingprice) ;
 							console.log(tot);
 
 							var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
@@ -258,9 +258,9 @@
 						console.log(err);
 					
 						}else{
-							changingprice = (newqty.oldqty-newqty.qty) * newqty.unit;
+							changingprice = math.eval((newqty.oldqty-newqty.qty) * newqty.unit);
 							console.log(changingprice);
-							tot = req.body.crttot-1 +1 - changingprice ;
+							tot = math.subtract(req.body.crttot , changingprice) ;
 							console.log(tot);
 
 							var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
@@ -291,7 +291,7 @@
 		cart.oldtot = req.body.crttot;
 		cart.price = req.body.price;
 
-		var tot = cart.oldtot - cart.price;
+		var tot = math.subtract(cart.oldtot , cart.price);
 		console.log(tot);
 		console.log(cart.crtid);
 
@@ -316,6 +316,88 @@
 
 			
 		});
+
+	// ===========================
+	// Conform from the cart =====
+	// ===========================
+
+	app.get('/concart', function(req, res) {
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+            	console.log(err1);
+
+            connection.query("SELECT * FROM cart WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err2,cartlist){
+			  if(err2)
+				console.log(err2);
+
+				connection.query("SELECT * FROM cartproducts WHERE cart_idcart = ? ",[cartlist[0].idcart],function(err3,cartprolist){
+			  	if(err3)
+					console.log(err3);
+
+
+					var newinv = new Object();
+					newinv.empid = rows[0].idemployee;
+
+					var insertQuery = "INSERT INTO invoice (invoice.employee_idemployee) values (?)";
+					connection.query(insertQuery,[ newinv.empid ],function(err, newinvrow) {
+					if (err)
+						console.log(err);
+
+					if(cartprolist.length){
+					for(var i = 0;i < cartprolist.length;i++) { 
+
+						var toinv = new Object();
+						toinv.invoice_idinvoice = newinvrow.insertId;
+						toinv.inventory_idinventory = cartprolist[i].inventory_idinventory;
+						toinv.qty = cartprolist[i].qty;
+						toinv.unit = cartprolist[i].unit;
+
+						var insertQuery = "INSERT INTO invoiceproducts (invoiceproducts.invoice_idinvoice, invoiceproducts.inventory_idinventory,invoiceproducts.qty,invoiceproducts.unit) values (?,?,?,?)";
+						connection.query(insertQuery,[ toinv.invoice_idinvoice, toinv.inventory_idinventory, toinv.qty, toinv.unit],function(err, newprorow) {
+						if (err)
+							console.log(err);
+
+							var insertQuery1 = "UPDATE invoice SET invoice.total = ? WHERE invoice.idinvoice = ?";
+							connection.query(insertQuery1,[ cartlist[0].total, newinvrow.insertId],function(err, rows) {
+							if (err) 
+								console.log(err);
+
+							console.log("Total is set to invoice");
+							});
+
+							});
+
+						}
+					}
+
+					if(cartprolist.length){
+					for(var i = 0;i < cartprolist.length;i++) {
+						connection.query("DELETE FROM cartproducts WHERE idcartproducts = ?",[cartprolist[i].idcartproducts], function(err, rows) {
+						console.log("deleted.........");
+						});
+
+						}
+
+						var insertQuery1 = "UPDATE cart SET cart.total = ? WHERE cart.idcart = ?";
+						connection.query(insertQuery1,[ 0, cartlist[0].idcart],function(err, rows) {
+						 if (err) 
+							console.log(err);
+
+						 console.log("Total is 0");
+							});
+						}
+
+
+						res.redirect('/viewcart');
+
+					
+				    });
+			    });	
+			});
+		});
+			
+	});
 
 	
 
