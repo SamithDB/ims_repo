@@ -134,13 +134,13 @@
                     </tr>
                 </thead>
                     <%      
-                    if(myinv.length){ 
-                    for(var i = 0;i < myinv.length;i++) { 
+                    if(inv.length){ 
+                    for(var i = 0;i < inv.length;i++) { 
                     %>
                     <tr>
-                        <td>Inv_<%=myinv[i].idinvoice%></td>
+                        <td>Inv_<%=inv[i].idinvoice%></td>
                           <%
-                          if(myinv[i].status=="A"){
+                          if(inv[i].status=="A"){
                           %>
                           <td>Pending approval</td>
 
@@ -148,14 +148,14 @@
                           }
                           %> 
 
-                        <td>Rs.<%=myinv[i].total%></td>
-                        <td><%=myinv[i].date%></td>
+                        <td><%=inv[i].total%></td>
+                        <td><%=inv[i].date%></td>
                         <td> 
                           <%
-                          if(myinv[i].status=="A"){
+                          if(inv[i].status=="A"){
                           %>
                           <form action="/delinv" method="post">
-                            <input type="hidden" value="<%=myinv[i].idinvoice%>" name="invid">
+                            <input type="hidden" value="<%=inv[i].idinvoice%>" name="invid">
                             <button class="btn btn-warning" type="submit"><i class="material-icons"></i>Cancel</button>
                           </form>
                           <%
@@ -164,13 +164,13 @@
                         </td>
                         <td>
                           <form action="/viewinv" method="post">
-                            <input type="hidden" value="<%=myinv[i].idinvoice%>" name="invid">
+                            <input type="hidden" value="<%=inv[i].idinvoice%>" name="invid">
                             <button class="btn btn-info" type="submit"><i class="material-icons"></i>View</button>
                           </form>
                         </td>
                         <td>
                           <form action="/printinv" method="post">
-                            <input type="hidden" value="<%=myinv[i].idinvoice%>" name="invid">
+                            <input type="hidden" value="<%=inv[i].idinvoice%>" name="invid">
                             <button class="btn btn-info" type="submit"><i class="material-icons"></i>Print</button>
                           </form>
                         </td>

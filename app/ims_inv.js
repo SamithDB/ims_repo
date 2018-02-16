@@ -403,6 +403,148 @@
 			
 		});
 
+	// ===========================
+	// My Invoices Page ======
+	// ===========================
+
+	app.get('/viewmyinv', function(req, res) {
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+
+			var query = connection.query("SELECT * FROM invoice WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err2,invlist){
+				if(err2)
+					console.log(err2);
+
+					if(invlist.length){
+					res.render('myinvoices.ejs', {
+					user : rows[0],		//  pass to template
+					myinv : invlist,
+					level : req.user.level
+					});
+					}else{
+						res.redirect('/home');
+					}
+
+				});
+			
+		});
+
+	});
+
+	// ===========================
+	// load All Invoices ======
+	// ===========================
+
+	app.get('/viewinv', function(req, res) {
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+
+			var query = connection.query("SELECT * FROM invoice",function(err2,invlist){
+				if(err2)
+					console.log(err2);
+
+					if(invlist.length){
+					res.render('invoices.ejs', {
+					user : rows[0],		//  pass to template
+					inv : invlist,
+					level : req.user.level
+					});
+					}else{
+						res.redirect('/home');
+					}
+
+				});
+			
+		});
+
+	});
+
+	// ===========================
+	// Pending Invoices ======
+	// ===========================
+
+	app.get('/pendinginv', function(req, res) {
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+
+			var query = connection.query("SELECT * FROM invoice WHERE invoice.status = 'A'",function(err2,invlist){
+				if(err2)
+					console.log(err2);
+
+					if(invlist.length){
+					res.render('pendinginvoices.ejs', {
+					user : rows[0],		//  pass to template
+					inv : invlist,
+					level : req.user.level
+					});
+					}else{
+						res.redirect('/home');
+					}
+
+				});
+			
+		});
+
+	});
+
+	// ===========================
+	// Pending Invoices ======
+	// ===========================
+
+	app.post('/printinv', function(req, res) {
+
+		console.log(req.body.invid);
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+              connection.query("SELECT * FROM employee ", function(err1, emplist) {
+	            if (err1)
+	              	console.log(err1);
+
+				var query = connection.query("SELECT * FROM invoice WHERE invoice.idinvoice = ? ",[req.body.invid],function(err2,invlist){
+				if(err2)
+					console.log(err2);
+
+				var query = connection.query("SELECT * FROM invoiceproducts WHERE invoiceproducts.invoice_idinvoice = ? ",[req.body.invid],function(err2,invprolist){
+				if(err2)
+					console.log(err2);
+
+					var query = connection.query("SELECT * FROM inventory ",function(err2,inventory){
+					if(err2)
+						console.log(err2);
+
+					if(invlist.length){
+					res.render('invoice_print.ejs', {
+					user : rows[0],		//  pass to template
+					inv : invlist[0],
+					invpro: invprolist,
+					level : req.user.level,
+					emp : emplist,
+					inventory : inventory
+					});
+					}else{
+						res.redirect('/home');
+					}
+
+					});
+
+					});
+
+				});
+
+			});
+			
+		});
+
+	});
+
 
 }
 
