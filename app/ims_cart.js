@@ -318,7 +318,7 @@
 		});
 
 	// ===========================
-	// Conform from the cart =====
+	// Confirm from the cart =====
 	// ===========================
 
 	app.get('/concart', function(req, res) {
@@ -339,8 +339,14 @@
 					var newinv = new Object();
 					newinv.empid = rows[0].idemployee;
 
-					var insertQuery = "INSERT INTO invoice (invoice.employee_idemployee) values (?)";
-					connection.query(insertQuery,[ newinv.empid ],function(err, newinvrow) {
+					var now = new Date(); 
+                    var datetime = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate(); 
+                    datetime += ' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(); 
+
+                    console.log(datetime);
+
+					var insertQuery = "INSERT INTO invoice (invoice.employee_idemployee , invoice.date) values (?,?)";
+					connection.query(insertQuery,[ newinv.empid, datetime ],function(err, newinvrow) {
 					if (err)
 						console.log(err);
 
@@ -389,7 +395,7 @@
 						}
 
 
-						res.redirect('/viewcart');
+						res.redirect('/viewmyinv');
 
 					
 				    });

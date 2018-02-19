@@ -74,8 +74,8 @@
         <div class="col-md-10">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a href="#Categories" data-toggle="tab">Categories</a></li>
               <li><a href="#Stores" data-toggle="tab">Stores</a></li>
+              <li><a href="#Categories" data-toggle="tab">Categories</a></li>
               <li><a href="#Generics" data-toggle="tab">Generics</a></li>
               <li><a href="#Makes" data-toggle="tab">Makes</a></li>
               <li><a href="#Brands" data-toggle="tab">Brands</a></li>
@@ -84,71 +84,7 @@
             </ul>
             <div class="tab-content">
 
-              <div class="active tab-pane" id="Categories">
-
-                <div class="col-md-7">
-
-                  <h3>Existing</h3>
-                  <table class="table table-hover">
-                    <thead>
-                    <tr>
-                      <th></th>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th> </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% 
-                      if(category.length){ 
-                      for(var i = 0;i < category.length;i++) { 
-                    %>
-                    <tr >
-                      <form class="success" action="/editcat" method="post">
-                      <td><lable></lable></td>  
-                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= category[i].name %>" > </td>
-                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= category[i].description %>" > </td>
-
-                      <td>
-                        <input type="hidden" name="catid" class="form-control"  value="<%= category[i].idcategory %>">
-                        <label><input type="checkbox" class="agree" id="<%= category[i].idcategory + 'ct' %>" onclick="disableact('<%= category[i].name %>', '<%= category[i].idcategory %>', 'ct')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= category[i].name + 'ct' %>" disabled>Save</button>
-                      </td>
-
-                      </form>
-
-                    </tr>
-                    <%
-                        }
-                      }
-                    %>
-                  <tbody>
-                  </table>
-
-                </div>
-                <div class="col-md-4">
-
-                  <hr/>
-                  <h4>Insert New</h4>
-                  <hr/>
-                  <form action="/addcategory" method="post">
-                  <div class="form-group">
-                    <label>Category Name</label>
-                    <input type="text" class="form-control"  placeholder="Category" name="name">
-                  </div>
-                  <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control"  rows="3" name="desc"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
-                  </div>
-                  </form>
-
-                </div>
-                
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="Stores">
+              <div class="active tab-pane" id="Stores">
                 
                 <div class="col-md-7">
                   <h3>Existing</h3>
@@ -207,6 +143,85 @@
                 </div>
 
               </div>
+
+              <div class="tab-pane" id="Categories">
+
+                <div class="col-md-7">
+
+                  <h3>Existing</h3>
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      if(category.length){ 
+                      for(var i = 0;i < category.length;i++) { 
+                    %>
+                    <tr >
+                      <form class="success" action="/editcat" method="post">
+                      <td><lable></lable></td>  
+                      <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= category[i].name %>" > </td>
+                      <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= category[i].description %>" > </td>
+
+                      <td>
+                        <input type="hidden" name="catid" class="form-control"  value="<%= category[i].idcategory %>">
+                        <label><input type="checkbox" class="agree" id="<%= category[i].idcategory + 'ct' %>" onclick="disableact('<%= category[i].name %>', '<%= category[i].idcategory %>', 'ct')"> Edit <br/></label><button type="submit" class="btn btn-warning" id="<%= category[i].name + 'ct' %>" disabled>Save</button>
+                      </td>
+
+                      </form>
+
+                    </tr>
+                    <%
+                        }
+                      }
+                    %>
+                  <tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-4">
+
+                  <hr/>
+                  <h4>Insert New</h4>
+                  <hr/>
+                  <form action="/addcategory" method="post">
+                  <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" class="form-control"  placeholder="Category" name="name">
+                  </div>
+                  <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control"  rows="3" name="desc"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2">Insert</button>
+                  </div>
+                  </form>
+
+                </div>
+                
+              </div>
+              
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="Generics">
@@ -256,6 +271,20 @@
                   <div class="form-group">
                     <label>Generic Name</label>
                     <input type="text" class="form-control"  placeholder="Generic" name="name">
+                  </div>
+                  <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
                   </div>
                   <div class="form-group">
                     <label>Description</label>
@@ -318,6 +347,20 @@
                     <input type="text" class="form-control"  placeholder="Make" name="name">
                   </div>
                   <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
+                  </div>
+                  <div class="form-group">
                     <label>Description</label>
                     <textarea class="form-control"  rows="3" name="desc"></textarea>
                   </div>
@@ -376,6 +419,20 @@
                   <div class="form-group">
                     <label>Brand Name</label>
                     <input type="text" class="form-control"  placeholder="Brand" name="name">
+                  </div>
+                  <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
                   </div>
                   <div class="form-group">
                     <label>Description</label>
@@ -440,6 +497,20 @@
                     <input type="text" class="form-control"  placeholder="Unit" name="name">
                   </div>
                   <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
+                  </div>
+                  <div class="form-group">
                     <label>Description</label>
                     <textarea class="form-control"  rows="3" name="desc"></textarea>
                   </div>
@@ -502,6 +573,20 @@
                   <div class="form-group">
                     <label>Model Name</label>
                     <input type="text" class="form-control"  placeholder="Model" name="name">
+                  </div>
+                  <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
                   </div>
                   <div class="form-group">
                     <label>Description</label>

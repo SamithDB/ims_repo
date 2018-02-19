@@ -62,7 +62,7 @@
           <%
           if(emp.length){ 
             for(var i = 0;i < emp.length;i++) { 
-              if(emp[i].idemployee == 5){
+              if(emp[i].idemployee == inv.employee_idemployee){
                 %>
                 <strong><%=emp[i].fname%><%=emp[i].lname%></strong><br>
                 Address: <%=emp[i].address%><br>
@@ -138,7 +138,17 @@
     <div class="row">
       <!-- accepted payments column -->
       <div class="col-xs-6">
-        <p class="lead">Payment : Not Received</p>
+        <p class="lead">Payment : <%
+            if(inv.status=="C"){
+          %>
+            Received. 
+          <%
+            }else{
+            %>
+            Not Received. 
+            <%
+            }
+           %></p>
 
         <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
           <%

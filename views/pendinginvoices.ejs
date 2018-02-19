@@ -119,7 +119,7 @@
       <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
-                <h3 class="panel-title">My Invoice List</h3>
+                <h3 class="panel-title">Pending Invoice List</h3>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                 </div>
@@ -129,6 +129,7 @@
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="INV id" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Status" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Customer" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Total" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Date" disabled></th>
                     </tr>
@@ -143,20 +144,38 @@
                           if(inv[i].status=="A"){
                           %>
                           <td>Pending approval</td>
-
+                          <%
+                          }else if(inv[i].status=="B"){
+                          %>
+                          <td>Approved! Payment pending.</td>
+                          <%
+                          }else if(inv[i].status=="C"){
+                          %>
+                          <td>Payment Done!</td>
                           <%
                           }
                           %> 
+                          <td>
+                          <%
+                          for(var j = 0;j < emp.length;j++) {
+                          if(inv[i].employee_idemployee == emp[j].idemployee){
+                          %>
+                              <%=emp[j].fname+" "+emp[j].lname%>
+                          <%
+                          }
+                            }
+                          %>
+                        </td>
 
-                        <td><%=inv[i].total%></td>
+                        <td>Rs.<%=inv[i].total%></td>
                         <td><%=inv[i].date%></td>
                         <td> 
                           <%
                           if(inv[i].status=="A"){
                           %>
-                          <form action="/delinv" method="post">
+                          <form action="/apprvinv" method="post">
                             <input type="hidden" value="<%=inv[i].idinvoice%>" name="invid">
-                            <button class="btn btn-warning" type="submit"><i class="material-icons"></i>Cancel</button>
+                            <button class="btn btn-warning" type="submit"><i class="material-icons"></i>Approve</button>
                           </form>
                           <%
                           }

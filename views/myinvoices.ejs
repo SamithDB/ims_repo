@@ -139,14 +139,22 @@
                     %>
                     <tr>
                         <td>Inv_<%=myinv[i].idinvoice%></td>
+
                           <%
                           if(myinv[i].status=="A"){
                           %>
                           <td>Pending approval</td>
-
+                          <%
+                          }else if(myinv[i].status=="B"){
+                          %>
+                          <td>Approved! Payment pending.</td>
+                          <%
+                          }else if(myinv[i].status=="C"){
+                          %>
+                          <td>Payment Done!</td>
                           <%
                           }
-                          %> 
+                          %>
 
                         <td>Rs.<%=myinv[i].total%></td>
                         <td><%=myinv[i].date%></td>

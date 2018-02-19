@@ -87,9 +87,10 @@
 			var newcategory = new Object();
 			newcategory.name = req.body.name;
 			newcategory.description = req.body.desc;
+			newcategory.store = req.body.store;
 
-			var insertQuery = "INSERT INTO category (category.name, category.description) values (?,?)";
-			connection.query(insertQuery,[ newcategory.name, newcategory.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO category (category.name, category.description,category.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[ newcategory.name, newcategory.description,newcategory.store],function(err, rows) {
 			 if (err)
 				 console.log(err);
 
@@ -169,9 +170,10 @@
 			var newgeneric = new Object();
 			newgeneric.name = req.body.name;
 			newgeneric.description = req.body.desc;
+			newgeneric.store = req.body.store;
 
-			var insertQuery = "INSERT INTO generic (generic.name, generic.description) values (?,?)";
-			connection.query(insertQuery,[ newgeneric.name, newgeneric.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO generic (generic.name, generic.description, generic.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[ newgeneric.name, newgeneric.description, newgeneric.store ],function(err, rows) {
 			 if (err)
 				 console.log(err);
 
@@ -210,9 +212,10 @@
 			var newmake = new Object();
 			newmake.name = req.body.name;
 			newmake.description = req.body.desc;
+			newmake.store = req.body.store;
 
-			var insertQuery = "INSERT INTO make (make.name, make.description) values (?,?)";
-			connection.query(insertQuery,[ newmake.name, newmake.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO make (make.name, make.description, make.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[ newmake.name, newmake.description, newmake.store ],function(err, rows) {
 			 if (err)
 				 console.log(err);
 
@@ -251,9 +254,10 @@
 			var newbrand = new Object();
 			newbrand.name = req.body.name;
 			newbrand.description = req.body.desc;
+			newbrand.store = req.body.store;
 
-			var insertQuery = "INSERT INTO brand (brand.name, brand.description) values (?,?)";
-			connection.query(insertQuery,[ newbrand.name, newbrand.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO brand (brand.name, brand.description, brand.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[ newbrand.name, newbrand.description, newbrand.store ],function(err, rows) {
 			 if (err)
 				 console.log(err);
 
@@ -292,9 +296,10 @@
 			var newunit = new Object();
 			newunit.name = req.body.name;
 			newunit.description = req.body.desc;
+			newunit.store = req.body.store;
 
-			var insertQuery = "INSERT INTO unit (unit.name, unit.description) values (?,?)";
-			connection.query(insertQuery,[ newunit.name, newunit.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO unit (unit.name, unit.description, unit.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[ newunit.name, newunit.description, newunit.store],function(err, rows) {
 			 if (err)
 				 console.log(err);
 
@@ -333,9 +338,10 @@
 			var newmodel = new Object();
 			newmodel.name = req.body.name;
 			newmodel.description = req.body.desc;
+			newmodel.store = req.body.store;
 
-			var insertQuery = "INSERT INTO model (model.name, model.description) values (?,?)";
-			connection.query(insertQuery,[ newmodel.name, newmodel.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO model (model.name, model.description, model.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[ newmodel.name, newmodel.description, newmodel.store ],function(err, rows) {
 			 if (err)
 				 console.log(err);
 
