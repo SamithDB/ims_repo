@@ -149,6 +149,20 @@
                     <input type="text" class="form-control"  placeholder="Contact Number" name="cont">
                   </div>
                   <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
+                  </div>
+                  <div class="form-group">
                     <label>Description</label>
                     <textarea class="form-control"  rows="3" name="desc"></textarea>
                   </div>

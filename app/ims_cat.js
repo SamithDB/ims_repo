@@ -25,27 +25,27 @@
 				        		if(err2)
 				        			console.log(err2);;
 
-				        			var query = connection.query('SELECT * FROM category',function(err3,categorylist){
+				        			var query = connection.query('SELECT * FROM category ORDER BY store_idstore DESC',function(err3,categorylist){
 				        			if(err3)
 				        				console.log(err3);
 
-				        				var query = connection.query('SELECT * FROM generic',function(err4,genericlist){
+				        				var query = connection.query('SELECT * FROM generic ORDER BY store_idstore DESC',function(err4,genericlist){
 				        				if(err4)
 				        					console.log(err4);
 
-				        					var query = connection.query('SELECT * FROM make',function(err5,makelist){
+				        					var query = connection.query('SELECT * FROM make ORDER BY store_idstore DESC',function(err5,makelist){
 					        				if(err5)
 					        					console.log(err5);
 
-					        					var query = connection.query('SELECT * FROM brand',function(err6,brandlist){
+					        					var query = connection.query('SELECT * FROM brand ORDER BY store_idstore DESC',function(err6,brandlist){
 						        				if(err6)
 						        					console.log(err6);
 
-						        					var query = connection.query('SELECT * FROM unit',function(err7,unitlist){
+						        					var query = connection.query('SELECT * FROM unit ORDER BY store_idstore DESC',function(err7,unitlist){
 							        				if(err7)
 							        					console.log(err7);
 
-							        					var query = connection.query('SELECT * FROM model',function(err8,modellist){
+							        					var query = connection.query('SELECT * FROM model ORDER BY store_idstore DESC',function(err8,modellist){
 								        				if(err8)
 								        					console.log(err8);
 
@@ -393,6 +393,10 @@
                          
                      }else{
 
+	                    connection.query("SELECT * FROM store", function(err2, store) {
+	                    if (err2)
+	                         console.log(err2);
+
 	                    connection.query("SELECT * FROM supplier", function(err2, suppl) {
 	                    if (err2)
 	                         console.log(err2);
@@ -400,8 +404,11 @@
 	                     res.render('suppliers.ejs', {
 							user : rows[0],	 //  pass to template
 							supplier : suppl,
+							store : store,
 							level : req.user.level
 						});
+
+	                    });
 
                     });
 
@@ -418,9 +425,10 @@
 			newsupplier.name = req.body.name;
 			newsupplier.contact = req.body.cont;
 			newsupplier.description = req.body.desc;
+			newsupplier.store = req.body.store;
 
-			var insertQuery = "INSERT INTO supplier (supplier.name, supplier.contact, supplier.description) values (?,?,?)";
-			connection.query(insertQuery,[ newsupplier.name, newsupplier.contact, newsupplier.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO supplier (supplier.name, supplier.contact, supplier.description, supplier.store_idstore) values (?,?,?,?)";
+			connection.query(insertQuery,[ newsupplier.name, newsupplier.contact, newsupplier.description, newsupplier.store ],function(err, rows) {
 			 if (err)
 				 console.log(err);
 

@@ -152,7 +152,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -164,9 +164,25 @@
                       for(var i = 0;i < category.length;i++) { 
                     %>
                     <tr >
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(category[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                        %> 
                       <form class="success" action="/editcat" method="post">
-                      <td><lable></lable></td>  
+                      
                       <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= category[i].name %>" > </td>
+                      
+
+                      
                       <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= category[i].description %>" > </td>
 
                       <td>
@@ -231,7 +247,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -243,8 +259,21 @@
                       for(var i = 0;i < generic.length;i++) { 
                     %>
                     <tr >
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(generic[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                        %>
                       <form class="success" action="/editgn" method="post">
-                      <td><lable></lable></td>  
+                        
                       <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= generic[i].name %>" > </td>
                       <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= generic[i].description %>" > </td>
 
@@ -305,7 +334,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -317,8 +346,21 @@
                       for(var i = 0;i < make.length;i++) { 
                     %>
                     <tr >
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(make[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                        %>
                       <form class="success" action="/editmk" method="post">
-                      <td><lable></lable></td>  
+                       
                       <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= make[i].name %>" > </td>
                       <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= make[i].description %>" > </td>
 
@@ -379,7 +421,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -391,8 +433,20 @@
                       for(var i = 0;i < brand.length;i++) { 
                     %>
                     <tr >
-                      <form class="success" action="/editbr" method="post">
-                      <td><lable></lable></td>  
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(brand[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                        %>
+                      <form class="success" action="/editbr" method="post"> 
                       <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= brand[i].name %>" > </td>
                       <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= brand[i].description %>" > </td>
 
@@ -455,7 +509,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -467,8 +521,21 @@
                       for(var i = 0;i < unit.length;i++) { 
                     %>
                     <tr >
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(unit[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                        %>
                       <form class="success" action="/editun" method="post">
-                      <td><lable></lable></td>  
+                      
                       <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= unit[i].name %>" > </td>
                       <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= unit[i].description %>" > </td>
 
@@ -533,7 +600,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -545,8 +612,21 @@
                       for(var i = 0;i < model.length;i++) { 
                     %>
                     <tr >
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(model[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                        %>
                       <form class="success" action="/editmd" method="post">
-                      <td><lable></lable></td>  
+                        
                       <td class="success"> <input  type="text" name="catname" class="form-control"  value="<%= model[i].name %>" > </td>
                       <td class="success"> <input  type="text" name="catdes" class="form-control"  value="<%= model[i].description %>" > </td>
 
