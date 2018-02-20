@@ -150,8 +150,9 @@
         <div class="col-md-7">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Basic</a></li>
-              <li><a href="#timeline" data-toggle="tab">Employees</a></li>
+              <li class="active"><a href="#activity" data-toggle="tab">Groups</a></li>
+              <li><a href="#timeline1" data-toggle="tab">Employees</a></li>
+              <li><a href="#timeline2" data-toggle="tab">Customers</a></li>
               <li><a href="#settings" data-toggle="tab">Announcements</a></li>
             </ul>
             <div class="tab-content">
@@ -170,6 +171,20 @@
                     <textarea class="form-control"  rows="3" name="desc"></textarea>
                   </div>
                   <div class="form-group">
+                  <label>For Which store</label>
+                  <select name="store" class="form-control">
+                      <%      
+                        if(store.length){ 
+                        for(var i = 0;i < store.length;i++) { 
+                      %>
+                      <option value="<%=store[i].idstore%>" ><%=store[i].name%></option>
+                      <%      
+                        }
+                      } 
+                      %>
+                  </select>
+                  </div>
+                  <div class="form-group">
                     <button type="submit" class="btn btn-primary mb-2">Insert</button>
                   </div>
                   </form>
@@ -179,7 +194,7 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th></th>
+                      <th>Store</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th> </th>
@@ -191,8 +206,21 @@
                       for(var i = 0;i < department.length;i++) { 
                     %>
                     <tr >
+                      <% 
+                        if(store.length){ 
+                        for(var j = 0;j < store.length;j++) { 
+                          if(department[i].store_idstore == store[j].idstore){
+                        %> 
+                        <td class="success">
+                        For <%= store[j].name %>
+                        </td>
+                        <% 
+                            }
+                          }
+                        } 
+                      %>
                       <form class="success" action="/editgp" method="post">
-                      <td><lable></lable></td>  
+                        
                       <td class="success"> <input  type="text" name="gpname" class="form-control"  value="<%= department[i].name %>" > </td>
                       <td class="success"> <input  type="text" name="gpdes" class="form-control"  value="<%= department[i].description %>" > </td>
 
@@ -215,7 +243,7 @@
                
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="timeline">
+              <div class="tab-pane" id="timeline1">
                 <div >
                                       
                 </div>
@@ -232,114 +260,193 @@
                         <table class="table">
                             <thead>
                                 <tr class="filters">
-                                    <th><input type="text" class="form-control" placeholder="#" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Username" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="UserID#" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="User Email" disabled></th>
+                                    <th>
+                                    <th>
+                                    <th>
+                                    <th>
+                                    <th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <% 
+                                            
+                                if(allusrs.length){ 
+                                for(var i = 0;i < allusrs.length;i++) { 
+                                if(allusrs[i].status=="B" && allusrs[i].level=="manager"){
+
+                                %>
+
                                 <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <%
+                                    if(employeelist.length){ 
+                                    for(var j = 0;j < employeelist.length;j++) {
+                                      if(allusrs[i].idlogin == employeelist[j].idemployee){
+                                    %>
+                                    <td><%=employeelist[j].idemployee%></td>
+                                    <td><%=employeelist[j].fname+" "+employeelist[j].lname%></td>
+                                    <%
+                                        }
+                                      }
+                                    }
+                                    %>
+                                    <td><%=allusrs[i].username%></td>
+                                      <form action="/revk" role="form"  method="post">
+                                      <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
+                                      <input type="hidden" name="empid" value=<%=allusrs[i].idemployee%> />
+                                      <td><button  class="btn btn-success" >Revoke User</button></td>
+                                      </form>
+                                      <form action="/apprv" role="form"  method="post">
+                                        <td>
+                                        <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
+                                        </td>
+                                        <td>
+                                        <select class="form-control" id="sel2" name="dep">
+                                          <% 
+                                            if(department.length){ 
+                                            for(var j = 0;j < department.length;j++) { 
+                                          %>
+                                          <option value="<%=department[j].iddepartment%>"><%=department[j].name%></option>
+                                          <% 
+                                                }
+                                              } 
+                                          %>
+                                        </select>
+                                        </td>
+                                        <td>
+                                        <select class="form-control" id="sel2" name="level">
+                                          <option value="user">User</option>
+                                          <option value="manager">Manager</option>
+                                          <option value="admin">Admin</option>
+                                        </select>
+                                        </td>
+                                        <td>
+                                        <button type="submit" value="Grant" class="btn btn-success">Change</button>
+                                        </td>
+                                      </form>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+
+                               <% 
+                                    }          
+                                  }
+                                }
+
+                                %>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
                 </div>
-                                <div>
-                                          <div class="pannel">
-                                            <% 
-                                            
-                                              if(allusrs.length){ 
-                                              for(var i = 0;i < allusrs.length;i++) { 
-                                              if(allusrs[i].status=="B"){
+                <div>
+                           
+                </div>
+                
+              </div>
+              <!-- /.tab-pane -->
 
-                                            %>
-                                              
-                                              <form action="/apprv" role="form"  method="post">
-
-                                                    <div class="form-group">
-                                                      <table class="table table-dark">
-                                                        <tr>
-                                                          <td>
-                                                            <label><%=allusrs[i].username%></label>
-                                                            <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
-                                                          </td>
-                                                        
-                                                          <td>
-                                                          <div class="form-group" >
-                                                            <select class="form-control" id="sel2" name="dep">
-                                                              <% 
-                                                                if(department.length){ 
-                                                                for(var j = 0;j < department.length;j++) { 
-                                                              %>
-                                                              <option value="<%=department[j].iddepartment%>"><%=department[j].name%></option>
-                                                              <% 
-                                                                }
-                                                              } 
-                                                              %>
-                                                            </select>
-                                                          </div>
-                                                          </td>
-                                                        
-                                                          <td>
-                                                            <select class="form-control" id="sel2" name="level">
-                                                              <option value="user">User</option>
-                                                              <option value="manager">Manager</option>
-                                                              <option value="admin">Admin</option>
-                                                            </select>
-                                                          </td>
-                                                          <td><button type="submit" value="Grant" class="btn btn-success">Change</button></td>
-                                                          </form>
-                                                          <form action="/revk" role="form"  method="post">
-                                                          <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
-                                                          <input type="hidden" name="empid" value=<%=allusrs[i].idemployee%> />
-                                                          <td><button  class="btn btn-success" >Revoke User</button></td>
-                                                          </form>
-                                                        </tr>
-                                                      </table>
-                                                    </div>
-                                                   
-                                              
-                                              <hr/>
-
-                                            <% 
-                                            }else{
-                                              %>
-                                           
+              <div class="tab-pane" id="timeline2">
+                <div >
+                                      
+                </div>
+                <div>
+                  
+                  <div class="row">
+                    <div class="panel panel-primary filterable">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Users</h3>
+                            <div class="pull-right">
+                                <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr class="filters">
+                                    <th><input type="text" class="form-control" placeholder="UserID#" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="User Email" disabled></th>
+                                    <th>
+                                    <th>
+                                    <th>
+                                    <th>
+                                    <th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% 
                                             
-                                              <%
-                                            }
-                                          }
-                                            }else{ %>
-                                           
-                                              <lable>No Users</lable>
-                                            
-                                          <% 
+                                if(allusrs.length){ 
+                                for(var i = 0;i < allusrs.length;i++) { 
+                                if(allusrs[i].status=="B" && allusrs[i].level=="user"){
+
+                                %>
+
+                                <tr>
+                                    <%
+                                    if(employeelist.length){ 
+                                    for(var j = 0;j < employeelist.length;j++) {
+                                      if(allusrs[i].idlogin == employeelist[j].idemployee){
+                                    %>
+                                    <td><%=employeelist[j].idemployee%></td>
+                                    <td><%=employeelist[j].fname+" "+employeelist[j].lname%></td>
+                                    <%
                                         }
-                                           %>
+                                      }
+                                    }
+                                    %>
+                                    <td><%=allusrs[i].username%></td>
+                                      <form action="/revk" role="form"  method="post">
+                                      <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
+                                      <input type="hidden" name="empid" value=<%=allusrs[i].idemployee%> />
+                                      <td><button  class="btn btn-success" >Revoke User</button></td>
+                                      </form>
+                                      <form action="/apprv" role="form"  method="post">
+                                        <td>
+                                        <input type="hidden" name="usrid" value=<%=allusrs[i].idlogin%> />
+                                        </td>
+                                        <td>
+                                        <select class="form-control" id="sel2" name="dep">
+                                          <% 
+                                            if(department.length){ 
+                                            for(var j = 0;j < department.length;j++) { 
+                                          %>
+                                          <option value="<%=department[j].iddepartment%>"><%=department[j].name%></option>
+                                          <% 
+                                                }
+                                              } 
+                                          %>
+                                        </select>
+                                        </td>
+                                        <td>
+                                        <select class="form-control" id="sel2" name="level">
+                                          <option value="user">User</option>
+                                          <option value="manager">Manager</option>
+                                          <option value="admin">Admin</option>
+                                        </select>
+                                        </td>
+                                        <td>
+                                        <button type="submit" value="Grant" class="btn btn-success">Change</button>
+                                        </td>
+                                      </form>
+                                </tr>
 
-                                        </div>
+                               <% 
+                                    }          
+                                  }
+                                }
 
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                                </div>
+                </div>
+                <div>
+                           
+                </div>
                 
               </div>
               <!-- /.tab-pane -->

@@ -479,7 +479,7 @@
                      		if(req.user.level == "admin"){
                      				var searchquery= "SELECT * FROM posts ORDER BY idposts DESC";
                      			}else{
-                     				var searchquery= "SELECT * FROM posts WHERE posts.department_iddepartment = ? || posts.department_iddepartment = 1 ORDER BY idposts DESC";
+                     				var searchquery= "SELECT * FROM posts WHERE posts.department_iddepartment = ? ORDER BY idposts DESC";
                      			}
                      		 connection.query(searchquery,[rows[0].department_iddepartment],function(err2,post){
 			        		if(err2)
@@ -755,8 +755,12 @@
 				        				console.log(err4);
 
 				        			var query = connection.query('SELECT * FROM department',function(err4,deplist){
-				        			if(err3)
+				        			if(err4)
 				        				console.log(err4);
+
+				        			var query = connection.query('SELECT * FROM store',function(err5,storelist){
+				        			if(err5)
+				        				console.log(err5);
 
 				        			if(req.user.level=="admin"){
 				        				res.render('dashboard.ejs', {
@@ -764,6 +768,7 @@
 										user : rows[0],		//  pass to template
 										allusrs : usrlist,
 										department : deplist,
+										store : storelist,
 										level : req.user.level
 										});
 				        			}else{
@@ -773,6 +778,8 @@
 										level : req.user.level
 										});
 				        			}
+
+				        			});
 				        				
 				        			});
 
@@ -856,7 +863,7 @@
                          console.log(err);;
                      });
 					console.log('Permition Granted');
-					res.redirect('/home'); 
+					res.redirect('/dash'); 
 					
 				}
 			})
@@ -896,9 +903,10 @@
 			var newgroup = new Object();
 			newgroup.name = req.body.name;
 			newgroup.description = req.body.desc;
+			newgroup.store = req.body.store;
 
-			var insertQuery = "INSERT INTO department (department.name, department.description) values (?,?)";
-			connection.query(insertQuery,[newgroup.name, newgroup.description ],function(err, rows) {
+			var insertQuery = "INSERT INTO department (department.name, department.description, department.store_idstore) values (?,?,?)";
+			connection.query(insertQuery,[newgroup.name, newgroup.description, newgroup.store],function(err, rows) {
 			 if (err)
 				 console.log(err);
 

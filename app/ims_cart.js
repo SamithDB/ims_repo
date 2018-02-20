@@ -84,7 +84,8 @@
 																		inventory : inventorypro,
 																		stock : stock,
 																		mycart : cartlist[0],
-																		cartproducts : cartpros
+																		cartproducts : cartpros,
+																		level : req.user.level
 																		});
 
 																		});
