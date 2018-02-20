@@ -294,38 +294,40 @@
 
 			var insertQuery = "INSERT INTO inventory (inventory.itemcode,inventory.name,inventory.description,inventory.store_idstore,inventory.category_idcategory,inventory.generic_idgeneric,inventory.brand_idbrand,inventory.make_idmake,inventory.model_idmodel,inventory.unit_idunit,inventory.supplier_idsupplier,inventory.costprice,inventory.retailcash,inventory.retailcredit) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			connection.query(insertQuery,[newinventory.serial,newinventory.name,newinventory.des,newinventory.store,newinventory.category,newinventory.generic,newinventory.brand,newinventory.make,newinventory.model,newinventory.unit,newinventory.supplier,newinventory.cost,newinventory.retailprice,newinventory.retailcredit],function(err1, newproduct) {
-				if (err1)
+				if (err1){
 					console.log(err1);
+					res.redirect('/addnewproduct');
+				}else{
 
-				newinventory.idinventory=newproduct.insertId;
+						newinventory.idinventory=newproduct.insertId;
 
-				connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
-                    if (err1)
-                         console.log(err1);
+						connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+		                    if (err1)
+		                         console.log(err1);
 
 
 
-                    connection.query("SELECT * FROM inventory WHERE idinventory = ? ",[newinventory.idinventory], function(err1, productdetails) {
-                    console.log(newinventory.idinventory);
+		                    connection.query("SELECT * FROM inventory WHERE idinventory = ? ",[newinventory.idinventory], function(err1, productdetails) {
+		                    console.log(newinventory.idinventory);
 
-                    req.session.newproductid = newinventory.idinventory ; 
+		                    req.session.newproductid = newinventory.idinventory ; 
 
-                    var insertQuery = "INSERT INTO warranty ( warranty.warrantycardno, warranty.from, warranty.to, warranty.inventory_idinventory) values (?,?,?,?)";
-							connection.query(insertQuery,[newinventory.warentyno, newinventory.warentyfrom, newinventory.warentyto, newinventory.idinventory],function(error, rows) {
-								if (error) 
-									console.log(error);
-							});
+		                    var insertQuery = "INSERT INTO warranty ( warranty.warrantycardno, warranty.from, warranty.to, warranty.inventory_idinventory) values (?,?,?,?)";
+									connection.query(insertQuery,[newinventory.warentyno, newinventory.warentyfrom, newinventory.warentyto, newinventory.idinventory],function(error, rows) {
+										if (error) 
+											console.log(error);
+									});
 
-					var insertQuery = "INSERT INTO stocklevel (stocklevel.qty, stocklevel.inventory_idinventory) values (?,?)";
-					connection.query(insertQuery,[newinventory.qty, newinventory.idinventory],function(errr, stockresult) {
-					if (errr)
-					console.log(errr);
-                    res.redirect('/addproductpics');
-					
-				});
-			});
-
-		});
+							var insertQuery = "INSERT INTO stocklevel (stocklevel.qty, stocklevel.inventory_idinventory) values (?,?)";
+							connection.query(insertQuery,[newinventory.qty, newinventory.idinventory],function(errr, stockresult) {
+							if (errr)
+							console.log(errr);
+		                    res.redirect('/addproductpics');
+							
+						});
+					});
+					});
+				}
 		});
 		});
 		});
