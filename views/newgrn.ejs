@@ -101,156 +101,10 @@
         <div class="form-group">
           <button type="submit" class="btn btn-primary mb-2">Add to list</button>
         </div>
-      </form>
-
-      </div>
-
-      <hr/>
-
-      <h3>Add New Product</h3>
-
-      <form action="/addnewproduct" method="post">
-        <div class="form-group">
-          <label>Product Name & serial</label>
-          <input type="text" class="form-control"  placeholder="Product name" name="name">
-          <br/>
-          <input type="text" class="form-control"  placeholder="Serial Num" name="serial">
-        </div>
-        <div class="form-group">
-          <label>Store</label>
-          <input list="suggestions1" style="color: black" name="store" class="form-control">
-          <datalist id="suggestions1">
-              <%      
-                if(store.length){ 
-                for(var i = 0;i < store.length;i++) { 
-              %>
-              <option value="<%=store[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Category</label>
-          <input list="suggestions2" style="color: black" name="category" class="form-control">
-          <datalist id="suggestions2">
-              <%      
-                if(category.length){ 
-                for(var i = 0;i < category.length;i++) { 
-              %>
-              <option value="<%=category[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Generic</label>
-          <input list="suggestions3" style="color: black" name="generic" class="form-control">
-          <datalist id="suggestions3">
-              <%      
-                if(generic.length){ 
-                for(var i = 0;i < generic.length;i++) { 
-              %>
-              <option value="<%=generic[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Brand</label>
-          <input list="suggestions4" style="color: black" name="brand" class="form-control">
-          <datalist id="suggestions4">
-              <%      
-                if(brand.length){ 
-                for(var i = 0;i < brand.length;i++) { 
-              %>
-              <option value="<%=brand[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Make</label>
-          <input list="suggestions5" style="color: black" name="make" class="form-control">
-          <datalist id="suggestions5">
-              <%      
-                if(make.length){ 
-                for(var i = 0;i < make.length;i++) { 
-              %>
-              <option value="<%=make[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Model</label>
-          <input list="suggestions6" style="color: black" name="model" class="form-control">
-          <datalist id="suggestions6">
-              <%      
-                if(model.length){ 
-                for(var i = 0;i < model.length;i++) { 
-              %>
-              <option value="<%=model[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Unit</label>
-          <input list="suggestions7" style="color: black" name="unit" class="form-control">
-          <datalist id="suggestions7">
-              <%      
-                if(unit.length){ 
-                for(var i = 0;i < unit.length;i++) { 
-              %>
-              <option value="<%=unit[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Supplier</label>
-          <input list="suggestions8" style="color: black" name="supplier" class="form-control">
-          <datalist id="suggestions8">
-              <%      
-                if(supplier.length){ 
-                for(var i = 0;i < supplier.length;i++) { 
-              %>
-              <option value="<%=supplier[i].name%>">
-              <%      
-                }
-              } 
-              %>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label>Product Price</label>
-          <input type="text" class="form-control"  placeholder="Cost" name="cost">
-          <br/>
-          <input type="text" class="form-control"  placeholder="Retail Price" name="retailprice">
-          <br/>
-          <input type="text" class="form-control"  placeholder="Retail Credit" name="retailcredit">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary mb-2">Add to Database</button>
-        </div>
-      </form>
-
-		</div>
-
+        </form>
+      
+		  </div>
+    </div>
     <div class="col-md-8">
 
     <div class="content-wrapper">
@@ -445,7 +299,7 @@
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>
-  </div>
+    </div>
           
     </div>
 		

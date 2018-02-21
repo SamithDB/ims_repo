@@ -25,31 +25,35 @@
 				        		if(err2)
 				        			console.log(err2);;
 
-				        			var query = connection.query('SELECT * FROM category',function(err3,categorylist){
+				        			var query = connection.query('SELECT * FROM department WHERE iddepartment = ?',[rows[0].department_iddepartment],function(err13,dep){
+								    if(err13)
+								        console.log(err13);
+
+				        			var query = connection.query('SELECT * FROM category WHERE store_idstore = ? ',[dep[0].store_idstore],function(err3,categorylist){
 				        			if(err3)
 				        				console.log(err3);
 
-				        				var query = connection.query('SELECT * FROM generic',function(err4,genericlist){
+				        				var query = connection.query('SELECT * FROM generic WHERE store_idstore = ? ',[dep[0].store_idstore], function(err4,genericlist){
 				        				if(err4)
 				        					console.log(err4);
 
-				        					var query = connection.query('SELECT * FROM make',function(err5,makelist){
+				        					var query = connection.query('SELECT * FROM make WHERE store_idstore = ? ',[dep[0].store_idstore], function(err5,makelist){
 					        				if(err5)
 					        					console.log(err5);
 
-					        					var query = connection.query('SELECT * FROM brand',function(err6,brandlist){
+					        					var query = connection.query('SELECT * FROM brand WHERE store_idstore = ? ',[dep[0].store_idstore],function(err6,brandlist){
 						        				if(err6)
 						        					console.log(err6);
 
-						        					var query = connection.query('SELECT * FROM unit',function(err7,unitlist){
+						        					var query = connection.query('SELECT * FROM unit WHERE store_idstore = ? ',[dep[0].store_idstore], function(err7,unitlist){
 							        				if(err7)
 							        					console.log(err7);
 
-							        					var query = connection.query('SELECT * FROM model',function(err8,modellist){
+							        					var query = connection.query('SELECT * FROM model WHERE store_idstore = ? ',[dep[0].store_idstore],function(err8,modellist){
 								        				if(err8)
 								        					console.log(err8);
 
-								        					var query = connection.query('SELECT * FROM supplier',function(err9,supplierlist){
+								        					var query = connection.query('SELECT * FROM supplier WHERE store_idstore = ? ',[dep[0].store_idstore], function(err9,supplierlist){
 								        					if(err9)
 								        						console.log(err9);
 
@@ -57,7 +61,7 @@
 								        						if(err10)
 								        							console.log(err10);
 
-								        							var query = connection.query('SELECT * FROM inventory ORDER BY idinventory DESC',function(err11,inventorylist){
+								        							var query = connection.query('SELECT * FROM inventory WHERE store_idstore = ? ORDER BY idinventory DESC',[dep[0].store_idstore],function(err11,inventorylist){
 								        							if(err11)
 								        								console.log(err11);
 
@@ -99,6 +103,8 @@
 
 																	}
 
+															});
+
 								        				});
 
 								        			});
@@ -139,35 +145,39 @@
                     if (err1)
                          console.log(err1);
 
-			        			var query = connection.query('SELECT * FROM store',function(err2,storelist){
-				        		if(err2)
-				        			console.log(err2);;
+			        		var query = connection.query('SELECT * FROM store',function(err2,storelist){
+				        	if(err2)
+				        		console.log(err2);;
 
-				        			var query = connection.query('SELECT * FROM category',function(err3,categorylist){
+				        		var query = connection.query('SELECT * FROM department WHERE iddepartment = ?',[rows[0].department_iddepartment],function(err13,dep){
+								if(err13)
+								    console.log(err13);
+
+				        			var query = connection.query('SELECT * FROM category WHERE store_idstore = ? ',[dep[0].store_idstore],function(err3,categorylist){
 				        			if(err3)
 				        				console.log(err3);
 
-				        				var query = connection.query('SELECT * FROM generic',function(err4,genericlist){
+				        				var query = connection.query('SELECT * FROM generic WHERE store_idstore = ? ',[dep[0].store_idstore], function(err4,genericlist){
 				        				if(err4)
 				        					console.log(err4);
 
-				        					var query = connection.query('SELECT * FROM make',function(err5,makelist){
+				        					var query = connection.query('SELECT * FROM make WHERE store_idstore = ? ',[dep[0].store_idstore], function(err5,makelist){
 					        				if(err5)
 					        					console.log(err5);
 
-					        					var query = connection.query('SELECT * FROM brand',function(err6,brandlist){
+					        					var query = connection.query('SELECT * FROM brand WHERE store_idstore = ? ',[dep[0].store_idstore],function(err6,brandlist){
 						        				if(err6)
 						        					console.log(err6);
 
-						        					var query = connection.query('SELECT * FROM unit',function(err7,unitlist){
+						        					var query = connection.query('SELECT * FROM unit WHERE store_idstore = ? ',[dep[0].store_idstore], function(err7,unitlist){
 							        				if(err7)
 							        					console.log(err7);
 
-							        					var query = connection.query('SELECT * FROM model',function(err8,modellist){
+							        					var query = connection.query('SELECT * FROM model WHERE store_idstore = ? ',[dep[0].store_idstore],function(err8,modellist){
 								        				if(err8)
 								        					console.log(err8);
 
-								        					var query = connection.query('SELECT * FROM supplier',function(err9,supplierlist){
+								        					var query = connection.query('SELECT * FROM supplier WHERE store_idstore = ? ',[dep[0].store_idstore], function(err9,supplierlist){
 								        					if(err9)
 								        						console.log(err9);
 
@@ -218,7 +228,9 @@
 																		});
 								        							}
 								        					});
-		
+
+														});
+
 								        			});
 
 				        						});
@@ -261,31 +273,35 @@
 				        		if(err2)
 				        			console.log(err2);;
 
-				        			var query = connection.query('SELECT * FROM category',function(err3,categorylist){
+				        		var query = connection.query('SELECT * FROM department WHERE iddepartment = ?',[rows[0].department_iddepartment],function(err13,dep){
+								if(err13)
+								    console.log(err13);
+
+				        			var query = connection.query('SELECT * FROM category WHERE store_idstore = ? ',[dep[0].store_idstore],function(err3,categorylist){
 				        			if(err3)
 				        				console.log(err3);
 
-				        				var query = connection.query('SELECT * FROM generic',function(err4,genericlist){
+				        				var query = connection.query('SELECT * FROM generic WHERE store_idstore = ? ',[dep[0].store_idstore], function(err4,genericlist){
 				        				if(err4)
 				        					console.log(err4);
 
-				        					var query = connection.query('SELECT * FROM make',function(err5,makelist){
+				        					var query = connection.query('SELECT * FROM make WHERE store_idstore = ? ',[dep[0].store_idstore], function(err5,makelist){
 					        				if(err5)
 					        					console.log(err5);
 
-					        					var query = connection.query('SELECT * FROM brand',function(err6,brandlist){
+					        					var query = connection.query('SELECT * FROM brand WHERE store_idstore = ? ',[dep[0].store_idstore],function(err6,brandlist){
 						        				if(err6)
 						        					console.log(err6);
 
-						        					var query = connection.query('SELECT * FROM unit',function(err7,unitlist){
+						        					var query = connection.query('SELECT * FROM unit WHERE store_idstore = ? ',[dep[0].store_idstore], function(err7,unitlist){
 							        				if(err7)
 							        					console.log(err7);
 
-							        					var query = connection.query('SELECT * FROM model',function(err8,modellist){
+							        					var query = connection.query('SELECT * FROM model WHERE store_idstore = ? ',[dep[0].store_idstore],function(err8,modellist){
 								        				if(err8)
 								        					console.log(err8);
 
-								        					var query = connection.query('SELECT * FROM supplier',function(err9,supplierlist){
+								        					var query = connection.query('SELECT * FROM supplier WHERE store_idstore = ? ',[dep[0].store_idstore], function(err9,supplierlist){
 								        					if(err9)
 								        						console.log(err9);
 
@@ -296,7 +312,7 @@
 								        						// for 'all' category search
 								        						if(req.body.cat == "All"){
 
-								        							var query = connection.query("SELECT * FROM inventory WHERE name LIKE ? ORDER BY idinventory DESC",["%"+req.body.word+"%"],function(err11,inventorylist){
+								        							var query = connection.query("SELECT * FROM inventory WHERE name LIKE ? && store_idstore = ? ORDER BY idinventory DESC",["%"+req.body.word+"%",dep[0].store_idstore],function(err11,inventorylist){
 								        							if(err11)
 								        								console.log(err11);
 
@@ -349,7 +365,7 @@
 
 												        			console.log(catid[0].idcategory);
 
-								        							var query = connection.query("SELECT * FROM inventory WHERE category_idcategory= ? && name LIKE ? ORDER BY idinventory DESC",[catid[0].idcategory,"%"+req.body.word+"%"],function(err11,inventorylist){
+								        							var query = connection.query("SELECT * FROM inventory WHERE category_idcategory= ? && name LIKE ? && store_idstore = ? ORDER BY idinventory DESC",[catid[0].idcategory,"%"+req.body.word+"%",dep[0].store_idstore],function(err11,inventorylist){
 								        							if(err11)
 								        								console.log(err11);
 
@@ -398,7 +414,9 @@
 
 								        			}  ///if else end for 'all' search
 
-				        						});
+				        							});
+
+								        		});
 
 				        					});
 
@@ -439,31 +457,35 @@
 				        		if(err2)
 				        			console.log(err2);;
 
-				        			var query = connection.query('SELECT * FROM category',function(err3,categorylist){
+				        		var query = connection.query('SELECT * FROM department WHERE iddepartment = ?',[rows[0].department_iddepartment],function(err13,dep){
+								if(err13)
+								    console.log(err13);
+
+				        			var query = connection.query('SELECT * FROM category WHERE store_idstore = ? ',[dep[0].store_idstore],function(err3,categorylist){
 				        			if(err3)
 				        				console.log(err3);
 
-				        				var query = connection.query('SELECT * FROM generic',function(err4,genericlist){
+				        				var query = connection.query('SELECT * FROM generic WHERE store_idstore = ? ',[dep[0].store_idstore], function(err4,genericlist){
 				        				if(err4)
 				        					console.log(err4);
 
-				        					var query = connection.query('SELECT * FROM make',function(err5,makelist){
+				        					var query = connection.query('SELECT * FROM make WHERE store_idstore = ? ',[dep[0].store_idstore], function(err5,makelist){
 					        				if(err5)
 					        					console.log(err5);
 
-					        					var query = connection.query('SELECT * FROM brand',function(err6,brandlist){
+					        					var query = connection.query('SELECT * FROM brand WHERE store_idstore = ? ',[dep[0].store_idstore],function(err6,brandlist){
 						        				if(err6)
 						        					console.log(err6);
 
-						        					var query = connection.query('SELECT * FROM unit',function(err7,unitlist){
+						        					var query = connection.query('SELECT * FROM unit WHERE store_idstore = ? ',[dep[0].store_idstore], function(err7,unitlist){
 							        				if(err7)
 							        					console.log(err7);
 
-							        					var query = connection.query('SELECT * FROM model',function(err8,modellist){
+							        					var query = connection.query('SELECT * FROM model WHERE store_idstore = ? ',[dep[0].store_idstore],function(err8,modellist){
 								        				if(err8)
 								        					console.log(err8);
 
-								        					var query = connection.query('SELECT * FROM supplier',function(err9,supplierlist){
+								        					var query = connection.query('SELECT * FROM supplier WHERE store_idstore = ? ',[dep[0].store_idstore], function(err9,supplierlist){
 								        					if(err9)
 								        						console.log(err9);
 
@@ -471,7 +493,7 @@
 								        						if(err10)
 								        							console.log(err10);
 
-								        							var query = connection.query(searchtxt,function(err11,inventorylist){
+								        							var query = connection.query(searchtxt+' && store_idstore = ?',[dep[0].store_idstore],function(err11,inventorylist){
 								        							if(err11)
 								        								console.log(err11);
 
@@ -514,8 +536,8 @@
 																}
 														});
 
+								        				});
 								        			});
-
 
 				        						});
 

@@ -53,24 +53,19 @@
 								        					if(err9)
 								        						console.log(err9);
 
-								        						var query = connection.query('SELECT * FROM grnorder ORDER BY idgrnorder DESC',function(err9,grnorderlist){
+								        						var query = connection.query('SELECT * FROM grnorder WHERE employee_idemployee = ?',[rows[0].idemployee],function(err9,grnorderlist){
 								        						if(err9)
 								        							console.log(err9);
+
+								        							if(grnorderlist.length){
 
 								        							var query = connection.query('SELECT * FROM inventory',function(err10,inventorylist){
 								        							if(err10)
 								        							console.log(err10);
 
-								        							var query = connection.query('SELECT * FROM grnproducts',function(err11,grnproducts){
-								        							if(err11)
-								        							console.log(err11);
-
-								        							var x = "new" ;
-
-
-								        							if(grnorderlist[0].status=='A'){
-
-								        								x = "res";
+								        								var query = connection.query('SELECT * FROM grnproducts WHERE grnorder_idgrnorder = ?',[grnorderlist[0].grnorder_idgrnorder],function(err11,grnproducts){
+								        								if(err11)
+								        								console.log(err11);
 
 								        								res.render('newgrn.ejs', {
 																		user : rows[0],		//  pass to template
@@ -90,57 +85,25 @@
 																		});
 
 
-								        							}
-
-								        						
-
-								        						if(x == "new"){
-
-								        						var newgrnorder = new Object();
-																newgrnorder.emp = req.user.idlogin;
-
-																var insertQuery = "INSERT INTO grnorder (grnorder.employee_idemployee) values (?)";
-																connection.query(insertQuery,[ newgrnorder.emp],function(err, result) {
-																 if (err)
-																	 console.log(err);
-
-																var query = connection.query('SELECT * FROM grnorder ORDER BY idgrnorder DESC',function(err9,grnorderlist2){
-								        						if(err9)
-								        							console.log(err9);
-
-										        					if(grnorderlist[0].status=='A'){
-
-								        								res.render('newgrn.ejs', {
-																		user : rows[0],		//  pass to template
-																		store : storelist,
-																		category : categorylist,
-																		generic : genericlist,
-																		make : makelist,
-																		brand : brandlist,
-																		unit : unitlist,
-																		model: modellist,
-																		supplier : supplierlist,
-																		inventory : inventorylist,
-																		grncont : grnorderlist2[0],
-																		products : grnproducts,
-																		level : req.user.level
-
-
-																		});
-
-								        								}else{
-								        									res.redirect('/home');
-								        								}
-
-																		});
-
-						        									});
-
-								        				  		}
-
 								        					});
 
 								        				});
+
+								        				}else{
+
+								        				var newgrn = new Object();
+														newgrn.empid = rows[0].idemployee;
+
+														var insertQuery = "INSERT INTO grnorder (grnorder.employee_idemployee) values (?)";
+														connection.query(insertQuery,[ newgrn.empid ],function(err, newrow) {
+														if (err)
+															console.log(err);
+
+														res.redirect('/newgrn'); 
+
+														});
+
+								        				}
 
 				        							});
 

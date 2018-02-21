@@ -110,26 +110,6 @@
               	%>
 				</ul>
 			</li>
-			<li class="subMenu"><a>Store </a>
-			<ul style="display:none">
-				<%      
-                if(store.length){ 
-                for(var i = 0;i < store.length;i++) { 
-              	%>
-				<li>
-				<form action="/prosearchside" method="post">
-					<input type="hidden" name="name" value="store_idstore">
-					<input type="hidden" name="id" value="<%=store[i].idstore %>">
-					<button type="submit" class="active" style="background:none;padding:0;border:none;  border-bottom:1px solid;font: inherit;"><i class="icon-chevron-right"></i><%=store[i].name %> 
-					</button>
-				</form>
-				</li>
-				<%      
-                }
-            		} 
-              	%>											
-			</ul>
-			</li>
 			<li class="subMenu"><a>Generic</a>
 				<ul style="display:none">
 				<%      

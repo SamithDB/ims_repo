@@ -424,12 +424,8 @@
 																		stock : stock,
 																		level : req.user.level
 
-																		});
+																	});
 
-
-								        						
-
-								        						
 								        			});
 
 				        						});
