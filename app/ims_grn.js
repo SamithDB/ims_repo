@@ -57,13 +57,15 @@
 								        						if(err9)
 								        							console.log(err9);
 
+								        							console.log(grnorderlist);
+
 								        							if(grnorderlist.length){
 
 								        							var query = connection.query('SELECT * FROM inventory',function(err10,inventorylist){
 								        							if(err10)
-								        							console.log(err10);
+								        								console.log(err10);
 
-								        								var query = connection.query('SELECT * FROM grnproducts WHERE grnorder_idgrnorder = ?',[grnorderlist[0].grnorder_idgrnorder],function(err11,grnproducts){
+								        								var query = connection.query('SELECT * FROM grnproducts WHERE grnorder_idgrnorder = ?',[grnorderlist[0].idgrnorder],function(err11,grnproducts){
 								        								if(err11)
 								        								console.log(err11);
 
@@ -139,8 +141,8 @@
 		if (err1)
 			console.log(err1);
 
-		var insertQuery = "INSERT INTO grnproducts ( grnproducts.grnorder_idgrnorder, grnproducts.inventory_idinventory, grnproducts.qty, grnproducts.unitcost, grnproducts.productserial) values (?,?,?,?,?)";
-		connection.query(insertQuery,[req.body.order, inv[0].idinventory, req.body.qty, inv[0].costprice, inv[0].itemcode ],function(err2, rows) {
+		var insertQuery = "INSERT INTO grnproducts ( grnproducts.grnorder_idgrnorder, grnproducts.inventory_idinventory, grnproducts.qty, grnproducts.unitcost) values (?,?,?,?)";
+		connection.query(insertQuery,[req.body.order, inv[0].idinventory, req.body.qty, inv[0].costprice],function(err2, rows) {
 		if (err2)
 			console.log(err2);
 
@@ -168,6 +170,7 @@
 
 		});
 
+
 	// =====================================
 	// =====================================
 	// Saving order to GRN
@@ -179,30 +182,254 @@
 			newgrn.emp = req.body.emp;
 			newgrn.order = req.body.order;
 			newgrn.total = req.body.total;
-			newgrn.to = req.body.to;
-			newgrn.tel = req.body.tel;
+			newgrn.to = req.body.supplier;
 
-			var insertQuery = "INSERT INTO grn ( grn.to, grn.grnorder_idgrnorder, grn.total, grn.date, grn.emp ) values (?,?,?,?,?)";
-			connection.query(insertQuery,[newgrn.to, newgrn.order, newgrn.total, newgrn.date, newgrn.emp],function(err, rows) {
-			if (err)
-				console.log(err);
+			console.log(newgrn.date);
+			console.log(newgrn.emp);
+			console.log(newgrn.order);
+			console.log(newgrn.total);
+			console.log(newgrn.to);
 
-				connection.query('UPDATE grnorder SET status = ? WHERE idgrnorder = ?',['B', newgrn.order], function(err, result) {
-				if (err) 
-					console.log(err);
-				
-				res.redirect('/home');
+
+			connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+            	console.log(err1);
+
+            connection.query("SELECT * FROM grnorder WHERE employee_idemployee = ? ",[rows[0].idemployee],function(err2,grnlist){
+			  if(err2)
+				console.log(err2);
+
+				connection.query("SELECT * FROM grnproducts WHERE grnorder_idgrnorder = ? ",[grnlist[0].idgrnorder],function(err3,grnprolist){
+			  	if(err3)
+					console.log(err3);
+
+					var insertQuery = "INSERT INTO grn (grn.employee_idemployee , grn.date, grn.supplier, grn.total) values (?,?,?,?)";
+					connection.query(insertQuery,[ newgrn.emp, newgrn.date, newgrn.to, newgrn.total ],function(err, newgrnrow) {
+					if (err)
+						console.log(err);
+
+					if(grnprolist.length){
+					for(var i = 0;i < grnprolist.length;i++) { 
+
+						var togrn = new Object();
+						togrn.grn_idigrn = newgrnrow.insertId;
+						togrn.inventory_idinventory = grnprolist[i].inventory_idinventory;
+						togrn.qty = grnprolist[i].qty;
+						togrn.unit = grnprolist[i].unitcost;
+
+						var insertQuery = "INSERT INTO productforgrn (productforgrn.grn_idgrn, productforgrn.inventory_idinventory,productforgrn.qty,productforgrn.unitcost) values (?,?,?,?)";
+						connection.query(insertQuery,[ togrn.grn_idigrn, togrn.inventory_idinventory, togrn.qty, togrn.unit],function(err, newprorow) {
+						if (err)
+							console.log(err);
+
+							});
+
+						}
+					}
+
+					if(grnprolist.length){
+					for(var i = 0;i < grnprolist.length;i++) {
+						connection.query("DELETE FROM grnproducts WHERE idgrnproducts = ?",[grnprolist[i].idgrnproducts], function(err, rows) {
+						console.log("deleted.........");
+						});
+
+						}
+
+						var insertQuery1 = "UPDATE grnorder SET grnorder.total = ? WHERE grnorder.idgrnorder = ?";
+						connection.query(insertQuery1,[ 0, grnlist[0].idgrn],function(err, rows) {
+						 if (err) 
+							console.log(err);
+
+						 console.log("Total is 0");
+							});
+						}
+
+
+						res.redirect('/newgrn');
+
+					
+					    });
+				    });	
+				});
+			});
+
+		});
+
+	// ========================
+	// load All GRN ======
+	// ========================
+
+	app.get('/viewgrn', function(req, res) {
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+
+            connection.query("SELECT * FROM employee", function(err1, emplist) {
+            if (err1)
+              	console.log(err1);
+
+			var query = connection.query("SELECT * FROM grn ORDER BY idgrn DESC",function(err2,grnlist){
+				if(err2)
+					console.log(err2);
+
+					if(grnlist.length){
+					res.render('viewgrn.ejs', {
+					user : rows[0],		//  pass to template
+					grn : grnlist,
+					emp : emplist,
+					level : req.user.level
+					});
+					}else{
+						res.redirect('/home');
+					}
 
 				});
+			})
 		});
+
 	});
 
+	
+	// ===========================
+	// Print Grn ======
+	// ===========================
+
+	app.post('/printgrn', function(req, res) {
+
+		console.log(req.body.grnid);
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+              connection.query("SELECT * FROM employee ", function(err1, emplist) {
+	            if (err1)
+	              	console.log(err1);
+
+				var query = connection.query("SELECT * FROM grn WHERE grn.idgrn = ? ",[req.body.grnid],function(err2,grnlist){
+				if(err2)
+					console.log(err2);
+
+				var query = connection.query("SELECT * FROM productforgrn WHERE productforgrn.grn_idgrn = ? ",[req.body.grnid],function(err2,grnprolist){
+				if(err2)
+					console.log(err2);
+
+					var query = connection.query("SELECT * FROM inventory ",function(err2,inventory){
+					if(err2)
+						console.log(err2);
+
+					if(grnlist.length){
+					res.render('grn_print.ejs', {
+					user : rows[0],		//  pass to template
+					grn : grnlist[0],
+					grnpro: grnprolist,
+					level : req.user.level,
+					emp : emplist,
+					inventory : inventory
+					});
+					}else{
+						res.redirect('/home');
+					}
+
+					});
+
+					});
+
+				});
+
+			});
+			
+		});
+
+	});
+
+	// ===========================
+	// View Grn ============
+	// ===========================
+
+	app.post('/viewgrns', function(req, res) {
+
+		console.log(req.body.grnid);
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+              connection.query("SELECT * FROM employee ", function(err1, emplist) {
+	            if (err1)
+	              	console.log(err1);
+
+				var query = connection.query("SELECT * FROM grn WHERE grn.idgrn = ? ",[req.body.grnid],function(err2,grnlist){
+				if(err2)
+					console.log(err2);
+
+				var query = connection.query("SELECT * FROM productforgrn WHERE productforgrn.grn_idgrn = ? ",[req.body.grnid],function(err2,grnprolist){
+				if(err2)
+					console.log(err2);
+
+					var query = connection.query("SELECT * FROM inventory ",function(err2,inventory){
+					if(err2)
+						console.log(err2);
 
 
+					if(grnlist.length){
+					res.render('viewgrns.ejs', {
+					user : rows[0],		//  pass to template
+					grn : grnlist[0],
+					grnpro: grnprolist,
+					level : req.user.level,
+					emp : emplist,
+					inventory : inventory
+					});
+					}else{
+						res.redirect('/home');
+					}
 
-		
+					});
 
+					});
 
+				});
+
+			});
+			
+		});
+
+	});
+
+	// ========================
+	// load All pending GRN  ======
+	// ========================
+
+	app.get('/viewpendinggrn', function(req, res) {
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+
+            connection.query("SELECT * FROM employee", function(err1, emplist) {
+            if (err1)
+              	console.log(err1);
+
+			var query = connection.query("SELECT * FROM grn ORDER BY idgrn DESC",function(err2,grnlist){
+				if(err2)
+					console.log(err2);
+
+					if(grnlist.length){
+					res.render('viewgrnpending.ejs', {
+					user : rows[0],		//  pass to template
+					grn : grnlist,
+					emp : emplist,
+					level : req.user.level
+					});
+					}else{
+						res.redirect('/home');
+					}
+
+				});
+			})
+		});
+
+	});
 
 
 	

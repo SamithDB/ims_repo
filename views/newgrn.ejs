@@ -44,7 +44,8 @@
       }
     </style>
 </head>
-<body ">
+
+<body >
       <div class="bs-example">
           <%- include header.ejs %>
       </div>
@@ -55,12 +56,9 @@
 <!--customer deteis and 1st grid--------------------> 
 
 
-    <div class="row-md-*">
+   
      
-<!--customer details and 1st grid end point--------------------> 
 
-   <!-- add, post details and 2nd grid--------------------> 
-        <!-- Main content -->
     <section class="content">
 
     <div class="row">
@@ -81,18 +79,17 @@
         <div class="form-group">
           <label>Product</label>
           <input type="hidden" style="color: black" name="order" value="<%=grncont.idgrnorder%>">
-          <input list="suggestions" style="color: black" name="product">
-          <datalist id="suggestions">
-               <%      
+          <select list="suggestions" style="color: black" name="product">
+              <%      
                 if(inventory.length){ 
                 for(var i = 0;i < inventory.length;i++) { 
               %>
-              <option value="<%=inventory[i].name%>">
+              <option style="color: black" value="<%=inventory[i].name%>"><%=inventory[i].name%></option>
               <%      
                 }
               } 
               %>
-          </datalist>
+          </select>
         </div>
         <div class="form-group">
           <label>QTY</label>
@@ -101,7 +98,7 @@
         <div class="form-group">
           <button type="submit" class="btn btn-primary mb-2">Add to list</button>
         </div>
-        </form>
+      </form>
       
 		  </div>
     </div>
@@ -163,13 +160,21 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          To
+          Supplier
           <address>
             <div class="form-group">
-              <input type="text" name="to" placeholder="Name">
-            </div>
-            <div class="form-group">
-              <input type="text" name="tel" placeholder="Contact num.">
+              <input list="browsers" name="supplier" class="form-control">
+                <datalist id="browsers">
+                  <%      
+                    if(supplier.length){ 
+                    for(var i = 0;i < supplier.length;i++) { 
+                  %>
+                  <option value="<%=supplier[i].name%>"><%=supplier[i].name%></option>
+                  <%      
+                    }
+                  } 
+                  %>
+              </datalist>
             </div>
           </address>
         </div>
@@ -212,14 +217,16 @@
                 var subtotal= products[i].unitcost * products[i].qty;
                 total = total+subtotal;
                 var name = "";
-                var des = "";
+                var img = "";
+                serial = "";
 
                   if(inventory.length){ 
                   for(var j = 0;j < inventory.length;j++) { 
                   if(inventory[j].idinventory==products[i].inventory_idinventory){
 
                       name = inventory[j].name;
-                      des = inventory[j].description;
+                      img = inventory[j].imagelink1;
+                      serial = inventory[j].itemcode;
                   
                       }
                     }
@@ -230,8 +237,10 @@
               <tr>
               <td><%=products[i].qty%></td>
               <td><%=name %></td>
-              <td><%=products[i].productserial%></td>
-              <td><%=des %></td>
+
+              <td><%=serial %></td>
+              <td><img width="50" src="<%=img %>" alt=""/></td>
+
               <td>Rs. <%=products[i].unitcost%></td>
               <td>Rs. <%=subtotal %> </td>
               <td> 
@@ -295,34 +304,15 @@
           </div>
           </form>
         </div>
-      </div>
+
+
+    </div>
     </section>
     <!-- /.content -->
-    <div class="clearfix"></div>
-    </div>
-          
-    </div>
-		
-        <!-- /.col -->
-    </div>
-      <!-- /.row -->
-
-    </section>
-    <!-- /.content -->
-
-
-  
+    
    
-   
-</div>
 
-
-
-
-
-
-</div>
-</div>
+    
 
 
     <script>

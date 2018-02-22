@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" ag-app>
+<head>
+  <title>My Invoices</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.all.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  
+  <script type="text/javascript">
+    function disableact(tex , y, z) {
+    document.getElementById(y+z).onchange = function() {
+    document.getElementById(tex+z).disabled = !this.checked;
+    };
+  }
+  </script>
+
+  <style>
+    .filterable {
+    margin-top: 15px;
+    }
+    .filterable .panel-heading .pull-right {
+        margin-top: -20px;
+    }
+    .filterable .filters input[disabled] {
+        background-color: transparent;
+        border: none;
+        cursor: auto;
+        box-shadow: none;
+        padding: 0;
+        height: auto;
+    }
+    .filterable .filters input[disabled]::-webkit-input-placeholder {
+        color: #333;
+    }
+    .filterable .filters input[disabled]::-moz-placeholder {
+        color: #333;
+    }
+    .filterable .filters input[disabled]:-ms-input-placeholder {
+        color: #333;
+    }
+  </style>
+
+  <script type="text/javascript">
+    /*
+    Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
+    */
+    $(document).ready(function(){
+        $('.filterable .btn-filter').click(function(){
+            var $panel = $(this).parents('.filterable'),
+            $filters = $panel.find('.filters input'),
+            $tbody = $panel.find('.table tbody');
+            if ($filters.prop('disabled') == true) {
+                $filters.prop('disabled', false);
+                $filters.first().focus();
+            } else {
+                $filters.val('').prop('disabled', true);
+                $tbody.find('.no-result').remove();
+                $tbody.find('tr').show();
+            }
+        });
+
+        $('.filterable .filters input').keyup(function(e){
+            /* Ignore tab key */
+            var code = e.keyCode || e.which;
+            if (code == '9') return;
+            /* Useful DOM data and selectors */
+            var $input = $(this),
+            inputContent = $input.val().toLowerCase(),
+            $panel = $input.parents('.filterable'),
+            column = $panel.find('.filters th').index($input.parents('th')),
+            $table = $panel.find('.table'),
+            $rows = $table.find('tbody tr');
+            /* Dirtiest filter function ever ;) */
+            var $filteredRows = $rows.filter(function(){
+                var value = $(this).find('td').eq(column).text().toLowerCase();
+                return value.indexOf(inputContent) === -1;
+            });
+            /* Clean previous no-result if exist */
+            $table.find('tbody .no-result').remove();
+            /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+            $rows.show();
+            $filteredRows.hide();
+            /* Prepend no-result row if all rows are filtered */
+            if ($filteredRows.length === $rows.length) {
+                $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="'+ $table.find('.filters th').length +'">No result found</td></tr>'));
+            }
+        });
+    });
+  </script>
+
+</head>
+<body>
+      <div class="bs-example">
+          <%- include header.ejs %>
+      </div>
+
+      </br>
+      </br>
+
+    <!-- Main content -->
+    <section class="content">
+
+    <br/>
+
+    <div class="row">
+        
+    <!-- /.col -->
+    <div class="col-md-3">
+    </div>
+
+		<div class="col-md-7">
+
+      <div class="row">
+      <div class="col-xs-12">
+        <h2 class="page-header">
+          <a class="brand"><img src="/cssFilespro/images/logo.png" alt=""/></a>
+          <i class="fa fa-globe"></i><small>Grn #grn_<%=grn.idgrn%></small>
+          <small class="pull-right">Date: <%=grn.date%></small>
+        </h2>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info">
+      <div class="col-sm-4 invoice-col">
+        From
+        <address>
+          <strong>Excellence (PVT) Ltd.</strong><br>
+          <%
+          if(emp.length){ 
+            for(var i = 0;i < emp.length;i++) { 
+              if(emp[i].idemployee == grn.employee_idemployee){
+                %>
+                <strong><%=emp[i].fname%> <%=emp[i].lname%></strong><br>
+                <%
+              }
+            }
+          }
+          %>
+          Address: 795 Folsom Ave, Suite 600<br>
+          Sri Lanka<br>
+          Phone: (804) 123-5432<br>
+          Email: info@Excellence.lk
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
+        To 
+        <address>
+          
+            <strong><%=grn.supplier%></strong><br>
+          
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
+        <b>Grn #grn_<%=grn.idgrn%></b><br>
+        <br>
+        
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <!-- Table row -->
+    <div class="row">
+      <div class="col-xs-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Qty</th>
+            <th></th>
+            <th>Product</th>
+            <th>Serial #</th>
+            <th>Unit</th>
+            <th>Subtotal</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%      
+            if(grnpro.length){ 
+            for(var i = 0;i < grnpro.length;i++) { 
+          %>
+          <tr>
+            <td><%=grnpro[i].qty%></td>
+              <%      
+              if(inventory.length){ 
+              for(var j = 0;j < inventory.length;j++) { 
+              if(inventory[j].idinventory == grnpro[i].inventory_idinventory ){
+              %>
+              <td> <img width="60" src="<%=inventory[j].imagelink1%>" alt=""/></td>
+              <td><%=inventory[j].name%></td>
+              <td><%=inventory[j].itemcode%></td>
+              <%
+                  }      
+                } 
+              } 
+              %>
+            <td>Rs.<%=grnpro[i].unitcost%></td>
+            <td>Rs.<%=grnpro[i].unitcost*grnpro[i].qty%></td>
+          </tr>
+          <%      
+            }
+          } 
+          %>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <!-- accepted payments column -->
+      <div class="col-xs-6">
+        <p class="lead">Payment : 
+          <%
+            if(grn.status=="A"){
+          %>
+            Done. 
+          <%
+            }else{
+            %>
+            Done.. 
+            <%
+          }
+           %> 
+        </p>
+
+        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+          
+
+        </p>
+      </div>
+      <!-- /.col -->
+      <div class="col-xs-6">
+
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th style="width:50%">Subtotal:</th>
+              <td>Rs.<%=grn.total%></td>
+            </tr>
+            <tr>
+              <th>Discount</th>
+              <td>Rs.00.00</td>
+            </tr>
+            <tr>
+              <th>Total:</th>
+              <td>Rs.<%=grn.total%></td>
+            </tr>
+              
+          </table>
+          <form action="/printgrn" method="post">
+              <input type="hidden" value="<%=grn.idgrn%>" name="grnid">
+              <button class="btn btn-info" type="submit"><i class="material-icons"></i>Print</button>
+          </form>
+        </div>
+      </div>
+      <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <div class="col-md-2">
+    </div>
+
+    </div>  
+
+    <div class="col-md-1">
+    </div>
+		
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    </section>
+
+    </div>
+
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+ 
+ 
+
+
+</body>
+</html>
