@@ -30,7 +30,7 @@ var sessionStore = new MySQLStore(options);
 require('./config/passport')(passport); // pass passport for configuration
 
 app.use('/cssFiles', express.static(__dirname + '/assets')); // for CSS
-app.use('/cssFilespro', express.static(__dirname + '/assets/productpage'));
+app.use('/cssFilespro', express.static(__dirname + '/assets/productpage/images'));
 app.use('/pics', express.static(__dirname + '/propics')); 
 app.use('/productpics', express.static(__dirname + '/products'));
 app.use('/promos', express.static(__dirname + '/promos'));
@@ -67,6 +67,7 @@ require('./app/ims_product.js')(app, passport);
 require('./app/customer_routs.js')(app, passport);
 require('./app/ims_cart.js')(app, passport);
 require('./app/ims_inv.js')(app, passport);
+require('./app/ims_payments.js')(app, passport);
 
 
 // launch ======================================================================
