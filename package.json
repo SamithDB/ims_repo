@@ -4,6 +4,9 @@
   "scripts": {
     "start": "node ./server"
   },
+  "engines": {
+    "node": ">=8.9.4"
+  },
   "dependencies": {
     "@google-cloud/storage": "1.2.1",
     "bcrypt-nodejs": "0.0.3",

@@ -5,6 +5,7 @@
 	var connection = mysql.createConnection(dbconfig.connection);
 	var cookieParser = require('cookie-parser');
 	const fileUpload = require('express-fileupload');
+	var math = require('mathjs');
 		
 	connection.query('USE ' + dbconfig.database);
 
@@ -410,7 +411,7 @@
             if (err1)
               	console.log(err1);
 
-			var query = connection.query("SELECT * FROM grn ORDER BY idgrn DESC",function(err2,grnlist){
+			var query = connection.query("SELECT * FROM grn WHERE grn.status = 'A' ORDER BY idgrn DESC",function(err2,grnlist){
 				if(err2)
 					console.log(err2);
 
@@ -427,6 +428,95 @@
 
 				});
 			})
+		});
+
+	});
+
+	// =======================
+	// GRN Add to stock ======
+	// =======================
+
+	app.post('/addstock', function(req, res) {
+
+		console.log(req.body.grnid);
+
+		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
+            if (err1)
+              	console.log(err1);
+              connection.query("SELECT * FROM employee ", function(err1, emplist) {
+	            if (err1)
+	              	console.log(err1);
+
+				var query = connection.query("SELECT * FROM grn WHERE grn.idgrn = ? ",[req.body.grnid],function(err2,grnlist){
+				if(err2)
+					console.log(err2);
+
+				var query = connection.query("SELECT * FROM productforgrn WHERE productforgrn.grn_idgrn = ? ",[req.body.grnid],function(err2,grnprolist){
+				if(err2)
+					console.log(err2);
+
+					var query = connection.query("SELECT * FROM inventory ",function(err2,inventory){
+					if(err2)
+						console.log(err2);
+					var query = connection.query("SELECT * FROM stocklevel",function(err2,stock){
+					if(err2)
+						console.log(err2);
+
+
+					if(grnlist.length){
+
+						if(grnprolist.length){
+
+						var errqty=" ";
+
+						for(var j = 0;j < grnprolist.length;j++) {
+							var inventoryid = grnprolist[j].inventory_idinventory;
+							var addqty = grnprolist[j].qty;
+							var newqty = 0;
+								for(var l = 0;l < stock.length;l++) {
+								if(stock[l].inventory_idinventory == inventoryid){
+								 newqty = math.add(stock[l].qty , addqty);
+									}
+								}
+							
+							var insertQuery1 = "UPDATE stocklevel SET stocklevel.qty = ? WHERE inventory_idinventory = ?";
+							connection.query(insertQuery1,[ newqty, inventoryid],function(errqty1, done) {
+							if (errqty1) 
+								console.log(errqty1);
+								errqty="error";
+							});
+
+							console.log(grnprolist[j].inventory_idinventory+" qty updated");
+
+							}
+
+							if (errqty=="error"){
+								console.log(errqty);
+							}else{
+								var insertQuery1 = "UPDATE grn SET grn.status = 'B' WHERE grn.idgrn = ?";
+								connection.query(insertQuery1,[req.body.grnid],function(err1, done) {
+								if (err1) 
+									console.log(err1);
+
+								});
+							}
+							res.redirect('/viewpendinggrn');
+						}
+
+					}else{
+						res.redirect('/viewpendinggrn');
+					}
+
+					});
+
+					});
+
+					});
+
+				});
+
+			});
+			
 		});
 
 	});
