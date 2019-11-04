@@ -15,15 +15,14 @@ var flash    = require('connect-flash');
 var MySQLStore = require('express-mysql-session')(session);
  
 var options = {
-    host: 'localhost',
+    host: 'us-cdbr-iron-east-05.cleardb.net',
     port: 3306,
-    user: '',
-    password: '',
-    database: 'inventoryhub'
+    user: 'b8c071383a7495',
+    password: 'd24ea994',
+    database: 'heroku_9770229205f81a9'
 };
  
 var sessionStore = new MySQLStore(options);
-
 // configuration ===============================================================
 // connect to database
 
