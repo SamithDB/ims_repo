@@ -14,17 +14,14 @@ var flash    = require('connect-flash');
 
 var MySQLStore = require('express-mysql-session')(session);
  
-// config/database.js
-module.exports = {
-        'connection': {
-            'host': '40.86.191.191',
-            'user': 'cbaroot',
-            'password': 'root@CBA123'
-        },
-        'database': 'cba',
-        'users_table': 'login'
+var options = {
+    host: '40.86.191.191',
+    port: 3306,
+    user: 'cbaroot',
+    password: 'root@CBA123',
+    database: 'cba'
 };
- 
+
 var sessionStore = new MySQLStore(options);
 // configuration ===============================================================
 // connect to database
