@@ -1,10 +1,10 @@
 // config/database.js
 module.exports = {
     'connection': {
-        'host': '40.86.191.191',
-        'user': 'cbaroot',
-        'password': 'root@CBA123'
+        'host': 'us-cdbr-iron-east-05.cleardb.net',
+        'user': 'b8c071383a7495',
+        'password': 'd24ea994'
     },
-	'database': 'cba',
+	'database': 'heroku_9770229205f81a9',
     'users_table': 'login'
 };
