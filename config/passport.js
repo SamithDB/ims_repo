@@ -34,6 +34,8 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
+        connection.end();
+        connection.query('USE ' + dbconfig.database);
         connection.query("SELECT * FROM login WHERE idlogin = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
@@ -58,8 +60,8 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
             var sentence = username; 
             if (sentence.indexOf('@cloudpartners.biz') >= 0) { 
-            
-
+            connection.end();
+            connection.query('USE ' + dbconfig.database);
             connection.query("SELECT * FROM login WHERE username = ?",[username], function(err, rows) {
                 if (err)
                     return done(err);
@@ -117,6 +119,8 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) { // callback with email and password from our form
+            connection.end();
+            connection.query('USE ' + dbconfig.database);
             connection.query("SELECT * FROM login WHERE username = ?",[username], function(err, rows){
                 if (err)
                     return done(err);
