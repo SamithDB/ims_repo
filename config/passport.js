@@ -34,6 +34,8 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
+        sql.close();
+        connection = mysql.createConnection(dbconfig.connection);
         connection.query("SELECT * FROM login WHERE idlogin = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
@@ -54,6 +56,8 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
+            sql.close();
+            connection = mysql.createConnection(dbconfig.connection);
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             var sentence = username; 
@@ -117,6 +121,8 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) { // callback with email and password from our form
+            sql.close();
+            connection = mysql.createConnection(dbconfig.connection);
             connection.query("SELECT * FROM login WHERE username = ?",[username], function(err, rows){
                 if (err)
                     return done(err);

@@ -72,7 +72,8 @@
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
-
+		sql.close();
+        connection = mysql.createConnection(dbconfig.connection);
 		connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
                     if (err)
                          console.log(err);;
@@ -93,7 +94,8 @@
 	// =====================================
 
 	app.get('/fillprofile', isLoggedIn, function(req, res) {
-
+		sql.close();
+        connection = mysql.createConnection(dbconfig.connection);
 		connection.query("SELECT * FROM employee WHERE login_idlogin = ?",[req.user.idlogin], function(err, rows) {
                     if (err)
                          console.log(err);;
@@ -113,7 +115,8 @@
 	// VIEW Profile ========================
 
 	app.post('/viewprofile', function(req, res) {
-
+		sql.close();
+        connection = mysql.createConnection(dbconfig.connection);
 		var newview = new Object();
 		newview.mail = req.body.searchmail;
 
@@ -159,7 +162,8 @@
 
 	app.post('/updating', function(req, res, next) {
 
-		
+			sql.close();
+        	connection = mysql.createConnection(dbconfig.connection);
 			connection.query('UPDATE employee SET fname = ?, lname = ?, gender=?, EPF = ?, nic = ?, birthday = ?, address= ?, contact = ?, designation = ?, description = ?  WHERE login_idlogin = ?',[req.body.fname2, req.body.lname2, req.body.gen, req.body.epf2, req.body.nic2, req.body.birthday2, req.body.address2, req.body.contact2, req.body.designation2, req.body.description2, req.user.idlogin], function(err, result) {
 				if (err) {
 					console.log(err);
@@ -201,7 +205,8 @@
 
 	app.post('/firstupdating', function(req, res, next) {
 
-		
+			sql.close();
+        	connection = mysql.createConnection(dbconfig.connection);
 			connection.query('UPDATE employee SET fname = ?, lname = ?, gender=?, EPF = ?, nic = ?, birthday = ?, address= ?, contact = ?, designation = ?, description = ?  WHERE login_idlogin = ?',[req.body.fname2, req.body.lname2, req.body.gen, req.body.epf2, req.body.nic2, req.body.birthday2, req.body.address2, req.body.contact2, req.body.designation2, req.body.description2, req.user.idlogin], function(err, result) {
 				if (err) {
 					console.log(err);
@@ -246,7 +251,8 @@
 	app.use(fileUpload());
 
 	app.post('/profilepic', function(req, res) {
-
+			sql.close();
+        	connection = mysql.createConnection(dbconfig.connection);
 		  if (!req.files)
 		    res.redirect('/profile'); 
 		 
@@ -308,7 +314,8 @@
 	// First UPLOAD PROFILE PIC  
 
 	app.post('/firstprofilepic', function(req, res) {
-
+		sql.close();
+        connection = mysql.createConnection(dbconfig.connection);
 		  if (!req.files)
 		    res.redirect('/fillprofile'); 
 		 
@@ -472,7 +479,8 @@
 
 	app.get('/home', function(req, res) {
 
-
+					sql.close();
+        			connection = mysql.createConnection(dbconfig.connection);
 					connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
                     if (err1)
                          console.log(err1);
@@ -741,7 +749,8 @@
 	// =====================================
 	app.get('/dash', function(req, res) {
 		
-
+		sql.close();
+        connection = mysql.createConnection(dbconfig.connection);
 		connection.query("SELECT * FROM employee WHERE login_idlogin = ? ",[req.user.idlogin], function(err1, rows) {
                     if (err1)
                          console.log(err1);
