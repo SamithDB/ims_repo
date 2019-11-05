@@ -34,7 +34,7 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        mysql.close();
+        connection.close();
         connection = mysql.createConnection(dbconfig.connection);
         connection.query("SELECT * FROM login WHERE idlogin = ? ",[id], function(err, rows){
             done(err, rows[0]);
