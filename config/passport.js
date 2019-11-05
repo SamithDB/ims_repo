@@ -37,6 +37,7 @@ module.exports = function(passport) {
         connection.end();
         connection = mysql.createConnection(dbconfig.connection);
         connection.query('USE ' + dbconfig.database);
+        console.log("New connection");
         connection.query("SELECT * FROM login WHERE idlogin = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
@@ -64,6 +65,7 @@ module.exports = function(passport) {
             connection.end();
             connection = mysql.createConnection(dbconfig.connection);
             connection.query('USE ' + dbconfig.database);
+            console.log("New connection");
             connection.query("SELECT * FROM login WHERE username = ?",[username], function(err, rows) {
                 if (err)
                     return done(err);
@@ -124,6 +126,7 @@ module.exports = function(passport) {
             connection.end();
             connection = mysql.createConnection(dbconfig.connection);
             connection.query('USE ' + dbconfig.database);
+            console.log("New connection");
             connection.query("SELECT * FROM login WHERE username = ?",[username], function(err, rows){
                 if (err)
                     return done(err);
